@@ -9,7 +9,7 @@ $factory->define(mesa::class, function (Faker $faker) {
     return [
         'capacidad'=> $faker->randomDigit,
         'descripcion'=>$faker->text,
-        'ocupacion' =>$faker->sentence(2),
+        'ocupado' => 1,
         'ubicacion' => $faker->sentence(1)
     ];
 });

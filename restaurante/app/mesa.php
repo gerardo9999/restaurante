@@ -11,7 +11,7 @@ class mesa extends Model
     protected $fillable = [
         'capacidad',
         'descripcion',
-        'ocupacion',
+        'ocupado',
         'ubicacion'
     ];
     public $timestamps=false;

@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(categoria::class,20);
-        factory(mesa::class,30);
+        factory(categoria::class,20)->create();
+        factory(mesa::class,30)->create();
         // $this->call(UserSeeder::class);
     }
 }

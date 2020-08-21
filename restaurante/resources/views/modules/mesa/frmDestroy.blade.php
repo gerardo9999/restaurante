@@ -1,7 +1,7 @@
-<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminar-catgeoria{{ $categoria->id }}">
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminar-mesa{{ $mesa->id }}">
     <i class="icon-trash"></i>
-</button>
-<div class="modal fade" id="eliminar-catgeoria{{ $categoria->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+</button> &nbsp;
+<div class="modal fade" id="eliminar-mesa{{ $mesa->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-danger" role="document">
         <div class="modal-content">
 
@@ -11,10 +11,10 @@
                   <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form action="{{ route('categoria.destroy', ['id'=>$categoria->id]) }}" method="post">
+            <form action="{{ route('mesa.destroy', ['id'=>$mesa->id]) }}" method="post">
                 @csrf
             <div class="modal-body">
-                <p class="delete-item" >Estas seguro de eliminar la categoría? </p>
+                <p class="delete-item" >Estas seguro el registro? </p>
             </div>
         
             <div class="modal-footer">
