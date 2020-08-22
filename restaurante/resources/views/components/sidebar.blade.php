@@ -23,7 +23,6 @@
             <a class="nav-link" href="" target="_top">
               <i class="nav-icon icon-drop"></i> Cliente</a>
         </li>
-
         <li class="nav-item">
             <a class="nav-link" href="" target="_top">
               <i class="nav-icon icon-drop"></i> Empleados</a>
