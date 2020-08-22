@@ -23,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                <button type="submit" name="createCategoria" value="categoria" class="btn btn-sm btn-primary">Guardar</button>
             </div>
         </form>
 

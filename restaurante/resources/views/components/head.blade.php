@@ -12,11 +12,12 @@
   <link href="{{ asset('coreui/vendors/css/simple-line-icons.min.css')}}" rel="stylesheet">
   <!-- Main styles for this application -->
   <link href="{{ asset('coreui/vendors/css/style.css')}}" rel="stylesheet">
-
+  <link href="{{ asset('coreui/vendors/css/my-styles.css')}}" rel="stylesheet">
   {{-- Select2 --}}
   <link rel="stylesheet" href="{{ asset('coreui/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('coreui/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
   {{-- datepicker --}}
   <link rel="stylesheet" href="{{ asset('coreui/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}"> 
+  @livewireStyles
 </head>

@@ -15,10 +15,13 @@ class CreateProductoTable extends Migration
     {
         Schema::create('producto', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('descripcion');
-            $table->string('foto')->default('default.jpg');
+            $table->text('descripcion')->nullable();
+            $table->string('foto');
             $table->string('nombre',50);
             $table->float('precio');
+
+            $table->integer('idCategoria')->unsigned();
+            $table->foreign('idCategoria')->references('id')->on('categoria')->onDelete('cascade');
         });
     }
     public function down()
