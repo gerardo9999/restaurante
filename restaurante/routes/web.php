@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('principal.index');
+    return view('welcome');
 });
 
 
@@ -37,6 +37,18 @@ Route::post('productos/store','ctrlProducto@store')->name('producto.store');
 Route::get('productos/edit/{id}','ctrlProducto@edit')->name('producto.edit');
 Route::post('productos/update/{id}','ctrlProducto@update')->name('producto.update');
 Route::post('productos/destroy/{id}','ctrlProducto@destroy')->name('producto.destroy');
+
+
+
+Route::get('clientes','ctrlCliente@index')->name('cliente.index');
+Route::get('clientes/create','ctrlCliente@create')->name('cliente.create');
+Route::post('clientes/store','ctrlCliente@store')->name('cliente.store');
+Route::get('clientes/edit/{id}','ctrlCliente@edit')->name('cliente.edit');
+Route::post('clientes/update/{id}','ctrlCliente@update')->name('cliente.update');
+Route::post('clientes/destroy/{id}','ctrlCliente@destroy')->name('cliente.destroy');
+
+
+
 
 Auth::routes();
 

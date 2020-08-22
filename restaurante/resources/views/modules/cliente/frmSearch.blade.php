@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <form action="{{ route('producto.index') }}" method="GET" autocomplete="off" role="search">
+    <form action="{{ route('cliente.index') }}" method="GET" autocomplete="off" role="search">
         <div class="input-group">
             {{-- <select class="form-control col-md-3" id="opcion" name="opcion"> --}}
             {{-- <option >Nombre</option> --}}
