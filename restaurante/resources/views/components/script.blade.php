@@ -3,7 +3,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('coreui/vendors/js/popper.min.js')}}"></script>
     <script src="{{ asset('coreui/vendors/js/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('coreui/vendors/js/pace.min.js')}}"></script>
+    {{-- <script src="{{ asset('coreui/vendors/js/pace.min.js')}}"></script> --}}
     <!-- Plugins and scripts required by all views -->
     <script src="{{ asset('coreui/vendors/js/Chart.min.js')}}"></script>
     <!-- GenesisUI main scripts -->
@@ -24,3 +24,4 @@
             // format: 'MM/DD/YYYY hh:mm A'
         });
     </script>
+    {{-- @livewireScripts --}}

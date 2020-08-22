@@ -28,6 +28,7 @@ class ctrlCategoria extends Controller
     }
     public function store(Request $request){
         
+
         $this->validacion($request);
         $categoria = new categoria();
         $categoria->nombre = $request->get('nombre');
