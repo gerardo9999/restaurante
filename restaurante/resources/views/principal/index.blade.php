@@ -15,6 +15,10 @@
     <link href="{{ asset('coreui/vendors/css/simple-line-icons.min.css')}}" rel="stylesheet">
     <!-- Main styles for this application -->
     <link href="{{ asset('coreui/vendors/css/style.css')}}" rel="stylesheet">
+
+    {{-- Select2 --}}
+    <link rel="stylesheet" href="{{ asset('coreui/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('coreui/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -54,6 +58,14 @@
     <script src="{{ asset('coreui/vendors/js/Chart.min.js')}}"></script>
     <!-- GenesisUI main scripts -->
     <script src="{{ asset('coreui/vendors/js/template.js')}}"></script>
+
+
+    <script src="{{ asset('coreui/select2/js/select2.full.min.js') }}"></script>
+    <script>
+        $('.select2').select2({
+
+        });
+    </script>
 
 
 </body>

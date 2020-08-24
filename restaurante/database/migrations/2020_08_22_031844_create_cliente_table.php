@@ -16,9 +16,9 @@ class CreateClienteTable extends Migration
             $table->string('apellidos',100);
             $table->string('login',100);
             $table->string('password',100);
-            $table->string('empresa',100);
-            $table->string('telefono',20);
-            $table->string('direccion',100);
+            $table->string('empresa',100)->nullable();
+            $table->string('telefono',20)->nullable();
+            $table->string('direccion',100)->nullable();
             $table->string('email',50);
             $table->string('estado',50);
 

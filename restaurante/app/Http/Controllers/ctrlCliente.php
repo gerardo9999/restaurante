@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class ctrlCliente extends Controller
 {
     public function index(Request $request){
-        
 
-        // $clientes = cliente::all();
         if($request){
             $query = trim($request->get('searchText'));
             $clientes = cliente::where('cliente.nombres','LIKE','%'.$query.'%')->paginate(5);
@@ -27,16 +25,16 @@ class ctrlCliente extends Controller
     }
     public function store(Request $request){
 
-
         $cliente = new cliente();
         $cliente->nombres = $request->get('nombres');
         $cliente->apellidos = $request->get('apellidos');
         $cliente->login = $request->get('login');
-        $cliente->password = $request->get('password');
+        $cliente->password = Hash::make($request->get('password'));
         $cliente->empresa = $request->get('empresa');
         $cliente->telefono = $request->get('telefono');
         $cliente->direccion = $request->get('direccion');
         $cliente->email = $request->get('email');
+        $cliente->estado ='activado';
         $cliente->save();
 
         return redirect('/clientes')->with('success','el registro se ha guardado correctamente');
@@ -56,16 +54,16 @@ class ctrlCliente extends Controller
         $cliente->nombres = $request->get('nombres');
         $cliente->apellidos = $request->get('apellidos');
         $cliente->login = $request->get('login');
-        $cliente->password =Hash::make( $request->get('password'));
+        $cliente->password = Hash::make($request->get('password'));
         $cliente->empresa = $request->get('empresa');
         $cliente->telefono = $request->get('telefono');
         $cliente->direccion = $request->get('direccion');
         $cliente->email = $request->get('email');
+        $cliente->estado ='activado';
         $cliente->update();
 
         return redirect('/clientes')->with('info','el registro se ha guardado correctamente');
     }
-
     public function destroy($id){
         $cliente = cliente::findOrFail($id);
         $cliente->delete();
