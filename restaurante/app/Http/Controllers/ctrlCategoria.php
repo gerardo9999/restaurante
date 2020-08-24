@@ -41,7 +41,7 @@ class ctrlCategoria extends Controller
         $this->validacion($request);
         $categoria =  categoria::findOrFail($id);
         $categoria->nombre = $request->get('nombre');
-        $categoria->save();
+        $categoria->update();
 
         return redirect('/categorias')->with('info','el registro se ha actualizado correctamente');  
     }
