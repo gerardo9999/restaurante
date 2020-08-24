@@ -9,9 +9,9 @@ use Faker\Generator as Faker;
 $factory->define(producto::class, function (Faker $faker) {
     return [
         'descripcion'=> $faker->text,
-        'foto'=>'default.jpg',
+        'foto'=>'imagenes/default.jpg',
         'nombre'=>$faker->name,
-        'precio'=>$faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
+        'precio'=> 10,
         'idCategoria'=> factory(categoria::class)
     ];
 });

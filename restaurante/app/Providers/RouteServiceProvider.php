@@ -35,11 +35,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
     }
 
-    /**
-     * Define the routes for the application.
-     *
-     * @return void
-     */
+
     public function map()
     {
         $this->mapApiRoutes();
