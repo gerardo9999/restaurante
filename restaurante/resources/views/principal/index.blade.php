@@ -9,7 +9,7 @@
     <meta name="author" content="Incanatoit.com">
     <meta name="keyword" content="Sistema ventas Laravel Vue Js, Sistema compras Laravel Vue Js">
     <link rel="shortcut icon" href="{{ asset('coreui/vendors/img/favicon.png')}}">
-    <title>Sistema Ventas - IncanatoIT</title>
+    <title>Sistema Restaurante - IncanatoIT</title>
     <!-- Icons -->
     <link href="{{ asset('coreui/vendors/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ asset('coreui/vendors/css/simple-line-icons.min.css')}}" rel="stylesheet">

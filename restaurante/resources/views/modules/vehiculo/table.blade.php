@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="card">
     <div class="card-header">
-        <i class="fa fa-align-justify"></i> vehiculos
+        <i class="fa fa-align-justify"></i> Vehiculo
         <a type="button" href="{{ route('vehiculo.create') }}" class="btn btn-secondary">
             <i class="icon-plus"></i>&nbsp;Nuevo
         </a>

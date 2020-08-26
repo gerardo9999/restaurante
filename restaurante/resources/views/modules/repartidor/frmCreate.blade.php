@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="card card-accent-info">
         <div class="card-header">
-            <i class="fa fa-align-justify"></i> Crear Nuevo repartidor
+            <i class="fa fa-align-justify"></i> Crear Nuevo Repartidor
         </div>
         <form action="{{ route('repartidor.store') }}" method="post" enctype="multipart/form-data">
             @csrf

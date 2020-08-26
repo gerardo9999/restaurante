@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="card card-accent-info">
         <div class="card-header">
-            <i class="fa fa-align-justify"></i> Crear Nuevo reserva
+            <i class="fa fa-align-justify"></i> Crear Nuevo Reserva
         </div>
         <form action="{{ route('reserva.update',['id'=>$reserva[0]->id]) }}" method="post" enctype="multipart/form-data">
             @csrf

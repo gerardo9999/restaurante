@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="card card-accent-info">
         <div class="card-header">
-            <i class="fa fa-align-justify"></i> Crear Nuevo vehiculo
+            <i class="fa fa-align-justify"></i> Crear Nuevo Vehiculo
         </div>
         <form action="{{ route('vehiculo.store') }}" method="post" enctype="multipart/form-data">
             @csrf

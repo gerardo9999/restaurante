@@ -18,7 +18,7 @@ class ctrlReserva extends Controller
         if($request){
             $query=trim($request->get('searchText'));
             
-            $reservas=reserva::join('cliente','cliente.id', '=', 'reserva.idcliente')
+            $reservas=reserva::join('cliente','cliente.id', '=', 'reserva.idCliente')
             ->select('reserva.comensales', 
             'reserva.telefono', 
             'reserva.fecha', 
