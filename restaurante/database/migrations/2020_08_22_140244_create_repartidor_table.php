@@ -25,7 +25,7 @@ class CreateRepartidorTable extends Migration
             $table->string('telefono',20);
             $table->string('direccion',100);
         });
-        // DB::table('repartidor')->insert(array('id'=>1,'nombres'=>'Gabriela','apellidos'=>'Osorio Mancilla','login'=>'gaby','password'=>'123','cedulaID'=>'9612873','telefono'=>'69423157','direccion'=>'C/Arenales'));
+    //    DB::table('repartidor')->insert(array('id'=>1,'nombre'=>'Gabriela','apellidos'=>'Osorio Mancilla','login'=>'gaby','password'=>'123','cedulaID'=>'9612873','telefono'=>'69423157','direccion'=>'C/Arenales'));
     }
 
     public function down()

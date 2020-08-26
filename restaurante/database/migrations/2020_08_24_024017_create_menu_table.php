@@ -18,7 +18,7 @@ class CreateMenuTable extends Migration
             $table->increments('id');
             $table->date('fecha')->nullable();
         });
-        // DB::table('menu')->insert(array('id'=>1,'fecha'=>'23/08/2020'));
+       // DB::table('menu')->insert(array('id'=>1,'fecha'=>'2020/08/23'));
     }
 
     /**
