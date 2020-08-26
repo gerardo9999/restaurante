@@ -2,10 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuTable extends Migration
+class CreatePreciosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,15 @@ class CreateMenuTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu', function (Blueprint $table) {
+        Schema::create('precios', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('fecha')->nullable();
+            $table->date('fecha');
+            $table->float('precio');
+            $table->integer('idProducto')->unsigned();
+
+
+            $table->foreign('idProducto')->references('id')->on('producto')->onDelete('cascade');
         });
-        // DB::table('menu')->insert(array('id'=>1,'fecha'=>'23/08/2020'));
     }
 
     /**
@@ -28,6 +31,6 @@ class CreateMenuTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu');
+        Schema::dropIfExists('precios');
     }
 }
