@@ -38,6 +38,8 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
+
+
   <body>
     <div class="page-holder">
       <!-- navbar-->
@@ -47,7 +49,7 @@
             <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">Menu<i class="fa fa-align-justify"></i></button>
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="#hero" class="nav-link link-scroll">Home</a></li>
+                <li class="nav-item"><a href="#hero" class="nav-link link-scroll">Inicio</a></li>
                 <li class="nav-item"><a href="#about" class="nav-link link-scroll">About</a></li>
                 <li class="nav-item"><a href="#services" class="nav-link link-scroll">Services</a></li>
                 <li class="nav-item"><a href="#dishes" class="nav-link link-scroll">Dishes</a></li>
@@ -55,7 +57,8 @@
                 <li class="nav-item"><a href="#gallery" class="nav-link link-scroll">Gallery</a></li>
                 <li class="nav-item"><a href="#booking" class="nav-link link-scroll">Reservation</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link link-scroll">Contact </a></li>
-              </ul><a id="open-reservation" href="#" class="btn navbar-btn btn-unique d-none d-lg-inline-block">Make a Reservation          </a>
+
+              </ul><a id="open-reservation" href="#" class="btn navbar-btn btn-unique d-none d-lg-inline-block">Registrarse</a>
             </div>
           </div>
         </nav>
@@ -1180,6 +1183,9 @@
       </section>
     </div>
     <!-- end modal booking form-->
+
+
+    
     <button type="button" data-toggle="collapse" data-target="#style-switch" id="style-switch-button" class="btn btn-primary btn-sm hidden-xs hidden-sm"><i class="fa fa-cog fa-2x"></i></button>
     <div id="style-switch" class="collapse">
       <h4>Select theme colour</h4>

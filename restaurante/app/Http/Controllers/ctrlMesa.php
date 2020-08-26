@@ -10,7 +10,7 @@ class ctrlMesa extends Controller
     public function index(Request $request){
         if ($request) {
             $query = trim($request->get('searchText'));
-            $mesas = mesa::where('mesa.ubicacion','LIKE','%'.$query.'%')
+            $menus = menu::where('mesa.ubicacion','LIKE','%'.$query.'%')
             ->where('mesa.descripcion','LIKE','%'.$query.'%')
             ->orderBy('id','desc')
             ->paginate(10);

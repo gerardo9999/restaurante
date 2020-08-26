@@ -36,6 +36,7 @@
                                 @endforeach 
                             </select>
                 </div>
+                
                 <div class="form-group col-6">
                     <label class="form-label w-100">Seleccione una imagen</label>
                     <input type="file" name="foto">
