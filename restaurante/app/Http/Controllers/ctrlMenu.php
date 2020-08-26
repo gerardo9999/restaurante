@@ -12,20 +12,11 @@ class ctrlMenu extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request){
+    public function index(){
         
         
-        if ($request) {
-            $query = trim($request->get('searchText'));
-            $menus = menu::select('id','fecha')
-            // ->where('menu.fecha','LIKE','%'.$query.'%')
-            ->orderBy('id','desc')
-            ->paginate(10);
-        }
-        return view('modules.menu.table',[
-            'menus'=>$menus,
-            'searchText'=> $query
-        ]);
+        
+        return view('modules.menu.frmTable');
     }
 
     public function validacion($request){

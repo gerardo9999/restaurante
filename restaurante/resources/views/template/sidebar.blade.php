@@ -13,21 +13,25 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('repartidor.index') }}"><i class="icon-book-open"></i>Prepartidor<span class="badge badge-danger"></span></a>
+                <a class="nav-link" href="{{ route('repartidor.index') }}" target="_top"><i class="icon-book-open"></i>Prepartidor<span class="badge badge-danger"></span></a>
             </li>
 
 
-          <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menu</a>
-              <ul class="nav-dropdown-items">
-                  <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="icon-bag"></i> Categorías</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="icon-bag"></i> Artículos</a>
-                  </li>
-              </ul>
-          </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menu</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('menu.index') }}" target="_top"><i class="icon-bag"></i> Lista</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('producto.index') }}" target="_top"><i class="icon-bag"></i> Platos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('categoria.index') }}" target="_top"><i class="icon-bag"></i> Categoria</a>
+                    </li>
+                </ul>
+            </li>
+
           <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Menú</a>
               <ul class="nav-dropdown-items">
