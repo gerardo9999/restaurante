@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\menu;
+use App\producto;
 use Illuminate\Http\Request;
 
 class ctrlMenu extends Controller
@@ -11,19 +12,11 @@ class ctrlMenu extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        if ($request) {
-            $query = trim($request->get('searchText'));
-            $menus = menu::select('id','fecha')
-            ->where('menu.fecha','LIKE','%'.$query.'%')
-            ->orderBy('id','desc')
-            ->paginate(10);
-        }
-        return view('modules.menu.table',[
-            'menus'=>$menus,
-            'searchText'=> $query
-        ]);
+    public function index(){
+        
+        
+        
+        return view('modules.menu.frmTable');
     }
 
     public function validacion($request){
@@ -33,14 +26,13 @@ class ctrlMenu extends Controller
         $this->validate($request,$reglas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $productos = producto::all();
+        return view('modules.menu.frmCreate',[
+            'productos' => $productos
+        ]);
     }
 
     /**

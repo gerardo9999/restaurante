@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(producto::class, function (Faker $faker) {
     return [
         'descripcion'=> $faker->text,
-        'foto'=>'imagenes/default.jpg',
+        'foto'=>'distribution/img/dish-a.png',
         'nombre'=>$faker->name,
         'precio'=> 10,
         'idCategoria'=> factory(categoria::class)

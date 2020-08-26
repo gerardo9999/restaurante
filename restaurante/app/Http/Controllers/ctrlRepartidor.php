@@ -20,7 +20,7 @@ class ctrlRepartidor extends Controller
             $repartidores = repartidor::where('repartidor.nombre','LIKE','%'.$query.'%')->paginate(5);
         }
 
-        return view('modules.repartidor.table',[
+        return view('modules.repartidor.frmTable',[
             'repartidores'=>$repartidores,
             'searchText'=>$query
         ]);
@@ -44,7 +44,6 @@ class ctrlRepartidor extends Controller
      */
     public function store(Request $request)
     {
-
         $repartidor = new repartidor();
         $repartidor->nombre = $request->get('nombre');
         $repartidor->apellidos = $request->get('apellidos');
@@ -69,12 +68,7 @@ class ctrlRepartidor extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $repartidor = repartidor::where('repartidor.id','=',$id)->get();
@@ -83,13 +77,6 @@ class ctrlRepartidor extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $repartidor = repartidor::findOrFail($id);
@@ -100,18 +87,10 @@ class ctrlRepartidor extends Controller
         $repartidor->cedulaID = $request->get('cedulaID');
         $repartidor->telefono = $request->get('telefono');
         $repartidor->direccion = $request->get('direccion');
-        
         $repartidor->update();
-
         return redirect('/repartidores')->with('info','el registro se ha guardado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $repartidor = repartidor::findOrFail($id);

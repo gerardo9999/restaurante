@@ -28,11 +28,6 @@ class CreateRepartidorTable extends Migration
     //    DB::table('repartidor')->insert(array('id'=>1,'nombre'=>'Gabriela','apellidos'=>'Osorio Mancilla','login'=>'gaby','password'=>'123','cedulaID'=>'9612873','telefono'=>'69423157','direccion'=>'C/Arenales'));
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('repartidor');

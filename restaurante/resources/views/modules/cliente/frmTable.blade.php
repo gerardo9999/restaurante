@@ -11,8 +11,8 @@
         <div class="form-group row">
             @include('modules.cliente.frmSearch')
         </div>
-         @include('components.alert') 
-         @include('components.error') 
+         @include('template.alert') 
+         @include('template.error') 
      <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>
@@ -48,7 +48,7 @@
                         <td>
                             {{ $cliente->email }}                        
                         </td>
-                        @if ($cliente->estado=='activado')
+                        @if ($cliente->estado)
                             <td>
                                 <span class="badge badge-success">Activado</span>
 

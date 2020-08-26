@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="card">
     <div class="card-header">
-        <i class="fa fa-align-justify"></i> Repartidor
+        <i class="fa fa-align-justify"></i> Repartidores
         <a type="button" href="{{ route('repartidor.create') }}" class="btn btn-secondary">
             <i class="icon-plus"></i>&nbsp;Nuevo
         </a>
@@ -11,8 +11,8 @@
         <div class="form-group row">
            @include('modules.repartidor.frmSearch')
         </div>
-         @include('components.alert') 
-         @include('components.error') 
+         @include('template.alert') 
+         @include('template.error') 
      <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>

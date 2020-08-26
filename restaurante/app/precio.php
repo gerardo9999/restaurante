@@ -1,23 +1,17 @@
 <?php
 
 namespace App;
- 
+
 use Illuminate\Database\Eloquent\Model;
 
-class producto extends Model
+class precio extends Model
 {
-    protected $table = 'producto';
+    protected $table = 'precios';
     protected $primaryKey ='id';
     protected $fillable = [
-        'descripcion',
-        'foto',
-        'nombre',
+        'fecha',
         'precio',
-        'idCategoria'
+        'idProducto',
     ];
     public $timestamps=false;
 }
-
-
-
-
