@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vehiculo;
+use App\repartidor;
 class ctrlVehiculo extends Controller
 {
     /**
@@ -11,11 +12,29 @@ class ctrlVehiculo extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $vehiculos=vehiculo::all();
-        return $vehiculos;
+        if($request){
+            $query=trim($request->get('searchText'));
+            
+            $vehiculos=vehiculo::join('repartidor','repartidor.id', '=', 'vehiculo.idRepartidor')
+            ->select('vehiculo.tipoVehiculo', 
+            'vehiculo.caracteristicas', 
+            'vehiculo.placa', 
+            'vehiculo.id', 
+            'repartidor.nombre', 
+            'repartidor.apellidos', 
+            'repartidor.login', 
+            'repartidor.password', 
+            'repartidor.cedulaID', 
+            'repartidor.telefono', 
+            'repartidor.direccion')->where('repartidor.nombre','LIKE','%'.$query.'%')
+            ->paginate(10);
 
+        }
+       
+     
+        return view('modules.vehiculo.table',['vehiculos'=>$vehiculos,'searchText'=>$query ]);
     }
 
     /**
@@ -25,7 +44,8 @@ class ctrlVehiculo extends Controller
      */
     public function create()
     {
-        //
+        $repartidores=repartidor::all();
+        return view('modules.vehiculo.frmCreate',['repartidores'=>$repartidores]);
     }
 
     /**
@@ -36,7 +56,14 @@ class ctrlVehiculo extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vehiculo = new vehiculo();
+        $vehiculo->tipoVehiculo = $request->get('tipoVehiculo');
+        $vehiculo->caracteristicas = $request->get('caracteristicas');
+        $vehiculo->placa = $request->get('placa');
+        $vehiculo->idRepartidor = $request->get('idRepartidor');
+        $vehiculo->save();
+
+        return redirect('/vehiculos')->with('success','el registro se ha guardado correctamente');
     }
 
     /**
@@ -58,7 +85,13 @@ class ctrlVehiculo extends Controller
      */
     public function edit($id)
     {
-        //
+        $vehiculos=vehiculo::join('repartidor','repartidor.id', '=', 'vehiculo.idRepartidor')
+        ->select('vehiculo.tipoVehiculo', 
+        'vehiculo.caracteristicas', 
+        'vehiculo.placa')->where('vehiculo.id','=',$id)
+        ->get();
+        $repartidores=repartidor::all();
+        return view('modules.vehiculo.frmUpdate',['vehiculo'=>$vehiculos, 'repartidor'=>$repartidores]);
     }
 
     /**
@@ -70,7 +103,15 @@ class ctrlVehiculo extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vehiculo = vehiculo::findOrFail($id);
+        $vehiculo->tipoVehiculo = $request->get('tipoVehiculo');
+        $vehiculo->caracteristicas = $request->get('caracteristicas');
+        $vehiculo->placa = $request->get('placa');
+        $vehiculo->idRepartidor = $request->get('idRepartidor');
+        
+        $vehiculo->update();
+        
+        return redirect('/vehiculos')->with('info','el registro se ha guardado correctamente');
     }
 
     /**
@@ -81,6 +122,9 @@ class ctrlVehiculo extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehiculo = vehiculo::findOrFail($id);
+        $vehiculo->delete();
+
+        return redirect('/vehiculos')->with('danger','el registro se ha guardado correctamente');
     }
 }

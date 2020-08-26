@@ -12,7 +12,7 @@ class ctrlRepartidor extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
          // $repartidores = repartidor::all();
          if($request){
@@ -21,7 +21,7 @@ class ctrlRepartidor extends Controller
         }
 
         return view('modules.repartidor.table',[
-            'repartidor'=>$repartidores,
+            'repartidores'=>$repartidores,
             'searchText'=>$query
         ]);
     }
@@ -44,11 +44,12 @@ class ctrlRepartidor extends Controller
      */
     public function store(Request $request)
     {
-        $repartidor = new cliente();
+
+        $repartidor = new repartidor();
         $repartidor->nombre = $request->get('nombre');
         $repartidor->apellidos = $request->get('apellidos');
         $repartidor->login = $request->get('login');
-        $repartidor->password = $request->get('password');
+        $repartidor->password = Hash::make($request->get('password'));
         $repartidor->cedulaID = $request->get('cedulaID');
         $repartidor->telefono = $request->get('telefono');
         $repartidor->direccion = $request->get('direccion');
@@ -77,7 +78,7 @@ class ctrlRepartidor extends Controller
     public function edit($id)
     {
         $repartidor = repartidor::where('repartidor.id','=',$id)->get();
-        return view('modules.cliente.frmUpdate',[
+        return view('modules.repartidor.frmUpdate',[
             'repartidor'=>$repartidor
         ]);
     }
@@ -91,13 +92,13 @@ class ctrlRepartidor extends Controller
      */
     public function update(Request $request, $id)
     {
-        $repartidor = cliente::findOrFail($id);
-        $repartidor->nombre = $request->get('nombres');
+        $repartidor = repartidor::findOrFail($id);
+        $repartidor->nombre = $request->get('nombre');
         $repartidor->apellidos = $request->get('apellidos');
         $repartidor->login = $request->get('login');
         $repartidor->password =Hash::make( $request->get('password'));
         $repartidor->cedulaID = $request->get('cedulaID');
-        $clienrepartidorte->telefono = $request->get('telefono');
+        $repartidor->telefono = $request->get('telefono');
         $repartidor->direccion = $request->get('direccion');
         
         $repartidor->update();
