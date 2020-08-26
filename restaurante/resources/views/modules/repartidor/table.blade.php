@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="card">
     <div class="card-header">
-        <i class="fa fa-align-justify"></i> Repartidores
+        <i class="fa fa-align-justify"></i> repartidores
         <a type="button" href="{{ route('repartidor.create') }}" class="btn btn-secondary">
             <i class="icon-plus"></i>&nbsp;Nuevo
         </a>
