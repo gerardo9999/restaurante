@@ -18,7 +18,7 @@
 
 
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menu</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menú</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('menu.index') }}" target="_top"><i class="icon-bag"></i> Lista</a>
@@ -32,28 +32,28 @@
                 </ul>
             </li>
 
-          <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Menú</a>
-              <ul class="nav-dropdown-items">
-                  <li class="nav-item">
-                      <a class="nav-link" href="i#"><i class="icon-wallet"></i> Platos</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="icon-notebook"></i> Categorias</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
-              <ul class="nav-dropdown-items">
-                  <li class="nav-item">
-                      <a class="nav-link" href="i#"><i class="icon-basket-loaded"></i> Ventas</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="icon-notebook"></i> Clientes</a>
-                  </li>
-              </ul>
-          </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Menú</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="i#"><i class="icon-wallet"></i> Platos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-notebook"></i> Categorias</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="i#"><i class="icon-basket-loaded"></i> Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-notebook"></i> Clientes</a>
+                    </li>
+                </ul>
+            </li>
           <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Acceso</a>
               <ul class="nav-dropdown-items">

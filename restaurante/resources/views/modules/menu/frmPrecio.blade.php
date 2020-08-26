@@ -1,28 +1,30 @@
-<button   data-toggle="modal" data-target="#update-producto{{ $producto->id }}" type="button" class="btn btn-sm btn-success">
-    <i class="fas fa-edit"></i>
+<button  data-toggle="modal" data-target="#update-plato{{ $plato->id }}" type="button" class="btn btn-sm btn-success">
+    &nbsp;$
 </button> 
-<div wire:ignore.self id="update-producto{{ $producto->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+
+<div wire:ignore.self id="update-plato{{ $plato->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header alert-success">
-                <h5 class="modal-title" id="my-modal-title">Actualizar Imagen {{ $producto->id }}</h5>
+                <h5 class="modal-title" id="my-modal-title">Actualizar Precio {{ $plato->id }}</h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                
-                <form wire:submit.prevent="save">
-                    <input type="file" wire:model="foto">
-                
-                    @error('foto') <span class="error">{{ $message }}</span> @enderror
-                
-                
-                
+                <form>
+                    <div class="form-group">
+                        <label for="">Precio {{ $plato->idProducto }}</label>
+                        <input type="text" class="form-control" wire:model="precio" >
+                        @error('precio')
+                            <small>{{ $message }}</small>
+                        @enderror
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button  type="submit" data-dismiss="modal" aria-label="Close">Save Photo</button>
-                </form>
+                <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close" >Cancelar</button>
+                <button class="btn btn-success btn-sm" data-dismiss="modal" aria-label="Close" wire:click.prevent="savePrecio({{ $plato->idProducto }})"><i class="fas fa-edit"></i>  Actualizar</button>
             </div>
         </div>
     </div>
