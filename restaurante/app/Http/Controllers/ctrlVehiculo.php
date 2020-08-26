@@ -74,15 +74,10 @@ class ctrlVehiculo extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $vehiculos=vehiculo::join('repartidor','repartidor.id', '=', 'vehiculo.idRepartidor')
@@ -94,13 +89,7 @@ class ctrlVehiculo extends Controller
         return view('modules.vehiculo.frmUpdate',['vehiculo'=>$vehiculos, 'repartidor'=>$repartidores]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $vehiculo = vehiculo::findOrFail($id);
@@ -114,12 +103,7 @@ class ctrlVehiculo extends Controller
         return redirect('/vehiculos')->with('info','el registro se ha guardado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $vehiculo = vehiculo::findOrFail($id);

@@ -6,6 +6,9 @@
         <div class="card-header">
             <i class="fa fa-align-justify"></i> Crear Nuevo repartidor
         </div>
+
+
+
         <form action="{{ route('repartidor.update',['id'=>$repartidor[0]->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="card-body">
@@ -16,7 +19,6 @@
                     @error('nombre') 
                         <small class="error-validate">{{ $message }}</small>
                     @enderror
-                    
                 </div>
                 <div class="form-group col-6">
                     <label for="" class="label-items">Apellidos</label>

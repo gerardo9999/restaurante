@@ -19,34 +19,25 @@
     {{-- Select2 --}}
     <link rel="stylesheet" href="{{ asset('coreui/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('coreui/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('coreui/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}"> 
+    @livewireStyles
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-   @include('components.header')
-
+   @include('template.header')
     <div class="app-body">
-       @include('components.sidebar')
-
-        <!-- Contenido Principal -->
+       @include('template.sidebar')
         <main class="main">
-            <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                {{-- <li class="breadcrumb-item">Home</li>
-                <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                <li class="breadcrumb-item active">Dashboard</li> --}}
             </ol>
             <div class="container-fluid">
-                <!-- Ejemplo de tabla Listado -->
                @yield('contenido')
-                <!-- Fin ejemplo de tabla Listado -->
             </div>
-           
         </main>
-
     </div>
 
     
-    @include('components.footer')
+    @include('template.footer')
 
     <!-- Bootstrap and necessary plugins -->
    {{-- <script src="{{ asset('coreui/vendors/js/jquery.min.js')}}"></script> --}}
@@ -66,8 +57,16 @@
 
         });
     </script>
-
-
+    <script src="{{ asset('coreui/moment/moment.min.js') }} "></script>
+    {{-- Datepicker --}}
+    <script src="{{ asset('coreui/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }} "></script>
+    <script>
+        $('#reservationdate').datetimepicker({
+            format: 'YYYY/MM/DD',
+            // format: 'MM/DD/YYYY hh:mm A'
+        });
+    </script>
+ @livewireScripts
 </body>
 
 </html>

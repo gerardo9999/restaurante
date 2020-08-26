@@ -4,28 +4,42 @@
           <li class="nav-item">
               <a class="nav-link active" href="main.html"><i class="icon-speedometer"></i> Escritorio</a>
           </li>
-          <li class="nav-title">
-              Mantenimiento
-          </li>
+            <li class="nav-title">
+                
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cliente.index') }}" target="_top" ><i class="icon-book-open"></i>Cliente<span class="badge badge-danger"></span></a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('repartidor.index') }}" target="_top"><i class="icon-book-open"></i>Prepartidor<span class="badge badge-danger"></span></a>
+            </li>
+
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menu</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('menu.index') }}" target="_top"><i class="icon-bag"></i> Lista</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('producto.index') }}" target="_top"><i class="icon-bag"></i> Platos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('categoria.index') }}" target="_top"><i class="icon-bag"></i> Categoria</a>
+                    </li>
+                </ul>
+            </li>
+
           <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Almacén</a>
+              <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Menú</a>
               <ul class="nav-dropdown-items">
                   <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="icon-bag"></i> Categorías</a>
+                      <a class="nav-link" href="i#"><i class="icon-wallet"></i> Platos</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="icon-bag"></i> Artículos</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
-              <ul class="nav-dropdown-items">
-                  <li class="nav-item">
-                      <a class="nav-link" href="i#"><i class="icon-wallet"></i> Ingresos</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="icon-notebook"></i> Proveedores</a>
+                      <a class="nav-link" href="#"><i class="icon-notebook"></i> Categorias</a>
                   </li>
               </ul>
           </li>
@@ -62,9 +76,7 @@
                   </li>
               </ul>
           </li>
-          <li class="nav-item">
-              <a class="nav-link" href="main.html"><i class="icon-book-open"></i> Ayuda <span class="badge badge-danger">PDF</span></a>
-          </li>
+
           <li class="nav-item">
               <a class="nav-link" href="main.html"><i class="icon-info"></i> Acerca de...<span class="badge badge-info">IT</span></a>
           </li>

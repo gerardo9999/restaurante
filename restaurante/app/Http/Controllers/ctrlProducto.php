@@ -22,7 +22,7 @@ class ctrlProducto extends Controller
             ->orWhere('categoria.nombre','LIKE','%'.$query.'%')
             ->paginate(5);
         }
-        return view('modules.producto.table',[
+        return view('modules.producto.frmTable',[
             'productos'=>$productos,
             'searchText'=>$query,
 

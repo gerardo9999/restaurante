@@ -15,11 +15,12 @@ class ctrlCliente extends Controller
             $clientes = cliente::where('cliente.nombres','LIKE','%'.$query.'%')->paginate(5);
         }
 
-        return view('modules.cliente.table',[
+        return view('modules.cliente.frmTable',[
             'clientes'=>$clientes,
             'searchText'=>$query
         ]);
     }
+    
     public function create(){
         return view('modules.cliente.frmCreate');
     }
@@ -34,7 +35,7 @@ class ctrlCliente extends Controller
         $cliente->telefono = $request->get('telefono');
         $cliente->direccion = $request->get('direccion');
         $cliente->email = $request->get('email');
-        $cliente->estado ='activado';
+        $cliente->estado =1;
         $cliente->save();
 
         return redirect('/clientes')->with('success','el registro se ha guardado correctamente');
@@ -59,7 +60,7 @@ class ctrlCliente extends Controller
         $cliente->telefono = $request->get('telefono');
         $cliente->direccion = $request->get('direccion');
         $cliente->email = $request->get('email');
-        $cliente->estado ='activado';
+        $cliente->estado =1;
         $cliente->update();
 
         return redirect('/clientes')->with('info','el registro se ha guardado correctamente');

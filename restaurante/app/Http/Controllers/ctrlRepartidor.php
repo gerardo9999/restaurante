@@ -20,8 +20,8 @@ class ctrlRepartidor extends Controller
             $repartidores = repartidor::where('repartidor.nombre','LIKE','%'.$query.'%')->paginate(5);
         }
 
-        return view('modules.repartidor.table',[
-            'repartidor'=>$repartidores,
+        return view('modules.repartidor.frmTable',[
+            'repartidores'=>$repartidores,
             'searchText'=>$query
         ]);
     }
@@ -68,12 +68,7 @@ class ctrlRepartidor extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $repartidor = repartidor::where('repartidor.id','=',$id)->get();
@@ -82,35 +77,21 @@ class ctrlRepartidor extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
+
         $repartidor = repartidor::findOrFail($id);
-        $repartidor->nombre = $request->get('nombres');
+        $repartidor->nombre = $request->get('nombre');
         $repartidor->apellidos = $request->get('apellidos');
         $repartidor->login = $request->get('login');
         $repartidor->password =Hash::make( $request->get('password'));
         $repartidor->cedulaID = $request->get('cedulaID');
-        $clienrepartidorte->telefono = $request->get('telefono');
+        $repartidor->telefono = $request->get('telefono');
         $repartidor->direccion = $request->get('direccion');
-        
         $repartidor->update();
-
         return redirect('/repartidores')->with('info','el registro se ha guardado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $repartidor = repartidor::findOrFail($id);
