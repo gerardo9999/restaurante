@@ -18,7 +18,7 @@
 
 
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menu</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menú</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('menu.index') }}" target="_top"><i class="icon-bag"></i> Lista</a>
