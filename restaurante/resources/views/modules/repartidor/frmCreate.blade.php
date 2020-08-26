@@ -11,9 +11,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="form-group col-6">
-                    <label for="nombres" class="label-items">Nombre</label>
+                    <label for="nombre" class="label-items">Nombre</label>
                     <input type="text" name="nombre" class="form-control form-control-sm" value="{{ old('nombre') }}" placeholder="escribe los nombre" >
-                    @error('nombres') 
+                    @error('nombre') 
                         <small class="error-validate">{{ $message }}</small>
                     @enderror
                     

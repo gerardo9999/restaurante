@@ -12,7 +12,7 @@ class ctrlRepartidor extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
          // $repartidores = repartidor::all();
          if($request){
@@ -44,7 +44,7 @@ class ctrlRepartidor extends Controller
      */
     public function store(Request $request)
     {
-        $repartidor = new cliente();
+        $repartidor = new repartidor();
         $repartidor->nombre = $request->get('nombre');
         $repartidor->apellidos = $request->get('apellidos');
         $repartidor->login = $request->get('login');
@@ -77,7 +77,7 @@ class ctrlRepartidor extends Controller
     public function edit($id)
     {
         $repartidor = repartidor::where('repartidor.id','=',$id)->get();
-        return view('modules.cliente.frmUpdate',[
+        return view('modules.repartidor.frmUpdate',[
             'repartidor'=>$repartidor
         ]);
     }
@@ -91,7 +91,7 @@ class ctrlRepartidor extends Controller
      */
     public function update(Request $request, $id)
     {
-        $repartidor = cliente::findOrFail($id);
+        $repartidor = repartidor::findOrFail($id);
         $repartidor->nombre = $request->get('nombres');
         $repartidor->apellidos = $request->get('apellidos');
         $repartidor->login = $request->get('login');
