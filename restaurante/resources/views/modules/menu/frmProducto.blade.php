@@ -19,7 +19,7 @@
                                                 <button type="button" wire:click="agregarProducto({{ $producto->id }})"  class="btn btn-success btn-sm">
                                                     <i class="icon-check"></i>
                                                 </button>
-                                                @include('modules.menu.frmPrecio')
+
                                             </td>
                                         </tr>
                                         @endforeach
