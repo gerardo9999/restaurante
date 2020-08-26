@@ -98,8 +98,8 @@ class ctrlReserva extends Controller
         'reserva.hora',
         'reserva.observacion')->where('reserva.id','=',$id)
         ->get();
-        $clientees=cliente::all();
-        return view('modules.reserva.frmUpdate',['reserva'=>$reservas, 'cliente'=>$clientees]);
+        $clientes=cliente::all();
+        return view('modules.reserva.frmUpdate',['reserva'=>$reservas, 'cliente'=>$clientes]);
     }
 
     /**
