@@ -5,7 +5,7 @@
             <input type="date" wire:model="fecha"  class="form-control form-control-sm"/>
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <button wire:click="agregarMenu()" class="btn btn-success btn-sm">Agregar Fecha</button>
+                    <button wire:click="agregarMenu()" class="btn btn-info btn-sm">Agregar Fecha</button>
                 </div>
             </div>
         </div>

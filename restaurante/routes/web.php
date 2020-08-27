@@ -75,6 +75,15 @@ Route::post('vehiculos/update/{id}','ctrlvehiculo@update')->name('vehiculo.updat
 Route::post('vehiculos/destroy/{id}','ctrlvehiculo@destroy')->name('vehiculo.destroy');
 
 
+Route::get('/tipoUsuarios','ctrlTipo@index')->name('tipo.index');
+
+
+
+
+// Web
+
+
+
 
 
 Route::get('reservas','ctrlReserva@index')->name('reserva.index');
@@ -87,10 +96,21 @@ Route::post('reservas/destroy/{id}','ctrlReserva@destroy')->name('reserva.destro
 
 
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('login','Auth\LoginController@showLoginForm')->name('login');
+Route::post('login','Auth\LoginController@login');
+Route::post('logout','Auth\LoginController@logout')->name('logout');
+
+
+Route::get('register','Auth\RegisterContoller@showRegistrationForm')->name('register');
+Route::get('register','Auth\RegisterContoller@register');
+
+Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}','Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+Route::post('password/reset','Auth\ResetPasswordController@reset');
