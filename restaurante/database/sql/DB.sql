@@ -19,7 +19,8 @@ id int primary key auto_increment,
 fecha date,
 hora time, 
 tabla varchar(20),
-transaccion varchar(50)
+codigoTabla int,
+}transaccion varchar(50)
 );
 
 create table repartidor(
@@ -137,26 +138,21 @@ foreign key(idCategoria) references categoria(id)
 );
 
 create table detalleorden(
-
+cantidad int,
 idOrden int not null,
 idProducto int not null,
-
 primary key(idOrden,idProducto),
-cantidad int,
-
 foreign key(idOrden) references ordenatencion(id),
 foreign key(idProducto) references producto(id)
 );
 
 create table detallepedido(
+cantidad int,
 idPedido int not null,
 idProducto int not null,
-
 primary key(idPedido,idProducto),
-cantidad int,
-
-foreign key(idPedido) references pedido(idPedido),
-foreign key(idProducto) references producto(idProducto)
+foreign key(idPedido) references pedido(id),
+foreign key(idProducto) references producto(id)
 );
 
 create table precios(
@@ -173,15 +169,10 @@ fecha date
 );
 
 create table listamenu(
-
+estado bit, 
 idProducto int not null,
 idMenu int not null,
-
 primary key(idProducto,idMenu),
-
-estado bit, 
-
-
 foreign key(idProducto) references producto(id),
 foreign key(idMenu) references menu(id)
 );
