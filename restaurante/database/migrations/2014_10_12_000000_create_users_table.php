@@ -17,18 +17,16 @@ class CreateUsersTable extends Migration
 
             $table->id();
             $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->string('nombre');
             $table->string('apellidos');
-            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
-
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('users');
     }
 }
