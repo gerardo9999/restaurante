@@ -11,8 +11,8 @@
         <div class="form-group row">
            @include('modules.repartidor.frmSearch')
         </div>
-         @include('components.alert') 
-         @include('components.error') 
+         @include('template.alert') 
+         @include('template.error') 
      <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>

@@ -15,7 +15,7 @@ class ctrlCategoria extends Controller
             ->orderBy('id','desc')
             ->paginate(10);
         }
-        return view('modules.categoria.table',[
+        return view('modules.categoria.frmTable',[
             'categorias'=>$categorias,
             'searchText'=> $query
         ]);

@@ -9,8 +9,8 @@
         <div class="form-group row">
             @include('modules.mesa.frmSearch')
         </div>
-         @include('components.alert') 
-         @include('components.error') 
+         @include('template.alert') 
+         @include('template.error') 
 
          <table class="table table-bordered table-striped table-sm">
             <thead>
@@ -43,6 +43,7 @@
                         @include('modules.mesa.frmUpdate')
                         @include('modules.mesa.frmDestroy')
                         @include('modules.mesa.frmShow')
+                        @include('modules.mesa.frmEstado')
                     </td>
                 </tr>
                 @endforeach

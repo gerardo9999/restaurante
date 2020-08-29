@@ -14,9 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/','ctrlRestaurante@welcome')->name('welcome.inicio');
+
+Route::get('restaurante','ctrlRestaurante@index')->name('restaurante.index');
+Route::get('restaurante/create','ctrlRestaurante@create')->name('restaurante.create');
+Route::post('restaurante/store','ctrlRestaurante@store')->name('restaurante.store');
+Route::post('restaurante/update/{id}','ctrlRestaurante@update')->name('restaurante.update');
+Route::post('restaurante/destroy/{id}','ctrlRestaurante@destroy')->name('restaurante.destroy');
 
 
 Route::get('categorias','ctrlCategoria@index')->name('categoria.index');
@@ -28,6 +41,8 @@ Route::post('categorias/destroy/{id}','ctrlCategoria@destroy')->name('categoria.
 Route::get('mesas','ctrlMesa@index')->name('mesa.index');
 Route::post('mesas/store','ctrlMesa@store')->name('mesa.store');
 Route::post('mesas/update/{id}','ctrlMesa@update')->name('mesa.update');
+Route::post('mesas/ocupar/{id}','ctrlMesa@ocupar')->name('mesa.ocupar');
+Route::post('mesas/desocupar/{id}','ctrlMesa@desocupar')->name('mesa.desocupar');
 Route::post('mesas/destroy/{id}','ctrlMesa@destroy')->name('mesa.destroy');
 
 
@@ -57,6 +72,8 @@ Route::post('repartidores/update/{id}','ctrlRepartidor@update')->name('repartido
 Route::post('repartidores/destroy/{id}','ctrlRepartidor@destroy')->name('repartidor.destroy');
 
 
+Route::get('menu','ctrlMenu@index')->name('menu.index');
+Route::get('menu/create','ctrlMenu@create')->name('menu.create');
 
 Route::get('vehiculos','ctrlvehiculo@index')->name('vehiculo.index');
 Route::get('vehiculos/create','ctrlvehiculo@create')->name('vehiculo.create');
@@ -76,12 +93,4 @@ Route::post('reservas/update/{id}','ctrlReserva@update')->name('reserva.update')
 Route::post('reservas/destroy/{id}','ctrlReserva@destroy')->name('reserva.destroy');
 
 
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/ubicacion', ['as ' => 'ubicacion', 'uses' => 'ctrlUbicacion@index']);

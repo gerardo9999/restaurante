@@ -10,12 +10,12 @@ class ctrlMesa extends Controller
     public function index(Request $request){
         if ($request) {
             $query = trim($request->get('searchText'));
-            $menus = menu::where('mesa.ubicacion','LIKE','%'.$query.'%')
+            $mesas = mesa::where('mesa.ubicacion','LIKE','%'.$query.'%')
             ->where('mesa.descripcion','LIKE','%'.$query.'%')
             ->orderBy('id','desc')
             ->paginate(10);
         }
-        return view('modules.mesa.table',[
+        return view('modules.mesa.frmTable',[
             'mesas'=>$mesas,
             'searchText'=> $query
         ]);
@@ -63,5 +63,19 @@ class ctrlMesa extends Controller
         $mesa->delete();
 
         return redirect('/mesas')->with('danger','el registro se ha eliminado correctamente');  
+    }
+    public function ocupar($id){
+        $mesa =  mesa::findOrFail($id);
+        $mesa->ocupado = 0;
+        $mesa->update();
+
+        return redirect('/mesas')->with('danger','la mesa ha sido ocupada');  
+    }
+
+    public function desocupar($id){
+        $mesa =  mesa::findOrFail($id);
+        $mesa->ocupado = 1;
+        $mesa->update();
+        return redirect('/mesas')->with('info','la mesa ha sido desocupada');  
     }
 }
