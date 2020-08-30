@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 create database briela;
 use briela;
+=======
+create database restaurante;
+use restaurante;
+>>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
 
 create table cliente(
 id int primary key auto_increment,
@@ -137,21 +142,42 @@ foreign key(idCategoria) references categoria(id)
 );
 
 create table detalleorden(
+<<<<<<< HEAD
 cantidad int,
 idOrden int not null,
 idProducto int not null,
 primary key(idOrden,idProducto),
+=======
+
+idOrden int not null,
+idProducto int not null,
+
+primary key(idOrden,idProducto),
+cantidad int,
+
+>>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
 foreign key(idOrden) references ordenatencion(id),
 foreign key(idProducto) references producto(id)
 );
 
 create table detallepedido(
+<<<<<<< HEAD
 cantidad int,
 idPedido int not null,
 idProducto int not null,
 primary key(idPedido,idProducto),
 foreign key(idPedido) references pedido(id),
 foreign key(idProducto) references producto(id)
+=======
+idPedido int not null,
+idProducto int not null,
+
+primary key(idPedido,idProducto),
+cantidad int,
+
+foreign key(idPedido) references pedido(idPedido),
+foreign key(idProducto) references producto(idProducto)
+>>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
 );
 
 create table precios(
@@ -168,10 +194,22 @@ fecha date
 );
 
 create table listamenu(
+<<<<<<< HEAD
 estado bit, 
 idProducto int not null,
 idMenu int not null,
 primary key(idProducto,idMenu),
+=======
+
+idProducto int not null,
+idMenu int not null,
+
+primary key(idProducto,idMenu),
+
+estado bit, 
+
+
+>>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
 foreign key(idProducto) references producto(id),
 foreign key(idMenu) references menu(id)
 );
