@@ -14,9 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('contenido/contenido');
+});
 
-Route::get('/','ctrlRestaurante@welcome')->name('welcome.inicio');
+Route::get('categoria','ctrlCategoria@index');
+Route::post('categoria/guardar','ctrlCategoria@store');
+Route::put('categoria/actualizar','ctrlCategoria@update');
+Route::put('categoria/eliminar','ctrlCategoria@delete');
 
+
+//Route::get('/','ctrlRestaurante@welcome')->name('welcome.inicio');
+/*
 Route::get('restaurante','ctrlRestaurante@index')->name('restaurante.index');
 Route::get('restaurante/create','ctrlRestaurante@create')->name('restaurante.create');
 Route::post('restaurante/store','ctrlRestaurante@store')->name('restaurante.store');
@@ -24,10 +33,7 @@ Route::post('restaurante/update/{id}','ctrlRestaurante@update')->name('restauran
 Route::post('restaurante/destroy/{id}','ctrlRestaurante@destroy')->name('restaurante.destroy');
 
 
-Route::get('categorias','ctrlCategoria@index')->name('categoria.index');
-Route::post('categorias/store','ctrlCategoria@store')->name('categoria.store');
-Route::post('categorias/update/{id}','ctrlCategoria@update')->name('categoria.update');
-Route::post('categorias/destroy/{id}','ctrlCategoria@destroy')->name('categoria.destroy');
+
 
 
 Route::get('mesas','ctrlMesa@index')->name('mesa.index');
@@ -86,3 +92,4 @@ Route::post('reservas/destroy/{id}','ctrlReserva@destroy')->name('reserva.destro
 
 
 //Route::get('/ubicacion', ['as ' => 'ubicacion', 'uses' => 'ctrlUbicacion@index']);
+ */
