@@ -11,20 +11,26 @@ class Lista extends Component
 {
     public $searchText; 
     public $productos ;
-    
+    public $lista =false;
     use WithPagination; 
 
 
 
     public function render(){
-        
-        // return view('component.lista');
         $searchText = $this->searchText;
+
+        if($searchText){
+            $lista = menu::where('menu.fecha','=',$searchText)->paginate(10); 
+        }else{
+            $lista = menu::paginate(10);
+        }
+
         return view('component.lista',[
-            'listas'=> menu::where('menu.fecha','=',$searchText)->paginate(10)
+            'listas'=> $lista
         ]);
     }
-    public function buscarProducto($id){
+
+    public function buscarProducto($id){        
         $productos = listaMenu::join('producto','listamenu.idProducto','=','producto.id')
         ->join('menu','menu.id','=','listamenu.idMenu')->where('menu.id','=',$id)->get();
         $this->productos = $productos;

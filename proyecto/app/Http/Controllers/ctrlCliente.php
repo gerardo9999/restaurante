@@ -15,7 +15,7 @@ class ctrlCliente extends Controller
             $clientes = cliente::where('cliente.nombres','LIKE','%'.$query.'%')->paginate(5);
         }
 
-        return view('modules.cliente.frmTable',[
+        return view('modules.cliente.frmIndex',[
             'clientes'=>$clientes,
             'searchText'=>$query
         ]);

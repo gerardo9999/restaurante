@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="card card-accent-info">
         <div class="card-header">
-            <i class="fa fa-align-justify"></i> Crear Nuevo vehiculo
+            <i class="fa fa-align-justify"></i> Crear Nuevo Vehiculo
         </div>
         <form action="{{ route('vehiculo.store') }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -19,7 +19,7 @@
                     
                 </div>
                 <div class="form-group col-6">
-                    <label for="caracteristicas" class="label-items">caracteristicas</label>
+                    <label for="caracteristicas" class="label-items">Caracteristicas</label>
                     <input type="text"  name="caracteristicas" class="form-control form-control-sm " value="{{ old('caracteristicas') }}" placeholder="escribe los caracteristicas" >
                     @error('caracteristicas') 
                         <small class="error-validate">{{ $message }}</small>
@@ -39,7 +39,7 @@
                 </div>
                
                 <div class="form-group col-md-6">
-                    <label class="form-control-label label-items" for="text-input">repartidor</label>
+                    <label class="form-control-label label-items" for="text-input">Repartidor</label>
                             <select class="form-control select2" style="width: 100%; " name="idRepartidor">
                                 @foreach($repartidores as $repartidor)
                                     <option value="{{ $repartidor->id }}">{{ $repartidor->nombre }}</option>

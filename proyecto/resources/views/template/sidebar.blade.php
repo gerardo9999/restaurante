@@ -9,12 +9,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('cliente.index') }}" target="_top" ><i class="icon-book-open"></i>Cliente<span class="badge badge-danger"></span></a>
+                <a class="nav-link" href="{{ route('mesa.index') }}" target="_top" ><i class="icon-book-open"></i>Mesa<span class="badge badge-danger"></span></a>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('repartidor.index') }}" target="_top"><i class="icon-book-open"></i>Prepartidor<span class="badge badge-danger"></span></a>
-            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('reserva.index') }}" target="_top"><i class="icon-book-open"></i>Reserva<span class="badge badge-danger"></span></a>
@@ -36,17 +34,14 @@
                 </ul>
             </li>
 
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Menú</a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" href="i#"><i class="icon-wallet"></i> Platos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-notebook"></i> Categorias</a>
-                    </li>
-                </ul>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('repartidor.index') }}" target="_top"><i class="icon-book-open"></i>Repartidor<span class="badge badge-danger"></span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('vehiculo.index') }}" target="_top"><i class="icon-book-open"></i>Vehiculo<span class="badge badge-danger"></span></a>
+            </li>
+
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                 <ul class="nav-dropdown-items">
@@ -54,7 +49,7 @@
                         <a class="nav-link" href="i#"><i class="icon-basket-loaded"></i> Ventas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-notebook"></i> Clientes</a>
+                        <a class="nav-link" href="{{ route('cliente.index') }}" target="_top"><i class="icon-notebook"></i> Clientes</a>
                     </li>
                 </ul>
             </li>

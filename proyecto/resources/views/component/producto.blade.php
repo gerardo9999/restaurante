@@ -35,7 +35,6 @@
                         </td>
                         <td>
                           <img class="img-fluid"  src="{{ asset($producto->foto) }}" width="100px" alt="">
-                          {{ $producto->foto }}
                         </td>
                         <td>
                           {{ $producto->categoria }}                        

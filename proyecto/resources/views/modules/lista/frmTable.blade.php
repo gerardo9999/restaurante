@@ -8,28 +8,54 @@
     <tbody>
         @foreach ($listas as $lista)
         <tr>
-
             <td>
-                {{ $lista->fecha }}                        
+                {{ $lista->fecha }}    
             </td>
-            
             <td>
-                <a href="" class="btn btn-success btn-sm">
+                <button wire:click='buscarProducto({{ $lista->id }})' class="btn btn-success btn-sm">
                     <i class="icon-pencil"></i>
-                </a>
-                <a href="" class="btn btn-info btn-sm">
+                </button>
+                <button class="btn btn-info btn-sm">
                     <i class="icon-eye"></i>
-                </a>
-                {{-- <a type="button" class="btn btn-success btn-sm" href="{{ route('cliente.edit', ['id'=>$cliente->id]) }}"> --}}
-                    {{-- <i class="icon-pencil"></i> --}}
-                {{-- </a> &nbsp; --}}
-                {{-- @include('modules.cliente.frmUpdate') --}}
-                {{-- @include('modules.cliente.frmDestroy') --}}
+                </button>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-<div class="">
+<div>
+    {{-- @php
+        $datos  = json_decode($productos)
+    @endphp --}}
+    {{-- {{ $clientes->links() }} --}}
+
+</div>
+{{ $productos }}
+<table class="table table-bordered table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Opcion</th>
+        </tr>
+    </thead>
+    <tbody>        
+        {{-- @foreach ($datos as $producto)
+        <tr>
+            <td>
+                {{ $producto->nombre }}    
+            </td>
+            <td>
+                <button class="btn btn-success btn-sm">
+                    <i class="icon-pencil"></i>
+                </button>
+                <button class="btn btn-info btn-sm">
+                    <i class="icon-eye"></i>
+                </button>
+            </td>
+        </tr>
+        @endforeach --}}
+    </tbody>
+</table>
+<div>
     {{-- {{ $clientes->links() }} --}}
 </div>

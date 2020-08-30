@@ -61,7 +61,7 @@ class ctrlProducto extends Controller
                 $path = Storage::disk('public')->put('imagenes',$request->file('foto'));
                 $producto->foto = $path; 
             }else{
-                $producto->foto = 'imagenes/default.jpg';
+                $producto->foto = 'imagenes/plato1.png';
             }
             
             $producto->idCategoria = $request->idCategoria;

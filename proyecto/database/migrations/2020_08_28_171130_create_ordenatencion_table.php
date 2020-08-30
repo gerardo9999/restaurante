@@ -14,16 +14,21 @@ class CreateOrdenatencionTable extends Migration
     public function up()
     {
         Schema::create('ordenatencion', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('id');
+            $table->boolean('estado');
+            $table->date('fecha');
+            $table->float('montoTotal');
+
+            $table->integer('idUsuario')->unsigned();
+            $table->integer('idMesa')->unsigned();
+            $table->integer('idCliente')->unsigned();
+
+            $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('idMesa')->references('id')->on('mesa')->onDelete('cascade');
+            $table->foreign('idCliente')->references('id')->on('cliente')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('ordenatencion');

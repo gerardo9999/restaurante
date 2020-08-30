@@ -1,4 +1,4 @@
 @extends('principal.index')
 @section('contenido')
-    @livewire('mesa')
+@livewire('categoria')
 @endsection

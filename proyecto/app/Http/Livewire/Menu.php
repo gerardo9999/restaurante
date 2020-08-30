@@ -29,14 +29,24 @@ class Menu extends Component
     public $tabla = false;
 
     public function render(){
+        
         $searchText = '%'.$this->searchText.'%';
         $idMenu = $this->idMenu;
 
+        if ($searchText) {
+            $productos = producto::orderBy('id','desc')
+                     ->where('producto.nombre','LIKE','%'.$searchText.'%')
+                     ->paginate(10);
+        } else {
+            $productos = producto::orderBy('id','desc')
+            ->paginate(10);
+        }
+        
+
+
         return view('component.menu',[
             
-            'productos'=> producto::orderBy('id','desc')
-                                    ->where('producto.nombre','LIKE','%'.$searchText.'%')
-                                    ->paginate(10),
+            'productos'=> $productos,
             'listaMenu' => listaMenu::join('producto','producto.id','=','listamenu.idProducto')
                                      ->join('menu','menu.id','=','listamenu.idMenu')
                                      ->select('listamenu.id','producto.nombre','listamenu.idProducto','producto.precio','listamenu.estado') 
