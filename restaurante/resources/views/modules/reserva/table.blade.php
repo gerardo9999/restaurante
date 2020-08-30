@@ -11,9 +11,9 @@
         <div class="form-group row">
            @include('modules.reserva.frmSearch')
         </div>
-         @include('components.alert') 
-         @include('components.error') 
-     <table class="table table-bordered table-striped table-sm">
+         @include('template.alert') 
+         @include('template.error') 
+            <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>
                         <th>Comensales</th>

@@ -24,7 +24,12 @@ id int primary key auto_increment,
 fecha date,
 hora time, 
 tabla varchar(20),
-transaccion varchar(50)
+transaccion varchar(50),
+tablaCodigo varchar(50),
+
+
+idUsuario int not null,
+foreign key(idUsuario) references usuario(id),
 );
 
 create table repartidor(
@@ -82,10 +87,7 @@ nombre varchar(50),
 apellidos varchar(50),
 login varchar(30),
 passaword varchar(10),
-idBitacora int not null,
-idTipo int not null,
-foreign key(idBitacora) references bitacora(id),
-foreign key(idTipo) references tipo(id)
+idTipo int not null
 );
 
 create table ordenatencion(

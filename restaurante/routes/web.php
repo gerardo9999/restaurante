@@ -81,6 +81,15 @@ Route::post('vehiculos/update/{id}','ctrlvehiculo@update')->name('vehiculo.updat
 Route::post('vehiculos/destroy/{id}','ctrlvehiculo@destroy')->name('vehiculo.destroy');
 
 
+Route::get('/tipoUsuarios','ctrlTipo@index')->name('tipo.index');
+
+
+
+
+// Web
+
+
+
 
 
 Route::get('reservas','ctrlReserva@index')->name('reserva.index');
@@ -91,5 +100,4 @@ Route::post('reservas/update/{id}','ctrlReserva@update')->name('reserva.update')
 Route::post('reservas/destroy/{id}','ctrlReserva@destroy')->name('reserva.destroy');
 
 
-//Route::get('/ubicacion', ['as ' => 'ubicacion', 'uses' => 'ctrlUbicacion@index']);
- */
+*/

@@ -19,21 +19,21 @@ class ctrlReserva extends Controller
             $query=trim($request->get('searchText'));
             
             $reservas=reserva::join('cliente','cliente.id', '=', 'reserva.idcliente')
-            ->select('reserva.comensales', 
-            'reserva.telefono', 
-            'reserva.fecha', 
-            'reserva.hora',
-            'reserva.observacion',
-            'reserva.id', 
-            'cliente.nombres', 
-            'cliente.apellidos', 
-            'cliente.login', 
-            'cliente.password', 
-            'cliente.empresa', 
-            'cliente.telefono', 
-            'cliente.direccion',
-            'cliente.email',
-            'cliente.estado')->where('cliente.nombres','LIKE','%'.$query.'%')
+                                ->select('reserva.comensales', 
+                                'reserva.telefono', 
+                                'reserva.fecha', 
+                                'reserva.hora',
+                                'reserva.observacion',
+                                'reserva.id', 
+                                'cliente.nombres', 
+                                'cliente.apellidos', 
+                                'cliente.login', 
+                                'cliente.password', 
+                                'cliente.empresa', 
+                                'cliente.telefono', 
+                                'cliente.direccion',
+                                'cliente.email',
+                                'cliente.estado')->where('cliente.nombres','LIKE','%'.$query.'%')
             ->paginate(10);
 
         }
@@ -80,17 +80,10 @@ class ctrlReserva extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
+    public function edit($id){
         $reservas=reserva::join('cliente','cliente.id', '=', 'reserva.idCliente')
         ->select('reserva.comensales', 
         'reserva.telefono', 
@@ -102,15 +95,8 @@ class ctrlReserva extends Controller
         return view('modules.reserva.frmUpdate',['reserva'=>$reservas, 'cliente'=>$clientes]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+
+    public function update(Request $request, $id){
         $reserva = reserva::findOrFail($id);
         $reserva->comensales = $request->get('comensales');
         $reserva->telefono = $request->get('telefono');
@@ -124,17 +110,15 @@ class ctrlReserva extends Controller
         return redirect('/reservas')->with('info','el registro se ha guardado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+
+    public function destroy($id){
         $reserva = reserva::findOrFail($id);
         $reserva->delete();
 
         return redirect('/reservas')->with('danger','el registro se ha guardado correctamente');
+    }
+
+    public function storeCliente(){
+        
     }
 }

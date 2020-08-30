@@ -5,7 +5,7 @@
                 <i class="fa fa-align-justify"></i> {{ $title }} 
             </div>
             <div class="card-body">
-                 @include('template.alert')                
+                @include('template.alert')                
                 @if($tabla)
                 <div class="row">
                     <div class="col-6">
@@ -16,15 +16,39 @@
                                    </div>
                             </div>
                             <div class="card-body">
-                                @include('modules.menu.frmProducto')       
+                                <table class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>foto</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($productos as $producto)
+                                        <tr>
+                                            <td>
+                                                {{ $producto->nombre }}                        
+                                            </td>
+                                            <td>
+                                                <img class="img-fluid" width="100px"  src="{{ asset($producto->foto)  }}" alt="">                        
+                                            </td>
+                                            <td>
+                                                <button type="button" wire:click="agregarProducto({{ $producto->id }})"  class="btn btn-success btn-sm">
+                                                    <i class="icon-check"></i>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>        
                             </div>
                             <div class="text-center">
                                 {{ $productos->links() }}
-                                {{-- {{ $foto }} --}}
                             </div>
                         </div>
                     </div>
-
                     <div class="col-6">
                        @include('modules.menu.frmMenu')
                     </div>
@@ -34,6 +58,5 @@
                 @endif
             </div>
         </div>
-    </div>
-    
+    </div>    
 </div>
