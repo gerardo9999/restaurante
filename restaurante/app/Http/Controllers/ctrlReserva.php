@@ -85,24 +85,14 @@ class ctrlReserva extends Controller
 
     public function edit($id){
         $reservas=reserva::join('cliente','cliente.id', '=', 'reserva.idCliente')
-                            ->select(   'reserva.id',
-                                        'reserva.comensales', 
-                                        'reserva.telefono', 
-                                        'reserva.fecha',
-                                        'reserva.hora',
-                                        'cliente.nombres',
-                                        'cliente.apellidos',
-                                        'reserva.observacion')
-                            ->where('reserva.id','=',$id)
-                            ->get();
-
+        ->select('reserva.comensales', 
+        'reserva.telefono', 
+        'reserva.fecha',
+        'reserva.hora',
+        'reserva.observacion')->where('reserva.id','=',$id)
+        ->get();
         $clientes=cliente::all();
-
-
-        return view('modules.reserva.frmUpdate',
-            [   'reserva'  => $reservas, 
-                'clientes' => $clientes
-            ]);
+        return view('modules.reserva.frmUpdate',['reserva'=>$reservas, 'cliente'=>$clientes]);
     }
 
 
