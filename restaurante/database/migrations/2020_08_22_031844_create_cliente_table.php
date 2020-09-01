@@ -23,7 +23,7 @@ class CreateClienteTable extends Migration
             $table->string('estado')->default(1);
 
         });
-        DB::table('cliente')->insert(array('id'=>1,'nombres'=>'Elena','apellidos'=>'Sanchez Suarez','login'=>'elena8783','password'=>'23456789','empresa'=>'ejemplo','telefono'=>'78164812','direccion'=>'C/Bolivar','email'=>'elena99@gmail.com','estado'=>'activado'));
+       // DB::table('cliente')->insert(array('id'=>1,'nombres'=>'Elena','apellidos'=>'Sanchez Suarez','login'=>'elena8783','password'=>'23456789','empresa'=>'ejemplo','telefono'=>'78164812','direccion'=>'C/Bolivar','email'=>'elena99@gmail.com','estado'=>'activado'));
     }
 
 

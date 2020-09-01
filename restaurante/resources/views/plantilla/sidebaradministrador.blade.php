@@ -25,7 +25,7 @@
                                 <a class="nav-link" href="#"><i class="icon-wallet"></i> Ingresos</a>
                             </li>
                             <li @click="menu=4" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Proveedores</a>
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Repartidores</a>
                             </li>
                         </ul>
                     </li>
@@ -47,7 +47,7 @@
                                 <a class="nav-link" href="#"><i class="icon-user"></i> Usuarios</a>
                             </li>
                             <li @click="menu=8" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>
+                                <a class="nav-link" href="#"><i class="icon-user-following"></i> Tipo</a>
                             </li>
                         </ul>
                     </li>
