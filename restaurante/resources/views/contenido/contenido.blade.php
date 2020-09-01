@@ -1,4 +1,4 @@
-@extends('index')
+ @extends('index')
 @section('contenido')
     <template v-if="menu==0">
         <!--<example-component></example-component>   -->
@@ -17,7 +17,7 @@
     </template>
 
     <template v-if="menu==4">
-        <h1>Contenido Menu 4</h1>
+        <frm-repartidor></frm-repartidor>
     </template>
 
     <template v-if="menu==5">
@@ -25,7 +25,7 @@
     </template>
     
     <template v-if="menu==6">
-        <h1>Contenido Menu 6</h1>
+         <frm-cliente></frm-cliente>
     </template>
 
     <template v-if="menu==7">
@@ -33,7 +33,7 @@
     </template>
 
     <template v-if="menu==8">
-        <h1>Contenido Menu 8</h1>
+        <frm-tipo></frm-tipo>
     </template>
 
     <template v-if="menu==9">

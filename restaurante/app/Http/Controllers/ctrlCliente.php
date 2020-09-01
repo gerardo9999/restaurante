@@ -8,67 +8,77 @@ use Illuminate\Support\Facades\Hash;
 
 class ctrlCliente extends Controller
 {
-    public function index(Request $request){
-
-        if($request){
-            $query = trim($request->get('searchText'));
-            $clientes = cliente::where('cliente.nombres','LIKE','%'.$query.'%')->paginate(5);
-        }
-
-        return view('modules.cliente.frmTable',[
-            'clientes'=>$clientes,
-            'searchText'=>$query
-        ]);
+    public function index(Request $request)
+    {
+         //if(!$request->ajax()) return redirect('/');
+         $buscar = $request->buscar;
+         $criterio = $request->criterio;
+         if($buscar==''){
+             $cliente= cliente::select('cliente.id','cliente.nombres',
+             'cliente.apellidos',
+             'cliente.login',
+             'cliente.password',
+             'cliente.empresa',
+             'cliente.telefono',
+             'cliente.direccion',
+             'cliente.email',
+             'cliente.estado')
+             ->orderBy('cliente.id','desc')->paginate(10);
+         }
+         else{
+             $cliente= cliente::select('cliente.id','cliente.nombres')
+             ->where('cliente.'.$criterio, 'like', '%'.$buscar.'%')
+             ->orderBy('cliente.id','desc')->paginate(10);            
+         }
+         
+         return [
+             'pagination' => [
+                 'total'        => $cliente->total(),
+                 'current_page' => $cliente->currentPage(),
+                 'per_page'     => $cliente->perPage(),
+                 'last_page'    => $cliente->lastPage(),
+                 'from'         => $cliente->firstItem(),
+                 'to'           => $cliente->lastItem(),
+             ],
+             'cliente' => $cliente
+         ];
+     }
+     public function store(Request $request)
+     {        
+         $cliente = new cliente();
+         $cliente->nombres = $request->nombres;
+         $cliente->apellidos = $request->apellidos;
+         $cliente->login = $request->login;
+         $cliente->password = Hash::make( $request->password);
+         $cliente->empresa = $request->empresa;
+         $cliente->telefono = $request->telefono;
+         $cliente->direccion = $request->direccion;
+         $cliente->email = $request->email;
+         $cliente->estado = 1;
+         $cliente->save();
+     }
+     public function update(Request $request)
+     {
+         if(!$request->ajax()) return redirect('/');
+         $cliente= cliente::findOrFail($request->id);
+         $cliente->nombres = $request->nombres;
+         $cliente->apellidos = $request->apellidos;
+         $cliente->login = $request->login;
+         $cliente->password =Hash::make( $request->password);
+         $cliente->empresa = $request->empresa;
+         $cliente->telefono = $request->telefono;
+         $cliente->direccion = $request->direccion;
+         $cliente->email = $request->email;
+         $cliente->estado = 1;
+         $cliente->save();
+     }
+     public function delete(Request $request)
+     {
+         $cliente= cliente::findOrFail($request->id);
+         $cliente->delete();
+     }
+     /*public function selectCliente(){
+         $cliente = cliente::select('id','nombres')->orderBy('nombres', 'asc')->get();
+         return ['cliente' => $cliente];
+     }*/
     }
-    
-    public function create(){
-        return view('modules.cliente.frmCreate');
-    }
-    public function store(Request $request){
-
-        $cliente = new cliente();
-        $cliente->nombres = $request->get('nombres');
-        $cliente->apellidos = $request->get('apellidos');
-        $cliente->login = $request->get('login');
-        $cliente->password = Hash::make($request->get('password'));
-        $cliente->empresa = $request->get('empresa');
-        $cliente->telefono = $request->get('telefono');
-        $cliente->direccion = $request->get('direccion');
-        $cliente->email = $request->get('email');
-        $cliente->estado =1;
-        $cliente->save();
-
-        return redirect('/clientes')->with('success','el registro se ha guardado correctamente');
-
-    }
-
-    public function edit($id){
-        $cliente = cliente::where('cliente.id','=',$id)->get();
-        return view('modules.cliente.frmUpdate',[
-            'cliente'=>$cliente
-        ]);
-    }
-
-    public function update(Request $request,$id){
-
-        $cliente = cliente::findOrFail($id);
-        $cliente->nombres = $request->get('nombres');
-        $cliente->apellidos = $request->get('apellidos');
-        $cliente->login = $request->get('login');
-        $cliente->password = Hash::make($request->get('password'));
-        $cliente->empresa = $request->get('empresa');
-        $cliente->telefono = $request->get('telefono');
-        $cliente->direccion = $request->get('direccion');
-        $cliente->email = $request->get('email');
-        $cliente->estado =1;
-        $cliente->update();
-
-        return redirect('/clientes')->with('info','el registro se ha guardado correctamente');
-    }
-    public function destroy($id){
-        $cliente = cliente::findOrFail($id);
-        $cliente->delete();
-
-        return redirect('/clientes')->with('danger','el registro se ha guardado correctamente');
-    }
-}
