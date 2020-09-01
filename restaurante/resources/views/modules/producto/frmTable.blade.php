@@ -19,6 +19,7 @@
                 <tr>
                     <th>Producto</th>
                     <th>Precio</th>
+                    <th>Foto</th>
                     <th>Categoria</th>
                     <th>Opciones</th>
                 </tr>
@@ -32,6 +33,9 @@
                     </td>
                     <td>
                       {{ $producto->precio }}                        
+                    </td>
+                    <td>
+                      <img class="img-fluid"  src="{{ asset($producto->foto) }}" width="100px" alt="">
                     </td>
                     <td>
                       {{ $producto->categoria }}                        

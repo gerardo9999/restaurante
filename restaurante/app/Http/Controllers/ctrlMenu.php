@@ -13,10 +13,7 @@ class ctrlMenu extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        
-        
-        
-        return view('modules.menu.frmTable');
+        return view('modules.lista.frmIndex');
     }
 
     public function validacion($request){
@@ -30,7 +27,7 @@ class ctrlMenu extends Controller
     public function create()
     {
         $productos = producto::all();
-        return view('modules.menu.frmCreate',[
+        return view('modules.menu.frmIndex',[
             'productos' => $productos
         ]);
     }

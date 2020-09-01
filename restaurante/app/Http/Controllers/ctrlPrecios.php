@@ -19,7 +19,7 @@ class ctrlPrecios extends Controller
         if($request){
             $query=trim($request->get('searchText'));
             
-            $precio=precio::join('producto','producto.id', '=', 'precio.idProducto')
+            $precio=precios::join('producto','producto.id', '=', 'precio.idProducto')
             ->select('precio.precio', 
             'precio.fecha',  
             'precio.id', 
@@ -51,7 +51,7 @@ class ctrlPrecios extends Controller
      */
     public function store(Request $request)
     {
-        $precio = new precio();
+        $precio = new precios();
         $precio->precio = $request->get('precio');
         $precio->fecha = $request->get('fecha');
         $precio->idProducto = $request->get('idProducto');
@@ -79,7 +79,7 @@ class ctrlPrecios extends Controller
      */
     public function edit($id)
     {
-        $precio=precio::join('producto','producto.id', '=', 'precio.idProducto')
+        $precio=precios::join('producto','producto.id', '=', 'precio.idProducto')
         ->select('precio.precio',  
         'precio.fecha')->where('precio.id','=',$id)
         ->get();
@@ -96,7 +96,7 @@ class ctrlPrecios extends Controller
      */
     public function update(Request $request, $id)
     {
-        $precio = precio::findOrFail($id);
+        $precio = precios::findOrFail($id);
         $precio->precio = $request->get('precio');
         $precio->fecha = $request->get('fecha');
         $precio->idProducto = $request->get('idProducto');
@@ -114,8 +114,8 @@ class ctrlPrecios extends Controller
      */
     public function destroy($id)
     {
-        $precios = vehiculo::findOrFail($id);
-        $vehiculo->delete();
+        $precios = precios::findOrFail($id);
+        $precio->delete();
 
         return redirect('/precios')->with('danger','el registro se ha guardado correctamente');
     }

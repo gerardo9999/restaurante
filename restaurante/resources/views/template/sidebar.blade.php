@@ -16,6 +16,10 @@
                 <a class="nav-link" href="{{ route('repartidor.index') }}" target="_top"><i class="icon-book-open"></i>Prepartidor<span class="badge badge-danger"></span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('reserva.index') }}" target="_top"><i class="icon-book-open"></i>Reserva<span class="badge badge-danger"></span></a>
+            </li>
+
 
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Menú</a>
@@ -31,6 +35,9 @@
                     </li>
                 </ul>
             </li>
+
+          
+            <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
