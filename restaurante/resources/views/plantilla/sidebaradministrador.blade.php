@@ -14,18 +14,18 @@
                                 <a class="nav-link" href="#"><i class="icon-bag"></i> Categorías</a>
                             </li>
                             <li @click="menu=2" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> Artículos</a>
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> Productos</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Mesas</a>
                         <ul class="nav-dropdown-items">
                             <li @click="menu=3" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-wallet"></i> Ingresos</a>
+                                <a class="nav-link" href="#"><i class="icon-wallet"></i> Mesas</a>
                             </li>
                             <li @click="menu=4" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Proveedores</a>
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> </a>
                             </li>
                         </ul>
                     </li>

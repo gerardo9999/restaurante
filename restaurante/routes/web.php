@@ -22,6 +22,21 @@ Route::get('categoria','ctrlCategoria@index');
 Route::post('categoria/guardar','ctrlCategoria@store');
 Route::put('categoria/actualizar','ctrlCategoria@update');
 Route::put('categoria/eliminar','ctrlCategoria@delete');
+Route::get('/categoria/selectCategoria', 'ctrlCategoria@selectCategoria');
+
+
+
+Route::get('producto','ctrlProducto@mostrar');
+Route::post('producto/guardar','ctrlProducto@guardar');
+Route::post('producto/modificar','ctrlProducto@modificar');
+Route::post('producto/eliminar','ctrlProducto@eliminar');
+
+
+Route::get('mesa','ctrlMesa@mostrar');
+Route::post('mesa/guardar','ctrlMesa@guardar');
+Route::post('mesa/modificar','ctrlMesa@modificar');
+Route::post('mesa/eliminar','ctrlMesa@eliminar');
+
 
 
 //Route::get('/','ctrlRestaurante@welcome')->name('welcome.inicio');

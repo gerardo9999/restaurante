@@ -12,107 +12,94 @@ use Illuminate\Support\Facades\Storage;
 
 class ctrlProducto extends Controller
 {
-    public function index(Request $request){
+    public function mostrar(Request $request){
         
-        if($request){
-            $query = trim($request->get('searchText'));
-            $productos = producto::join('categoria','categoria.id','=','producto.idCategoria')
-            ->select('producto.id','descripcion','foto','producto.nombre','precio','idCategoria','categoria.nombre as categoria')
-            ->where('producto.nombre','LIKE','%'.$query.'%')
-            ->orWhere('categoria.nombre','LIKE','%'.$query.'%')
-            ->paginate(5);
-        }
-        return view('modules.producto.frmTable',[
-            'productos'=>$productos,
-            'searchText'=>$query,
+        // if (!$request->ajax()) return redirect('/');
 
-            ]);
-    }
-    public function validacion($request){
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+       
+
+
         
-        $reglas = [
-            'nombre'        => 'required',
-            'precio'        => 'required','numeric','between:0,99.99',
-            'foto'          => 'image|mimes:jpeg,png',
-            'descripcion'   => 'required'
+        if ($buscar==''){
+            $producto = producto::join('categoria','producto.idCategoria','=','categoria.id')
+            ->select('producto.id',
+                     'producto.idCategoria',
+                     'producto.nombre',
+                     'producto.precio',
+                     'producto.foto',
+                     'categoria.nombre as categoria',
+                     'producto.descripcion'
+                     )
+            ->orderBy('producto.id', 'desc')->paginate(10);
+        }
+        else{
+            
+            $producto = producto::join('categoria','producto.idCategoria','=','categoria.id')
+            ->select('producto.id',
+                        'producto.idCategoria',
+                        'producto.nombre',
+                        'producto.precio',
+                        'producto.foto',
+                        'categoria.nombre as categoria',
+                        'producto.precio',
+                        'producto.descripcion'
+                        )
+            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->orderBy('producto.id', 'desc')->paginate(10);
+        }
+        
+
+        return [
+            'pagination' => [
+                'total'        => $producto->total(),
+                'current_page' => $producto->currentPage(),
+                'per_page'     => $producto->perPage(),
+                'last_page'    => $producto->lastPage(),
+                'from'         => $producto->firstItem(),
+                'to'           => $producto->lastItem(),
+            ],
+            'producto' => $producto
         ];
-        $this->validate($request,$reglas);
-
     }
-    public function create(){
-        $categorias = categoria::all();
+    
+    public function guardar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+        $producto = new producto();
+        $producto->idCategoria = $request->idCategoria;
+        $producto->nombre = $request->nombre;
+        $producto->precio = $request->precio;
 
-        return view('modules.producto.frmCreate',[
-            'categorias'=> $categorias
-        ]);
-    }
-    public function store(Request $request){
-
-        $this->validacion($request);
-
-        try{
-            DB::beginTransaction();
-            $producto = new producto();
-            $producto->nombre            = $request->nombre;
-            $producto->precio            =  $request->precio;
-            $producto->descripcion       = $request->descripcion;
-
-            if($request->file('foto')){
-                $path = Storage::disk('public')->put('imagenes',$request->file('foto'));
-                $producto->foto = $path; 
-            }else{
-                $producto->foto = 'imagenes/default.jpg';
-            }
-            
-            $producto->idCategoria = $request->idCategoria;
-            $producto->save();
-
-
-            DB::commit();
-            
-        }catch(\Exception $e){
-            DB::rollback();
+        if($request->file('foto')){
+            $path = Storage::disk('public')->put('imagenes',$request->file('foto'));
+            $producto->foto = $path; 
+        }else{
+            $producto->foto = 'imagenes/plato1.png';
         }
-        return Redirect::to('/productos')->with('success','El registro se ha realizado correctamente');
+        $producto->descripcion = $request->descripcion;
+        $producto->save();
     }
-    public function edit($id){
-        
-        $producto = producto::join('categoria','categoria.id','=','producto.idCategoria')
-            ->select('producto.id','descripcion','foto','producto.nombre','precio','idCategoria','categoria.nombre as categoria')
-            ->where('producto.id','=',$id)->get();
-        $categorias = categoria::all();
 
-        return view('modules.producto.frmUpdate',[
-            'producto'=>$producto,
-            'categorias'=>$categorias
-            ]);
-    }
-    public function update(Request $request,$id){
- 
+    public function modificar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+        $producto = producto::findOrFail($request->id);
+        $producto->idCategoria = $request->idCategoria;
+        $producto->nombre = $request->nombre;
+        $producto->precio = $request->precio;
 
-        $this->validacion($request);
-        try{
-            DB::beginTransaction();
-            $producto = producto::findOrFail($id);
-            $producto->nombre       = $request->nombre;
-            $producto->precio       = $request->precio;
-            $producto->descripcion  = $request->descripcion;
-            if($request->file('foto')){
-                $path = Storage::disk('public')->put('imagenes',$request->file('foto'));
-                $producto->foto = $path; 
-            }
-            $producto->idCategoria = $request->idCategoria;
-            $producto->update();
-            DB::commit();
-            
-        }catch(\Exception $e){
-            DB::rollback();
+        if($request->file('foto')){
+            $path = Storage::disk('public')->put('imagenes',$request->file('foto'));
+            $producto->foto = $path; 
         }
-        return Redirect::to('/productos')->with('success','El registro se ha realizado correctamente');
+        $producto->descripcion = $request->descripcion;
+        $producto->save();
     }
-    public function destroy($id){
-        $hospital = producto::findOrFail($id);
-        $hospital->delete();
-        return Redirect::to('/productos')->with('danger','El registro se ha elimindado correctamente');
+
+    public function eliminar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+        $producto = producto::findOrFail($request->id);
+        $producto->delete();
+        return ['producto' => $producto];
     }
 }

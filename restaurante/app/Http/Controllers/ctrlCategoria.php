@@ -54,10 +54,10 @@ class ctrlCategoria extends Controller
         $categoria= categoria::findOrFail($request->id);
         $categoria->delete();
     }
-    /*public function selectCategoria(){
+    public function selectCategoria(){
         $categoria = categoria::select('id','nombre')->orderBy('nombre', 'asc')->get();
         return ['categoria' => $categoria];
-    }*/
+    }
 
     /*
     public function index(Request $request){
