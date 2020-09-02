@@ -60,7 +60,7 @@ class ctrlVehiculo extends Controller
      public function update(Request $request)
      {
          if(!$request->ajax()) return redirect('/');
-         $vehiculo= reserva::findOrFail($request->id);
+         $vehiculo= vehiculo::findOrFail($request->id);
          $vehiculo->tipoVehiculo = $request->tipoVehiculo;
          $vehiculo->caracteristicas = $request->caracteristicas;
          $vehiculo->placa = $request->placa;
@@ -73,7 +73,7 @@ class ctrlVehiculo extends Controller
          $vehiculo->delete();
      }
      public function selectVehiculo(){
-         $vehiculo = vehiculo::select('id','tipoVehiculo')->orderBy('tipoVehiculo', 'asc')->get();
+         $vehiculo = vehiculo::select('id','tipoVehiculo')->orderBy('asc')->get();
          return ['vehiculo' => $vehiculo];
      }
     

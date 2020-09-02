@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ctrlProducto extends Controller
 {
-    public function mostrar(Request $request){
+    public function index(Request $request){
         
         // if (!$request->ajax()) return redirect('/');
 
@@ -64,7 +64,7 @@ class ctrlProducto extends Controller
         ];
     }
     
-    public function guardar(Request $request){
+    public function store(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = new producto();
         $producto->idCategoria = $request->idCategoria;
@@ -81,7 +81,7 @@ class ctrlProducto extends Controller
         $producto->save();
     }
 
-    public function modificar(Request $request){
+    public function update(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = producto::findOrFail($request->id);
         $producto->idCategoria = $request->idCategoria;
@@ -96,7 +96,7 @@ class ctrlProducto extends Controller
         $producto->save();
     }
 
-    public function eliminar(Request $request){
+    public function delete(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = producto::findOrFail($request->id);
         $producto->delete();

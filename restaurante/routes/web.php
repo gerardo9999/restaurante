@@ -26,39 +26,40 @@ Route::put('categoria/eliminar','ctrlCategoria@delete');
 Route::get('/categoria/selectCategoria', 'ctrlCategoria@selectCategoria');
 
 
-
+/////----------------Producto-----------------///
 Route::get('producto','ctrlProducto@mostrar');
 Route::post('producto/guardar','ctrlProducto@guardar');
 Route::post('producto/modificar','ctrlProducto@modificar');
 Route::post('producto/eliminar','ctrlProducto@eliminar');
 
-
+/////----------------Mesa-----------------///
 Route::get('mesa','ctrlMesa@mostrar');
 Route::post('mesa/guardar','ctrlMesa@guardar');
 Route::post('mesa/modificar','ctrlMesa@modificar');
 Route::post('mesa/eliminar','ctrlMesa@eliminar');
 
 
-
+/////----------------Cliente-----------------///
 Route::get('cliente','ctrlCliente@index');
 Route::post('cliente/guardar','ctrlCliente@store');
 Route::put('cliente/actualizar','ctrlCliente@update');
 Route::put('cliente/eliminar','ctrlCliente@delete');
 
 
-
+/////----------------Repartidor-----------------///
 Route::get('repartidor','ctrlRepartidor@index');
 Route::post('repartidor/guardar','ctrlRepartidor@store');
 Route::put('repartidor/actualizar','ctrlRepartidor@update');
 Route::put('repartidor/eliminar','ctrlRepartidor@delete');
 
 
-
+/////----------------Tipo-----------------///
 Route::get('tipo','ctrlTipo@index');
 Route::post('tipo/guardar','ctrlTipo@store');
 Route::put('tipo/actualizar','ctrlTipo@update');
 Route::put('tipo/eliminar','ctrlTipo@delete');
 
+/////----------------Vehiculo-----------------///
 Route::get('vehiculo','ctrlVehiculo@index');
 Route::post('vehiculo/guardar','ctrlVehiculo@store');
 Route::put('vehiculo/actualizar','ctrlVehiculo@update');
