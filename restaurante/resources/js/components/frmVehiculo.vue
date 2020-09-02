@@ -46,12 +46,11 @@
                                 <td v-text="vehiculo.caracteristicas"></td>
                                 <td v-text="vehiculo.placa"></td>     
                                 <td >
-                                    <div v-if="vehiculo.tipoVehiculo">
-                                        <span class="badge badge-success">Automovil</span>
-                                    </div>
-                                    <div v-else>
-                                        <span class="badge badge-danger">Motocicleta</span>
-                                    </div>
+                                     <div class="col-md-9">
+                                        <select class="form-control" v-model="idRepartidor">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="repartidor in arrayRepartidor" :key="repartidor.id" :value="repartidor.id" v-text="repartidor.nombre"></option>
+                                        </select> 
                                 </td>
                                 <td>
                                     <button type="button" @click="abrirModal('vehiculo','actualizar',vehiculo)" class="btn btn-warning btn-sm">
@@ -217,13 +216,13 @@
                     console.log(error)
                 });
             },
-            selectTipo(){
+            selectRepartidor(){
                 let me=this;
-                var url='/tipo/selectTipo';
+                var url='/repartidor/selectRepartidor';
                 axios.get(url).then(function(response){
                    //console.log(response);
                    var respuesta =response.data;
-                   me.arrayTipo=respuesta.tipo;
+                   me.arrayRepartidor=respuesta.repartidor;
                 })
                 .catch(function(error){
                     console.log(error)
@@ -345,7 +344,7 @@
                                     case 'actualizar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Actualizar Habitacion';
+                                        this.tituloModal = 'Modificar Vehiculo';
                                         this.tipoAccion = 2;
                                         this.idVehiculo = data['id'];
                                         this.tipoVehiculo = data['tipoVehiculo'];
@@ -355,9 +354,9 @@
                                         break;
                                     }
                             }
-                        }
+                        }0
                 }
-                this.selectTipo();    //error
+                this.selectRepartidor();   
             }
         },
         mounted() {

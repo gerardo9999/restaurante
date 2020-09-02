@@ -8,8 +8,8 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Repartidor
-                    <button type="button" @click="abrirModal('repartidor','registrar')" class="btn btn-secondary">
+                    <i class="fa fa-align-justify"></i> Mesa
+                    <button type="button" @click="abrirModal('mesa','registrar')" class="btn btn-secondary">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
                 </div>
@@ -19,42 +19,45 @@
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
                                 <option value="nombre">Nombre</option>
-                                <option value="apellidos">Apellidos</option>
                                 </select>
-                                <input type="text" v-model="buscar" @keyup.enter="listarRepartidor(1, buscar, criterio)" class="form-control" placeholder="Texto a buscar">
-                                <button type="submit" @click="listarRepartidor(1, buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                <input type="text" v-model="buscar" @keyup.enter="listarMesa(1, buscar, criterio)" class="form-control" placeholder="Texto a buscar">
+                                <button type="submit" @click="listarMesa(1, buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                             </div>
                         </div>
                     </div>
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Login</th>
-                                <!-- <th>Password</th> -->
-                                <th>CedulaID</th>
-                                <th>Telefono </th>
-                                <th>Direccion</th>
+                                <th>Capacidad</th>
+                                <th>Descripcion</th>
+                                <th>Estado</th>
+                                <th>Ubicacion</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="repartidor in arrayRepartidor" :key="repartidor.id">
-                                <td v-text="repartidor.nombre"></td>
-                                <td v-text="repartidor.apellidos"></td>
-                                <td v-text="repartidor.login"></td>
-                                <!-- <td v-text="repartidor.password"></td> -->
-                                <td v-text="repartidor.cedulaID"></td>
-                                <td v-text="repartidor.telefono"></td>
-                                <td v-text="repartidor.direccion"></td>
+                            <tr v-for="mesa in arrayMesa" :key="mesa.id">
+                                <td v-text="mesa.capacidad"></td>
+                                <td v-text="mesa.descripcion"></td>
                                 <td>
-                                    <button type="button" @click="abrirModal('repartidor','actualizar',repartidor)" class="btn btn-warning btn-sm">
-                                    <i class="icon-pencil"></i>
+                                    <div v-if="mesa.ocupado">
+                                        <span class="badge badge-success">Libre</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="badge badge-danger">Ocupado</span>
+                                    </div>
+                                </td>
+                                
+                                <td v-text="mesa.ubicacion"></td>
+                                <td>
+                                    <button type="button" @click="abrirModal('mesa','actualizar',mesa)" class="btn btn-warning btn-sm">
+                                        <i class="icon-pencil"></i>
                                     </button> &nbsp;
-                                    <button type="button" class="btn btn-danger btn-sm" @click="eliminarRepartidor(repartidor.id)">
+
+                                    <button type="button" class="btn btn-danger btn-sm" @click="eliminarMesa(mesa.id)">
                                         <i class="icon-trash"></i>
                                     </button>
+
                                 </td>
                             </tr>
                         </tbody>
@@ -88,51 +91,39 @@
                     </div>
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+
+                                <label class="col-md-3 form-control-label" for="text-input">Capacidad  </label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="nombre" class="form-control" placeholder="Nombre">
+                                    <input type="text" v-model="capacidad" class="form-control" placeholder="Capacidad">
                                 </div>
+
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Apellidos</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="apellidos" class="form-control" placeholder="Apellidos">
-                                </div>
-                            </div>
+
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Login</label>
+
+
+                                <label class="col-md-3 form-control-label" for="text-input">Ubicacion</label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="login" class="form-control" placeholder="Login">
+                                    <input type="text" v-model="ubicacion" class="form-control" placeholder="Ubicacion">
                                 </div>
+
                             </div>
-                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Password</label>
-                                <div class="col-md-9">
-                                    <input type="password" v-model="password" class="form-control" placeholder="Password">
-                                </div>
-                            </div>
-                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">CedulaID</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="cedulaID" class="form-control" placeholder="CedulaID">
-                                </div>
-                            </div>
+
+
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
+
+                                <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
                                 <div class="col-md-9">
-                                    <input type="text" v-model="telefono" class="form-control" placeholder="Telefono">
+                                    <textarea v-model="descripcion" id="" cols="90" rows="5"></textarea>
+                                    <!-- <input type="text"  class="form-control" placeholder="Capacidad"> -->
                                 </div>
+
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="direccion" class="form-control" placeholder="Direccion">
-                                </div>
-                            </div>
-                            <div v-show="errorRepartidor" class="form-group row div-error">
+                            <div v-show="errorMesa" class="form-group row div-error">
                                 <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjRepartidor" :key="error" v-text="error">
+                                    <div v-for="error in errorMostrarMsjMesa" :key="error" v-text="error">
 
                                     </div>
                                 </div>
@@ -141,8 +132,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarRepartidor()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarRepartidor()">Modificar</button>
+                        <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarMesa()">Guardar</button>
+                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarMesa()">Modificar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -157,20 +148,17 @@
     export default {
         data() {
             return {
-                idRepartidor: 0,
-                nombre: '',
-                apellidos: '',
-                login: '',
-                password: '',
-                cedulaID: '',
-                telefono: '',
-                direccion: '',
-                arrayRepartidor: [],
+                idMesa: 0,
+                capacidad: 0,
+                descripcion: '',
+                ubicacion: '',
+                ocupado: true,
+                arrayMesa: [],
                 modal: 0,
                 tituloModal: '',
                 tipoAccion: 0,
-                errorRepartidor: 0,
-                errorMostrarMsjRepartidor: [],
+                errorMesa: 0,
+                errorMostrarMsjMesa: [],
                 pagination: {
                     'total': 0,
                     'current_page': 0,
@@ -212,67 +200,72 @@
             }
         },
         methods: {
-            listarRepartidor(page, buscar, criterio) {
+            listarMesa(page, buscar, criterio) {
                 let me = this;
-                var url = '/repartidor?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/mesa?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                
+                
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
-                        me.arrayRepartidor = respuesta.repartidor.data;
+                        me.arrayMesa = respuesta.mesa.data;
                         me.pagination = respuesta.pagination;
                     })
                     .catch(function(error) {
                         console.log(error)
                     });
             },
+
             cambiarPagina(page, buscar, criterio) {
                 let me = this;
                 me.pagination.current_page = page;
-                me.listarRepartidor(page, buscar, criterio);
+                me.listarMesa(page, buscar, criterio);
             },
-            registrarRepartidor() {
-                if (this.validarRepartidor()) {
+
+
+            registrarMesa() {
+                if (this.validarMesa()) {
                     return;
                 }
-                let me = this;
-                axios.post('/repartidor/guardar', {
-                    'nombre': this.nombre,
-                    'apellidos': this.apellidos,
-                    'login': this.login,
-                    'password': this.password,
-                    'cedulaID': this.cedulaID,
-                    'telefono': this.telefono,
-                    'direccion': this.direccion,
-                }).then(function(response) {
+                let me  = this;
+                let url = '/mesa/guardar';
+
+                let data = new FormData();
+                data.append('capacidad', this.capacidad);
+                data.append('descripcion', this.descripcion);
+                data.append('ubicacion', this.ubicacion);
+                data.append('ocupado', this.ocupado);
+
+                axios.post(url,data).then(function(response) {
                     me.cerrarModal();
-                    me.listarRepartidor(1, '', 'nombre');
+                    me.listarMesa(1, '', 'nombre');
                 }).catch(function(error) {
                     console.log(error);
                 });
             },
-            actualizarRepartidor() {
-                if (this.validarRepartidor()) {
+            actualizarMesa() {
+                if (this.validarMesa()) {
                     return;
                 }
                 let me = this;
-                axios.put('/repartidor/actualizar', {
-                    'nombre': this.nombre,
-                    'apellidos': this.apellidos,
-                    'login': this.login,
-                    'password': this.password,
-                    'cedulaID': this.cedulaID,
-                    'telefono': this.telefono,
-                    'direccion': this.direccion,
-                    'id': this.idRepartidor
-                }).then(function(response) {
+                let url = '/mesa/modificar';
+                
+                let data = new FormData();
+                data.append('capacidad',   this.capacidad);
+                data.append('descripcion', this.descripcion);
+                data.append('ubicacion',   this.ubicacion);
+                data.append('ocupado',     this.ocupado);
+                data.append('id',          this.idMesa);
+
+                axios.post(url,data).then(function(response) {
                     me.cerrarModal();
-                    me.listarRepartidor(1, '', 'nombre');
+                    me.listarMesa(1, '', 'nombre');
                 }).catch(function(error) {
                     console.log(error);
                 });
             },
-            eliminarRepartidor(id) {
+            eliminarMesa(id) {
                 swal({
-                    title: 'Esta seguro de eliminar este repartidor?',
+                    title: 'Esta seguro de eliminar esta mesa?',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -287,10 +280,10 @@
                     if (result.value) {
                         let me = this;
 
-                        axios.put('/repartidor/eliminar', {
+                        axios.post('/mesa/eliminar', {
                             'id': id
                         }).then(function(response) {
-                            me.listarRepartidor(1, '', 'nombre');
+                            me.listarMesa(1, '', 'nombre');
                             swal(
                                 'Eliminado!',
                                 'El registro ha sido eliminado con éxito.',
@@ -309,57 +302,46 @@
                     }
                 })
             },
-            validarRepartidor() {
-                this.errorRepartidor = 0;
-                this.errorMostrarMsjRepartidor = [];
+            validarMesa() {
+                this.errorMesa = 0;
+                this.errorMostrarMsjMesa = [];
 
-                if (!this.nombre) this.errorMostrarMsjRepartidor.push("Debe completar el campo Nombre");
-                if (!this.apellidos) this.errorMostrarMsjRepartidor.push("Debe completar el campo Apellidos ");    
-                if (!this.login) this.errorMostrarMsjRepartidor.push("Debe completar el campo Login ");
-                if (!this.password) this.errorMostrarMsjRepartidor.push("Debe completar el campo Password ");
-                if (!this.cedulaID) this.errorMostrarMsjRepartidor.push("Debe completar el campo CedulaID ");
-                if (!this.telefono) this.errorMostrarMsjRepartidor.push("Debe completar el campo Telefono ");
-                if (!this.direccion) this.errorMostrarMsjRepartidor.push("Debe completar el campo Direccion ");
-                if (this.errorMostrarMsjRepartidor.length) this.errorRepartidor = 1;
-                return this.errorRepartidor;
+                if (!this.capacidad) this.errorMostrarMsjMesa.push("Debe completar el campo Nombre ");
+                if (this.errorMostrarMsjMesa.length) this.errorMesa = 1;
+                return this.errorMesa;
             },
             cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
-                this.nombre = '';
+                this.capacidad = 0;
+                this.descripcion = '';
+                this.ubicacion = '';
             },
             abrirModal(modelo, accion, data = []) {
                 switch (modelo) {
-                    case "repartidor":
+                    case "mesa":
                         {
                             switch (accion) {
                                 case 'registrar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Registrar Repartidor'
-                                        this.nombre = '';
-                                        this.apellidos = '';
-                                        this.login = '';
-                                        this.password = '';
-                                        this.cedulaID = '';
-                                        this.telefono = '';
-                                        this.direccion = '';
+                                        this.tituloModal = 'Guardar Mesa'
+                                        this.capacidad = 0;
+                                        this.ubicacion = '';
+                                        this.descripcion = '';
                                         this.tipoAccion = 1;
                                         break;
                                     }
                                 case 'actualizar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Actualizar Repartidor';
+                                        this.tituloModal = 'Modificar Mesa';
                                         this.tipoAccion = 2;
-                                        this.idRepartidor = data['id'];
-                                        this.nombre = data['nombre'];
-                                        this.apellidos = data['apellidos'];
-                                        this.login = data['login'];
-                                        this.password = data['password'];
-                                        this.cedulaID = data['cedulaID'];
-                                        this.telefono = data['telefono'];
-                                        this.direccion = data['direccion'];
+                                        this.idMesa =       data['id'];
+                                        this.ocupacion =    data['ocupacion'];
+                                        this.capacidad =    data['capacidad'];
+                                        this.descripcion =  data['descripcion'];
+                                        this.ubicacion =    data['ubicacion'];
                                         break;
                                     }
                             }
@@ -368,7 +350,7 @@
             }
         },
         mounted() {
-            this.listarRepartidor(1, this.buscar, this.criterio);
+            this.listarMesa(1, this.buscar, this.criterio);
         }
     }
 </script>

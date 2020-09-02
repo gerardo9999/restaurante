@@ -32,7 +32,7 @@
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Login</th>
-                                <th>Password</th>
+                                <!-- <th>Password</th> -->
                                 <th>Empresa</th>
                                 <th>Telefono </th>
                                 <th>Direccion</th>
@@ -46,7 +46,7 @@
                                 <td v-text="cliente.nombres"></td>
                                 <td v-text="cliente.apellidos"></td>
                                 <td v-text="cliente.login"></td>
-                                <td v-text="cliente.password"></td>
+                                <!-- <td v-text="cliente.password"></td> -->
                                 <td v-text="cliente.empresa"></td>
                                 <td v-text="cliente.telefono"></td>
                                 <td v-text="cliente.direccion"></td>
