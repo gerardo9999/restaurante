@@ -21,9 +21,11 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('frm-categoria', require('./components/frmCategoria.vue').default);
+Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
+Vue.component('frm-repartidor', require('./components/frmRepartidor.vue').default);
+Vue.component('frm-tipo', require('./components/frmTipo.vue').default);
 Vue.component('frm-producto', require('./components/frmProducto.vue').default);
 Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

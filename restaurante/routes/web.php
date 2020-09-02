@@ -39,6 +39,25 @@ Route::post('mesa/eliminar','ctrlMesa@eliminar');
 
 
 
+Route::get('cliente','ctrlCliente@index');
+Route::post('cliente/guardar','ctrlCliente@store');
+Route::put('cliente/actualizar','ctrlCliente@update');
+Route::put('cliente/eliminar','ctrlCliente@delete');
+
+
+
+Route::get('repartidor','ctrlRepartidor@index');
+Route::post('repartidor/guardar','ctrlRepartidor@store');
+Route::put('repartidor/actualizar','ctrlRepartidor@update');
+Route::put('repartidor/eliminar','ctrlRepartidor@delete');
+
+
+
+Route::get('tipo','ctrlTipo@index');
+Route::post('tipo/guardar','ctrlTipo@store');
+Route::put('tipo/actualizar','ctrlTipo@update');
+Route::put('tipo/eliminar','ctrlTipo@delete');
+
 //Route::get('/','ctrlRestaurante@welcome')->name('welcome.inicio');
 /*
 Route::get('restaurante','ctrlRestaurante@index')->name('restaurante.index');
@@ -68,21 +87,11 @@ Route::post('productos/destroy/{id}','ctrlProducto@destroy')->name('producto.des
 
 
 
-Route::get('clientes','ctrlCliente@index')->name('cliente.index');
-Route::get('clientes/create','ctrlCliente@create')->name('cliente.create');
-Route::post('clientes/store','ctrlCliente@store')->name('cliente.store');
-Route::get('clientes/edit/{id}','ctrlCliente@edit')->name('cliente.edit');
-Route::post('clientes/update/{id}','ctrlCliente@update')->name('cliente.update');
-Route::post('clientes/destroy/{id}','ctrlCliente@destroy')->name('cliente.destroy');
 
 
 
-Route::get('repartidores','ctrlRepartidor@index')->name('repartidor.index');
-Route::get('repartidores/create','ctrlRepartidor@create')->name('repartidor.create');
-Route::post('repartidores/store','ctrlRepartidor@store')->name('repartidor.store');
-Route::get('repartidores/edit/{id}','ctrlRepartidor@edit')->name('repartidor.edit');
-Route::post('repartidores/update/{id}','ctrlRepartidor@update')->name('repartidor.update');
-Route::post('repartidores/destroy/{id}','ctrlRepartidor@destroy')->name('repartidor.destroy');
+
+
 
 
 Route::get('menu','ctrlMenu@index')->name('menu.index');
