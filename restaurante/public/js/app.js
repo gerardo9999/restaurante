@@ -57698,10 +57698,10 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 Vue.component('frm-categoria', __webpack_require__(/*! ./components/frmCategoria.vue */ "./resources/js/components/frmCategoria.vue")["default"]);
 Vue.component('frm-cliente', __webpack_require__(/*! ./components/frmCliente.vue */ "./resources/js/components/frmCliente.vue")["default"]);
 Vue.component('frm-repartidor', __webpack_require__(/*! ./components/frmRepartidor.vue */ "./resources/js/components/frmRepartidor.vue")["default"]);
-Vue.component('frm-vehiculo', __webpack_require__(/*! ./components/frmVehiculo.vue */ "./resources/js/components/frmVehiculo.vue")["default"]);
 Vue.component('frm-tipo', __webpack_require__(/*! ./components/frmTipo.vue */ "./resources/js/components/frmTipo.vue")["default"]);
 Vue.component('frm-producto', __webpack_require__(/*! ./components/frmProducto.vue */ "./resources/js/components/frmProducto.vue")["default"]);
 Vue.component('frm-mesa', __webpack_require__(/*! ./components/frmMesa.vue */ "./resources/js/components/frmMesa.vue")["default"]);
+Vue.component('frm-vehiculo', __webpack_require__(/*! ./components/frmVehiculo.vue */ "./resources/js/components/frmVehiculo.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
