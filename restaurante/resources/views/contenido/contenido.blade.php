@@ -36,11 +36,11 @@
     </template>
 
     <template v-if="menu==8">
-        <frm-tipo></frm-tipo>
+    <h1>Contenido Menu 8</h1>
     </template>
 
     <template v-if="menu==9">
-        <h1>Contenido Menu 9</h1>
+        <frm-tipo></frm-tipo>
     </template>
 
     <template v-if="menu==10">
