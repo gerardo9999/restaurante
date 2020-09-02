@@ -44,6 +44,13 @@ Route::post('tipo/guardar','ctrlTipo@store');
 Route::put('tipo/actualizar','ctrlTipo@update');
 Route::put('tipo/eliminar','ctrlTipo@delete');
 
+Route::get('vehiculo','ctrlVehiculo@index');
+Route::post('vehiculo/guardar','ctrlVehiculo@store');
+Route::put('vehiculo/actualizar','ctrlVehiculo@update');
+Route::put('vehiculo/eliminar','ctrlVehiculo@delete');
+
+
+
 //Route::get('/','ctrlRestaurante@welcome')->name('welcome.inicio');
 /*
 Route::get('restaurante','ctrlRestaurante@index')->name('restaurante.index');

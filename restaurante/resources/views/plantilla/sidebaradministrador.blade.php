@@ -7,6 +7,7 @@
                     <li class="nav-title">
                         Mantenimiento
                     </li>
+
                     <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Almacén</a>
                         <ul class="nav-dropdown-items">
@@ -14,7 +15,7 @@
                                 <a class="nav-link" href="#"><i class="icon-bag"></i> Categorías</a>
                             </li>
                             <li @click="menu=2" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> Artículos</a>
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> Platos</a>
                             </li>
                         </ul>
                     </li>
@@ -22,7 +23,7 @@
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
                         <ul class="nav-dropdown-items">
                             <li @click="menu=3" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-wallet"></i> Ingresos</a>
+                                <a class="nav-link" href="#"><i class="icon-wallet"></i> Vehiculo</a>
                             </li>
                             <li @click="menu=4" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i> Repartidores</a>
@@ -33,13 +34,14 @@
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                         <ul class="nav-dropdown-items">
                             <li @click="menu=5" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Ventas</a>
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Reserva</a>
                             </li>
                             <li @click="menu=6" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i> Clientes</a>
                             </li>
                         </ul>
                     </li>
+
                     <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Acceso</a>
                         <ul class="nav-dropdown-items">
