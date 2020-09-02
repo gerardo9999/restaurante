@@ -5,7 +5,7 @@
                         <a class="nav-link active" href="#"><i class="icon-speedometer"></i> Escritorio</a>
                     </li>
                     <li class="nav-title">
-                        Mantenimiento
+                        Menú
                     </li>
 
                     <li class="nav-item nav-dropdown">
