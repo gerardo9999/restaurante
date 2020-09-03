@@ -12,7 +12,7 @@ class ctrlMenu extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function mostrar(){
         return view('modules.lista.frmIndex');
     }
 
@@ -24,7 +24,7 @@ class ctrlMenu extends Controller
     }
 
 
-    public function create()
+    public function crear()
     {
         $productos = producto::all();
         return view('modules.menu.frmIndex',[
@@ -38,7 +38,7 @@ class ctrlMenu extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function guardar(Request $request)
     {
         $this->validacion($request);
         $menu = new menu();
@@ -54,7 +54,7 @@ class ctrlMenu extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function modificar(Request $request, $id)
     {
            
         $this->validacion($request);
@@ -71,7 +71,7 @@ class ctrlMenu extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function eliminar($id)
     {
         $menu =  menu::findOrFail($id);
         $menu->delete();

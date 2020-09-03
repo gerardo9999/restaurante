@@ -40,7 +40,7 @@
                                 <td v-text="mesa.capacidad"></td>
                                 <td v-text="mesa.descripcion"></td>
                                 <td>
-                                    <div v-if="mesa.ocupado">
+                                    <div v-if="mesa.estado">
                                         <span class="badge badge-success">Libre</span>
                                     </div>
                                     <div v-else>
@@ -48,17 +48,22 @@
                                     </div>
                                 </td>
                                 
-                                <td v-text="mesa.ubicacion"></td>
-                                <td>
+                                  <td>
                                     <button type="button" @click="abrirModal('mesa','actualizar',mesa)" class="btn btn-warning btn-sm">
-                                        <i class="icon-pencil"></i>
+                                    <i class="icon-pencil"></i>
                                     </button> &nbsp;
-
-                                    <button type="button" class="btn btn-danger btn-sm" @click="eliminarMesa(mesa.id)">
+                                    <button type="mesa" class="btn btn-danger btn-sm" @click="eliminarMesa(mesa.id)">
                                         <i class="icon-trash"></i>
-                                    </button>
-
-                                </td>
+                                    </button> &nbsp;
+                                        <template v-if="mesa.estado">
+                                            <button type="button" class="btn btn-success btn-sm" @click="ocupadoMesa(mesa.id)">
+                                                <i class="fa fa-unlock"></i>
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="desocupadoMesa(mesa.id)">
+                                                <i class="fa fa-lock"></i>
+                                            </button>
                             </tr>
                         </tbody>
                     </table>
@@ -302,6 +307,85 @@
                     }
                 })
             },
+            desocupadoMesa(id){
+                swal({
+                title: 'Se va a desocupar esta mesa?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me = this;
+
+                    axios.put('/mesa/desocupado',{
+                        'id': id
+                    }).then(function (response) {
+                        me.listarMesa(1, '', 'descripcion');
+                        swal(
+                        'Desocupada!',
+                        'La mesa esta Desocupada.',
+                        'success'
+                        )
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                    
+                    
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    
+                }
+                })
+            },
+            ocupadoMesa(id){
+                swal({
+                title: 'Se va a ocupar esta Mesa?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me = this;
+
+                    axios.put('/mesa/ocupado',{
+                        'id': id
+                    }).then(function (response) {
+                        me.listarMesa(1, '', 'descripcion');
+                        swal(
+                        'Ocupada!',
+                        'La Mesa esta Ocupada.',
+                        'success'
+                        )
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                    
+                    
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    
+                }
+                })
+            },
+
             validarMesa() {
                 this.errorMesa = 0;
                 this.errorMostrarMsjMesa = [];

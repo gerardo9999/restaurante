@@ -10,7 +10,7 @@ class ctrlMesa extends Controller
 
 
 
-    public function index(Request $request){
+    public function mostrar(Request $request){
         //if(!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -36,7 +36,7 @@ class ctrlMesa extends Controller
             'mesa' => $mesa
         ];
     }
-    public function store(Request $request){        
+    public function guardar(Request $request){        
         $mesa = new mesa();
         $mesa->capacidad = $request->capacidad;
         $mesa->descripcion = $request->descripcion;
@@ -44,7 +44,7 @@ class ctrlMesa extends Controller
         $mesa->ubicacion = $request->ubicacion;
         $mesa->save();
     }
-    public function update(Request $request){
+    public function modificar(Request $request){
         // if(!$request->ajax()) return redirect('/');
         $mesa = mesa::findOrFail($request->id);
         $mesa->capacidad = $request->capacidad;
@@ -53,7 +53,7 @@ class ctrlMesa extends Controller
         $mesa->ubicacion = $request->ubicacion;
         $mesa->save();
     }
-    public function delete(Request $request){
+    public function eliminar(Request $request){
         $mesa= mesa::findOrFail($request->id);
         $mesa->delete();
     }

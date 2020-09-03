@@ -45,13 +45,7 @@
                                 <td v-text="vehiculo.tipoVehiculo"></td>
                                 <td v-text="vehiculo.caracteristicas"></td>
                                 <td v-text="vehiculo.placa"></td>     
-                                <td >
-                                     <div class="col-md-9">
-                                        <select class="form-control" v-model="idRepartidor">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="repartidor in arrayRepartidor" :key="repartidor.id" :value="repartidor.id" v-text="repartidor.nombre"></option>
-                                        </select> 
-                                </td>
+                                
                                 <td>
                                     <button type="button" @click="abrirModal('vehiculo','actualizar',vehiculo)" class="btn btn-warning btn-sm">
                                     <i class="icon-pencil"></i>
