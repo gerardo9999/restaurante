@@ -3,18 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/index', function () {
     return view('contenido/contenido');
 });
 
@@ -24,13 +18,14 @@ Route::put('categoria/actualizar','ctrlCategoria@update');
 Route::put('categoria/eliminar','ctrlCategoria@delete');
 Route::get('/categoria/selectCategoria', 'ctrlCategoria@selectCategoria');
 
-
-
 Route::get('producto','ctrlProducto@mostrar');
 Route::post('producto/guardar','ctrlProducto@guardar');
 Route::post('producto/modificar','ctrlProducto@modificar');
 Route::post('producto/eliminar','ctrlProducto@eliminar');
 
+
+Route::get('/producto/selectProducto', 'ctrlProducto@selectProducto');
+Route::get('/producto/buscarProducto', 'ctrlProducto@buscarProducto');
 
 Route::get('mesa','ctrlMesa@mostrar');
 Route::post('mesa/guardar','ctrlMesa@guardar');
@@ -125,3 +120,10 @@ Route::post('reservas/destroy/{id}','ctrlReserva@destroy')->name('reserva.destro
 
 
 */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

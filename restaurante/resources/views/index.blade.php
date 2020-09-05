@@ -13,6 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Icons -->
     <link href="css/plantilla.css" rel="stylesheet">
+    @livewireStyles
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -73,6 +74,7 @@
        
         @include('plantilla.sidebaradministrador')
         <!-- Contenido Principal -->
+
         @yield('contenido')
         <!-- /Fin del contenido principal -->
     </div>
@@ -87,6 +89,6 @@
 
     <script src="js/app.js"></script>
     <script src="js/plantilla.js"></script>
+    @livewireScripts
 </body>
-
 </html>

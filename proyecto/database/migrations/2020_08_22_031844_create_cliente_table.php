@@ -23,10 +23,7 @@ class CreateClienteTable extends Migration
             $table->string('estado')->default(1);
 
         });
-        DB::table('cliente')->insert(array('nombres'=>'Elena','apellidos'=>'Sanchez Suarez','login'=>'elena8783','password'=>'123456789','empresa'=>'FINOR','telefono'=>'781648881','direccion'=>'C/Bolivar','email'=>'elena99@gmail.com','estado'=>1));
-        DB::table('cliente')->insert(array('nombres'=>'Carolina','apellidos'=>'Alba Mendez','login'=>'carolina77','password'=>'123456789','empresa'=>'FINOR','telefono'=>'78166612','direccion'=>'C/Independencia','email'=>'carolina77@gmail.com','estado'=>1));
-        DB::table('cliente')->insert(array('nombres'=>'Eldy','apellidos'=>'Maldonado Cuellar','login'=>'eldymacu23','password'=>'123456789','empresa'=>'FINOR','telefono'=>'78444812','direccion'=>'C/Manchego','email'=>'eldymacu23@gmail.com','estado'=>1));
-        DB::table('cliente')->insert(array('nombres'=>'Carlos','apellidos'=>'Arce Duran','login'=>'carlos19','password'=>'123456789','empresa'=>'FINOR','telefono'=>'78164812','direccion'=>'C/Bolivar','email'=>'carlos99@gmail.com','estado'=>1));
+       // DB::table('cliente')->insert(array('id'=>1,'nombres'=>'Elena','apellidos'=>'Sanchez Suarez','login'=>'elena8783','password'=>'23456789','empresa'=>'ejemplo','telefono'=>'78164812','direccion'=>'C/Bolivar','email'=>'elena99@gmail.com','estado'=>'activado'));
     }
 
 

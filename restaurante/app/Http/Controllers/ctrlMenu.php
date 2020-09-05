@@ -1,81 +1,57 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\listaMenu;
 use App\menu;
 use App\producto;
 use Illuminate\Http\Request;
 
 class ctrlMenu extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(){
-        return view('modules.lista.frmIndex');
-    }
-
-    public function validacion($request){
-        $reglas = [
-            'fecha'=> ['required','date']
+    public function mostrar(Request $request){
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        if($buscar==''){
+            $menu= menu::select('menu.id','menu.fecha')
+            ->orderBy('menu.id','desc')->paginate(10);
+        }
+        else{
+            $menu= menu::select('menu.id','menu.fecha')
+            ->where('menu.'.$criterio,'=',$buscar)
+            ->orderBy('menu.id','desc')->paginate(10);            
+        }
+        
+        return [
+            'pagination' => [
+                'total'        => $menu->total(),
+                'current_page' => $menu->currentPage(),
+                'per_page'     => $menu->perPage(),
+                'last_page'    => $menu->lastPage(),
+                'from'         => $menu->firstItem(),
+                'to'           => $menu->lastItem(),
+            ],
+            'menu' => $menu
         ];
-        $this->validate($request,$reglas);
     }
 
-
-    public function create()
-    {
-        $productos = producto::all();
-        return view('modules.menu.frmIndex',[
-            'productos' => $productos
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->validacion($request);
+    public function guardar(Request $request){
         $menu = new menu();
-        $menu->fecha = $request->get('fecha');
+        $menu->fecha = $request->fecha;
         $menu->save();
 
-        return redirect('/menus')->with('success','el registro se ha guardado correctamente');
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-           
-        $this->validacion($request);
-        $menu =  menu::findOrFail($id);
-        $menu->fecha = $request->get('fecha');
-        $menu->update();
-
-        return redirect('/menus')->with('info','el registro se ha actualizado correctamente');  
+        
+        $listaMenu = $request->data;
+        foreach($listaMenu as $ep=>$det)
+        {
+            $listaMenu = new listaMenu();
+            $listaMenu->estado = 1;
+            $listaMenu->idProducto = $det['idProducto'];
+            $listaMenu->idMenu = $det['idMenu'];
+            $listaMenu->save();
+        }    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $menu =  menu::findOrFail($id);
-        $menu->delete();
 
-        return redirect('/menus')->with('danger','el registro se ha eliminado correctamente');  
-    }
+   
 }

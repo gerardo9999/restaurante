@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
-class ctrlProducto extends Controller
-{
+class ctrlProducto extends Controller{
+    
+    
     public function mostrar(Request $request){
         
         // if (!$request->ajax()) return redirect('/');
@@ -64,6 +65,21 @@ class ctrlProducto extends Controller
         ];
     }
     
+    public function buscarProducto(Request $request){
+        $producto = producto::where('producto.nombre','=',$request->nombre)->take(1)->get();
+        return ['producto'=>$producto];
+    }
+    public function selectProducto(Request $request){
+        
+        // if (!$request->ajax()) return redirect('/');
+
+        $filtro = $request->filtro;
+        $productos = producto::where('producto.nombre', 'like', '%'. $filtro . '%')
+        ->orderBy('producto.nombre', 'asc')->get();
+
+        return ['productos' => $productos];
+    }
+    
     public function guardar(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = new producto();
@@ -102,4 +118,5 @@ class ctrlProducto extends Controller
         $producto->delete();
         return ['producto' => $producto];
     }
+
 }

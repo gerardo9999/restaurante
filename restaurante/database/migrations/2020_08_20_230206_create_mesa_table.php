@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateMesaTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('mesa', function (Blueprint $table) {
@@ -21,8 +17,6 @@ class CreateMesaTable extends Migration
             $table->string('ubicacion',50);
         });
     }
-
-
     public function down()
     {
         Schema::dropIfExists('mesa');

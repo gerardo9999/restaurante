@@ -214,14 +214,11 @@
                         console.log(error)
                     });
             },
-
             cambiarPagina(page, buscar, criterio) {
                 let me = this;
                 me.pagination.current_page = page;
                 me.listarMesa(page, buscar, criterio);
             },
-
-
             registrarMesa() {
                 if (this.validarMesa()) {
                     return;

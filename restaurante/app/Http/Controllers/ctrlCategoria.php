@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 class ctrlCategoria extends Controller
 {
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         //if(!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -35,22 +34,19 @@ class ctrlCategoria extends Controller
             'categoria' => $categoria
         ];
     }
-    public function store(Request $request)
-    {        
+    public function store(Request $request){        
         $categoria = new categoria();
         $categoria->nombre = $request->nombre;
         $categoria->save();
     }
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         if(!$request->ajax()) return redirect('/');
         $categoria= categoria::findOrFail($request->id);
 	    $categoria->nombre = $request->nombre;
 
         $categoria->save();
     }
-    public function delete(Request $request)
-    {
+    public function delete(Request $request){
         $categoria= categoria::findOrFail($request->id);
         $categoria->delete();
     }

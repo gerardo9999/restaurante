@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-create database briela;
-use briela;
-=======
-create database restaurante;
-use restaurante;
->>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
 
 create table cliente(
 id int primary key auto_increment,

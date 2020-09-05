@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 class Lista extends Component
 {
     public $searchText; 
-    public $productos ;
+    public $productos = "Productos" ;
     
     use WithPagination; 
 

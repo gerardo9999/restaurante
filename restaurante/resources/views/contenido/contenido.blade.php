@@ -7,15 +7,12 @@
     <template v-if="menu==1">
         <frm-categoria></frm-categoria>
     </template>
-
     <template v-if="menu==2">
         <frm-producto></frm-producto>
-
     </template>
 
     <template v-if="menu==3">
         <frm-mesa></frm-mesa>
-
     </template>
 
     <template v-if="menu==4">
@@ -23,7 +20,7 @@
     </template>
 
     <template v-if="menu==5">
-        <h5>Contenido Menu 5</h1>
+        @livewire('lista')
     </template>
     
     <template v-if="menu==6">
@@ -32,11 +29,11 @@
 
     <template v-if="menu==7">
         <frm-cliente></frm-cliente>
-
     </template>
 
     <template v-if="menu==8">
-        <frm-tipo></frm-tipo>
+        <frm-menu></frm-menu>
+
     </template>
 
     <template v-if="menu==9">
