@@ -27,7 +27,7 @@
     </template>
     
     <template v-if="menu==6">
-         <frm-cliente></frm-cliente>
+         <frm-reserva></frm-reserva>
     </template>
 
     <template v-if="menu==7">

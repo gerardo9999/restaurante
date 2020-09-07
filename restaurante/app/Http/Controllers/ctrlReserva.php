@@ -8,116 +8,90 @@ use App\cliente;
 
 class ctrlReserva extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index( Request $request)
-    {
-        if($request){
-            $query=trim($request->get('searchText'));
-            $reservas=reserva::join('cliente','cliente.id', '=', 'reserva.idCliente')
-            ->select('reserva.comensales', 
-            'reserva.telefono', 
-            'reserva.fecha', 
-            'reserva.hora',
-            'reserva.observacion',
-            'reserva.id', 
-            'cliente.nombres', 
-            'cliente.apellidos', 
-            'cliente.login', 
-            'cliente.password', 
-            'cliente.empresa', 
-            'cliente.telefono', 
-            'cliente.direccion',
-            'cliente.email',
-            'cliente.estado')->where('cliente.nombres','LIKE','%'.$query.'%')
-            ->paginate(10);
+    public function mostrar(Request $request){
+        
+        // if (!$request->ajax()) return redirect('/');
 
-        }
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
        
-        return view('modules.reserva.table', ['reservas'=>$reservas,'searchText'=>$query]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $clientes=cliente::all();
-        return view('modules.reserva.frmCreate',['clientes'=>$clientes]);
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+        
+        if ($buscar==''){
+            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')
+            ->select('reserva.id',
+                     'reserva.idCliente',
+                     'reserva.comensales',
+                     'reserva.telefono',
+                     'reserva.fecha',
+                     'reserva.hora',
+                     'reserva.observacion',
+                     'cliente.nombres as cliente'
+                    
+                     )
+            ->orderBy('reserva.id', 'desc')->paginate(10);
+        }
+        else{
+            
+            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')
+            ->select('reserva.id',
+                        'reserva.idCliente',
+                        'reserva.comensales',
+                        'reserva.telefono',
+                        'reserva.fecha',
+                        'reserva.hora',
+                        'reserva.observacion',
+                        'cliente.nombres as cliente'
+                       
+                        )
+            ->where($criterio.'.comensales', 'like', '%'. $buscar . '%')
+            ->orderBy('reserva.id', 'desc')->paginate(10);
+        }
+        
+
+        return [
+            'pagination' => [
+                'total'        => $reserva->total(),
+                'current_page' => $reserva->currentPage(),
+                'per_page'     => $reserva->perPage(),
+                'last_page'    => $reserva->lastPage(),
+                'from'         => $reserva->firstItem(),
+                'to'           => $reserva->lastItem(),
+            ],
+            'reserva' => $reserva
+        ];
+    }
+    
+    public function guardar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
         $reserva = new reserva();
-        $reserva->comensales = $request->get('comensales');
-        $reserva->telefono = $request->get('telefono');
-        $reserva->fecha = $request->get('fecha');
-        $reserva->hora = $request->get('hora');
-        $reserva->observacion = $request->get('observacion');
-        $reserva->idCliente = $request->get('idCliente');
+       
+        $reserva->comensales = $request->comensales;
+        $reserva->telefono = $request->telefono;
+        $reserva->fecha = $request->fecha;
+        $reserva->hora = $request->hora;
+        $reserva->observacion = $request->observacion;
+        $reserva->idCliente = $request->idCliente;
         $reserva->save();
-
-        return redirect('/reservas')->with('success','el registro se ha guardado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
+    public function modificar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+        $reserva = reserva::findOrFail($request->id);
+        $reserva->comensales = $request->comensales;
+        $reserva->telefono = $request->telefono;
+        $reserva->fecha = $request->fecha;
+        $reserva->hora = $request->hora;
+        $reserva->observacion = $request->observacion;
+        $reserva->idCliente = $request->idCliente;
+        $reserva->save();
     }
 
-    public function edit($id){
-        $reservas=reserva::join('cliente','cliente.id', '=', 'reserva.idCliente')
-        ->select('reserva.comensales', 
-        'reserva.telefono', 
-        'reserva.fecha',
-        'reserva.hora',
-        'reserva.observacion')->where('reserva.id','=',$id)
-        ->get();
-        $clientes=cliente::all();
-        return view('modules.reserva.frmUpdate',['reserva'=>$reservas, 'cliente'=>$clientes]);
-    }
-
-
-    public function update(Request $request, $id){
-        $reserva = reserva::findOrFail($id);
-        $reserva->comensales = $request->get('comensales');
-        $reserva->telefono = $request->get('telefono');
-        $reserva->fecha = $request->get('fecha');
-        $reserva->hora = $request->get('hora');
-        $reserva->observacion = $request->get('observacion');
-        $reserva->idCliente = $request->get('idCliente');
-        
-        $reserva->update();
-        
-        return redirect('/reservas')->with('info','el registro se ha guardado correctamente');
-    }
-
-
-    public function destroy($id){
-        $reserva = reserva::findOrFail($id);
+    public function eliminar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+        $reserva = reserva::findOrFail($request->id);
         $reserva->delete();
-
-        return redirect('/reservas')->with('danger','el registro se ha guardado correctamente');
-    }
-
-    public function storeCliente(){
-        
+        return ['reserva' => $reserva];
     }
 }
