@@ -134,3 +134,6 @@ Route::post('reservas/destroy/{id}','ctrlReserva@destroy')->name('reserva.destro
 
 
 */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
