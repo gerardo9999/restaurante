@@ -60,10 +60,10 @@ Route::put('tipo/actualizar','ctrlTipo@update');
 Route::put('tipo/eliminar','ctrlTipo@delete');
 
 /////----------------Vehiculo-----------------///
-Route::get('vehiculo','ctrlVehiculo@index');
-Route::post('vehiculo/guardar','ctrlVehiculo@store');
-Route::put('vehiculo/actualizar','ctrlVehiculo@update');
-Route::put('vehiculo/eliminar','ctrlVehiculo@delete');
+Route::get('vehiculo','ctrlVehiculo@mostrar');
+Route::post('vehiculo/guardar','ctrlVehiculo@guardar');
+Route::post('vehiculo/modificar','ctrlVehiculo@modificar');
+Route::post('vehiculo/eliminar','ctrlVehiculo@eliminar');
 
 
 

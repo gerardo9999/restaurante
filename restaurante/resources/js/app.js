@@ -25,7 +25,7 @@ Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
 Vue.component('frm-repartidor', require('./components/frmRepartidor.vue').default);
 Vue.component('frm-tipo', require('./components/frmTipo.vue').default);
 Vue.component('frm-producto', require('./components/frmProducto.vue').default);
-Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
+//Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
 Vue.component('frm-vehiculo', require('./components/frmVehiculo.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
