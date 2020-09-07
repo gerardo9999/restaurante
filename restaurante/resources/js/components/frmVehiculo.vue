@@ -58,8 +58,6 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    
                     <nav>
                         <ul class="pagination">
                             <li class="page-item" v-if="pagination.current_page > 1">
@@ -74,8 +72,6 @@
                         </ul>
                     </nav>
                 </div>
-
-
             </div>
             <!-- Fin ejemplo de tabla Listado -->
         </div>
@@ -350,6 +346,7 @@
                             }
                         }0
                 }
+                
                 this.selectRepartidor();   
             }
         },
