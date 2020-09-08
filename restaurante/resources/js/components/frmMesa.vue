@@ -9,12 +9,14 @@
             <div class="card">
                 <template v-if="listado">
                     <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Mesa 
-                    <button type="button" @click="abrirModal('mesa','registrar')" class="btn btn-secondary">
-                        <i class="icon-plus"></i>&nbsp;Nuevo
-                    </button>
-                </div>
+                        <i class="fa fa-align-justify"></i> Mesa 
+                        <button type="button" @click="abrirModal('mesa','registrar')" class="btn btn-secondary">
+                            <i class="icon-plus"></i>&nbsp;Nuevo
+                        </button>
+                    </div>
                 </template>
+
+
                 <template v-else>
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Mesa  - {{ idMesa }}
@@ -28,8 +30,8 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <select class="form-control col-md-8" v-model="criterio">
-                                            <option value="capacidad">Capacidad</option>
-                                            <option value="ubicacion">Ubicacion</option>
+                                                <option value="capacidad">Capacidad</option>
+                                                <option value="ubicacion">Ubicacion</option>
                                             </select>
                                             <input type="text" v-model="buscar" @keyup.enter="listarMesa(1,buscar, criterio)" class="form-control" placeholder="Buscar">                                
                                             <button type="submit" @click="listarMesa(1,buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -53,83 +55,79 @@
                                         <div class="row" >
                                             <div v-for="mesa in arrayMesa" :key="mesa.id" class="col-md-4">
                                                 <table  class="table table-bordered table-striped table-sm">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>
-                                                            <div class="card">
-                                                                <template v-if="mesa.ocupado">
-                                                                    <div class="card-header alert-success">
-                                                                        <span class="badge badge-success">Mesa Libre</span>
-                                                                    </div>
-                                                                </template>
-                                                                <template v-else>
-                                                                    <div class="card-header alert-danger">
-                                                                        <span class="badge badge-danger">Mesa Ocupada</span>
-                                                                    </div>
-                                                                </template>
-                                                                
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col-6">
-                                                                            <img width="50px" height="50px" src="imagenes/icon_mesa_black.png" alt="">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                <div class="card">
+                                                                    <template v-if="mesa.ocupado">
+                                                                        <div class="card-header alert-success">
+                                                                            <span class="badge badge-success">Mesa Libre</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template v-else>
+                                                                        <div class="card-header alert-danger">
+                                                                            <span class="badge badge-danger">Mesa Ocupada</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <img width="50px" height="50px" src="imagenes/icon_mesa_black.png" alt="">
 
+
+                                                                            </div>
+                                                                            <div class="col-6">
+
+                                                                                <div class="row p-1">
+                                                                                        <button type="button" @click="verOrden(mesa)" class="btn btn-info btn-sm">
+                                                                                            <i class="icon-map"></i> Orden Atencion
+                                                                                        </button> &nbsp;
+                                                                                </div>                                                                        
+                                                                                                                                                    
+                                                                                
+
+                                                                            </div>
 
                                                                         </div>
-                                                                        <div class="col-6">
-
-                                                                            <div class="row p-1">
-                                                                                    <button type="button" @click="verOrden(mesa)" class="btn btn-info btn-sm">
-                                                                                        <i class="icon-map"></i> Orden Atencion
-                                                                                    </button> &nbsp;
-                                                                            </div>                                                                        
-                                                                                                                                                
-                                                                            
-
+                                                                    </div>
+                                                                    <template v-if="mesa.ocupado">
+                                                                        <div class="card-footer alert-success">
+                                                                            <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
                                                                         </div>
 
-                                                                    </div>
+                                                                    </template>
+                                                                    <template v-else>
+                                                                        <div class="card-footer alert-danger">
+                                                                            <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
+                                                                        </div>
+                                                                    </template>
+
                                                                 </div>
-                                                                <template v-if="mesa.ocupado">
-                                                                    <div class="card-footer alert-success">
-                                                                        <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
-                                                                    </div>
-
-                                                                </template>
-                                                                <template v-else>
-                                                                    <div class="card-footer alert-danger">
-                                                                        <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
-                                                                    </div>
-                                                                </template>
-
-                                                            </div>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
-                                <nav>
-                                    <ul class="pagination">
-                                        <li class="page-item" v-if="pagination.current_page > 1">
-                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
-                                        </li>
-                                        <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page==isActived ? 'active' :'']">
-                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio)" v-text="page">1</a>
-                                        </li>
-                                        <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio)">Sig</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div> <!--lista-->
-                        </div>
+                                                <nav>
+                                                    <ul class="pagination">
+                                                        <li class="page-item" v-if="pagination.current_page > 1">
+                                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
+                                                        </li>
+                                                        <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page==isActived ? 'active' :'']">
+                                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio)" v-text="page">1</a>
+                                                        </li>
+                                                        <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio)">Sig</a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                    </div> <!--lista-->
+                                </div>
                     </template>
 
                     <template v-else>
-
-
-
-
                         <div class="card-body">
                             <div class="form-group row border">
                                 <div class="col-md-6">
@@ -217,6 +215,7 @@
                 </div> <!--card-body-->
             </div> <!--card-->
         </div> <!--div fluid-->
+
     </main>
 </template>
 
