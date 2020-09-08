@@ -18,9 +18,6 @@ class ctrlProducto extends Controller
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
-       
-
-
         
         if ($buscar==''){
             $producto = producto::join('categoria','producto.idCategoria','=','categoria.id')
@@ -100,6 +97,6 @@ class ctrlProducto extends Controller
         // if (!$request->ajax()) return redirect('/');
         $producto = producto::findOrFail($request->id);
         $producto->delete();
-        return ['producto' => $producto];
+      //  return ['producto' => $producto];
     }
 }

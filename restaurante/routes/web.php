@@ -39,6 +39,7 @@ Route::post('mesa/modificar','ctrlMesa@modificar');
 Route::post('mesa/eliminar','ctrlMesa@eliminar');
 
 
+
 /////----------------Cliente-----------------///
 Route::get('cliente','ctrlCliente@index');
 Route::post('cliente/guardar','ctrlCliente@store');

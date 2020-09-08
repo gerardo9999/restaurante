@@ -8,7 +8,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Mesas
+                    <i class="fa fa-align-justify"></i> Mesa
                     <button type="button" @click="abrirModal('mesa','registrar')" class="btn btn-secondary">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
@@ -47,14 +47,13 @@
                                         <span class="badge badge-danger">Ocupado</span>
                                     </div>
                                 </td>
-                                
-                                  <td>
-                                    <button type="button" @click="abrirModal('mesa','actualizar',mesa)" class="btn btn-warning btn-sm">
+                                 <td>
+                                        <button type="button" @click="abrirModal('mesa','actualizar',mesa)" class="btn btn-warning btn-sm">
                                     <i class="icon-pencil"></i>
                                     </button> &nbsp;
-                                    <button type="mesa" class="btn btn-danger btn-sm" @click="eliminarMesa(mesa.id)">
-                                        <i class="icon-trash"></i>
-                                    </button> &nbsp;
+                                        <button type="mesa" class="btn btn-danger btn-sm" @click="eliminarMesa(mesa.id)">
+                                            <i class="icon-trash"></i>
+                                        </button> &nbsp;
                                         <template v-if="mesa.estado">
                                             <button type="button" class="btn btn-success btn-sm" @click="ocupadoMesa(mesa.id)">
                                                 <i class="fa fa-unlock"></i>
@@ -64,6 +63,8 @@
                                             <button type="button" class="btn btn-danger btn-sm" @click="desocupadoMesa(mesa.id)">
                                                 <i class="fa fa-lock"></i>
                                             </button>
+                                        </template>>        
+                                    </td>           
                             </tr>
                         </tbody>
                     </table>
@@ -288,7 +289,7 @@
                         axios.post('/mesa/eliminar', {
                             'id': id
                         }).then(function(response) {
-                            me.listarMesa(1, '', 'nombre');
+                            me.listarMesa(1, '', 'descripcion');
                             swal(
                                 'Eliminado!',
                                 'El registro ha sido eliminado con éxito.',
