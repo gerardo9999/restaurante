@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\cliente;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ctrlCliente extends Controller
-{
-    public function index(Request $request)
-    {
+class ctrlCliente extends Controller{
+
+    public function index(Request $request){
          //if(!$request->ajax()) return redirect('/');
          $buscar = $request->buscar;
          $criterio = $request->criterio;
@@ -26,7 +26,15 @@ class ctrlCliente extends Controller
              ->orderBy('cliente.id','desc')->paginate(10);
          }
          else{
-             $cliente= cliente::select('cliente.id','cliente.nombres')
+             $cliente= cliente::select('cliente.id','cliente.nombres',
+             'cliente.apellidos',
+             'cliente.login',
+             'cliente.password',
+             'cliente.empresa',
+             'cliente.telefono',
+             'cliente.direccion',
+             'cliente.email',
+             'cliente.estado')
              ->where('cliente.'.$criterio, 'like', '%'.$buscar.'%')
              ->orderBy('cliente.id','desc')->paginate(10);            
          }
@@ -41,10 +49,10 @@ class ctrlCliente extends Controller
                  'to'           => $cliente->lastItem(),
              ],
              'cliente' => $cliente
-         ];
-     }
-     public function store(Request $request)
-     {        
+            ];
+    }
+    public function store(Request $request){        
+        
          $cliente = new cliente();
          $cliente->nombres = $request->nombres;
          $cliente->apellidos = $request->apellidos;
@@ -56,9 +64,8 @@ class ctrlCliente extends Controller
          $cliente->email = $request->email;
          $cliente->estado = 1;
          $cliente->save();
-     }
-     public function update(Request $request)
-     {
+    }
+    public function update(Request $request){
          if(!$request->ajax()) return redirect('/');
          $cliente= cliente::findOrFail($request->id);
          $cliente->nombres = $request->nombres;
@@ -71,14 +78,19 @@ class ctrlCliente extends Controller
          $cliente->email = $request->email;
          $cliente->estado = 1;
          $cliente->save();
-     }
-     public function delete(Request $request)
-     {
+    }
+    public function delete(Request $request){
          $cliente= cliente::findOrFail($request->id);
          $cliente->delete();
-     }
-     /*public function selectCliente(){
-         $cliente = cliente::select('id','nombres')->orderBy('nombres', 'asc')->get();
-         return ['cliente' => $cliente];
-     }*/
     }
+    public function selectCliente(Request $request){
+        
+            // if (!$request->ajax()) return redirect('/');
+    
+            $filtro = $request->filtro;
+            $clientes = cliente::select(DB::raw('CONCAT(nombres, ", ", apellidos) as nombreCompleto'),'id','empresa')->where('cliente.nombres', 'like', '%'. $filtro . '%')
+            ->orderBy('cliente.nombres', 'asc')->get();
+    
+            return ['clientes' => $clientes];
+    }
+}

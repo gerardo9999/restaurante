@@ -1,4 +1,4 @@
-        <template>
+<template>
             <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">

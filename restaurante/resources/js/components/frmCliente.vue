@@ -51,7 +51,12 @@
                                 <td v-text="cliente.telefono"></td>
                                 <td v-text="cliente.direccion"></td>
                                 <td v-text="cliente.email"></td>
-                                <td v-text="cliente.estado"></td>
+                                <template v-if="cliente.estado">
+                                    <td><span class="badge badge-success">Activado</span></td>
+                                </template>
+                                <template v-else>
+                                     <td><span class="badge badge-danger">Desactivado</i></span></td>
+                                </template>
                                 <td>
                                     <button type="button" @click="abrirModal('cliente','actualizar',cliente)" class="btn btn-warning btn-sm">
                                     <i class="icon-pencil"></i>
@@ -138,12 +143,6 @@
                                 <label class="col-md-3 form-control-label" for="text-input">Email</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="email" class="form-control" placeholder="Email">
-                                </div>
-                            </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Esatdo</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="estado" class="form-control" placeholder="Estado">
                                 </div>
                             </div>
                             <div v-show="errorCliente" class="form-group row div-error">

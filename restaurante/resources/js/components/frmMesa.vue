@@ -53,56 +53,78 @@
                                 <div class="row"> 
                                     <div class="col-md-12"> <!--lista--> <br>
                                         <div class="row" >
-                                            <div v-for="mesa in arrayMesa" :key="mesa.id" class="col-md-4">
+                                            <div v-for="mesa in arrayMesa" :key="mesa.id" class="col-md-3">
                                                 <table  class="table table-bordered table-striped table-sm">
                                                         <thead>
                                                             <tr>
                                                                 <th>
                                                                 <div class="card">
+
                                                                     <template v-if="mesa.ocupado">
-                                                                        <div class="card-header alert-success">
-                                                                            <span class="badge badge-success">Mesa Libre</span>
-                                                                        </div>
+                                                                        <!-- <div class="row"> -->
+                                                                            <div class="card-header alert-success row" style="border:solid 1px #;">
+                                                                                <div class="col-md-6 text-center">
+                                                                                    <h6 ><strong v-text="mesa.id"></strong> : <strong v-text="mesa.ubicacion"></strong> </h6> 
+                                                                                </div>
+                                                                                <!-- <div class="col-md-4 text-center">
+                                                                                    <span class="badge badge-success">Mesa Libre</span>
+                                                                                </div> -->
+                                                                                <div class="col-md-6 text-center">
+                                                                                    <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
+                                                                                </div>
+                                                                            </div>
+
+                                                                        <!-- </div> -->
+
                                                                     </template>
                                                                     <template v-else>
-                                                                        <div class="card-header alert-danger">
-                                                                            <span class="badge badge-danger">Mesa Ocupada</span>
-                                                                        </div>
+                                                                         <!-- <div class="row"> -->
+                                                                            <div class="card-header alert-danger row" style="border:solid 1px #;">
+                                                                                <div class="col-md-6 text-center">
+                                                                                    <h6 ><strong v-text="mesa.id"></strong> : <strong v-text="mesa.ubicacion"></strong> </h6> 
+                                                                                </div>
+                                                                                <!-- <div class="col-md-4 text-center">
+                                                                                    <span class="badge badge-success">Mesa Libre</span>
+                                                                                </div> -->
+                                                                                <div class="col-md-6 text-center">
+                                                                                    <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
+                                                                                </div>
+                                                                            </div>
+
+                                                                        <!-- </div> -->
+
                                                                     </template>
                                                                     
                                                                     <div class="card-body">
                                                                         <div class="row">
-                                                                            <div class="col-6">
-                                                                                <img width="50px" height="50px" src="imagenes/icon_mesa_black.png" alt="">
-
-
+                                                                            <div class="col-md-6">
+                                                                                <img width="30px" height="30px" src="imagenes/icon_mesa_black.png" alt="">
                                                                             </div>
-                                                                            <div class="col-6">
+                                                                            <div class="col-md-6">
 
-                                                                                <div class="row p-1">
-                                                                                        <button type="button" @click="verOrden(mesa)" class="btn btn-info btn-sm">
-                                                                                            <i class="icon-map"></i> Orden Atencion
-                                                                                        </button> &nbsp;
-                                                                                </div>                                                                        
-                                                                                                                                                    
-                                                                                
-
+                                                                            <template v-if="mesa.ocupado">
+                                                                                <button type="button" @click="verOrden(mesa)" class="btn btn-success btn-sm">
+                                                                                            <img width="30px" height="30px" src="imagenes/icono-restaurante.png" alt="">
+                                                                                </button> &nbsp;
+                                                                            </template>
+                                                                            <template v-else>
+                                                                                <button type="button" @click="verOrden(mesa)" class="btn btn-danger btn-sm">
+                                                                                            <img width="50px" height="50px" src="imagenes/icono-restaurante.png" alt="">
+                                                                                </button> &nbsp;
+                                                                            </template>
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
-                                                                    <template v-if="mesa.ocupado">
+                                                                    <!-- <template v-if="mesa.ocupado">
                                                                         <div class="card-footer alert-success">
                                                                             <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
                                                                         </div>
-
                                                                     </template>
                                                                     <template v-else>
                                                                         <div class="card-footer alert-danger">
                                                                             <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
                                                                         </div>
-                                                                    </template>
-
+                                                                    </template> -->
                                                                 </div>
                                                             </th>
                                                         </tr>
@@ -129,22 +151,35 @@
 
                     <template v-else>
                         <div class="card-body">
+
+
                             <div class="form-group row border">
+
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Mesa</label>
-                                        <input type="text" disabled  class="form-control frm-control-sm" >
+                                        <label for="">Agregar Cliente</label>
+                                        <!-- <div class="input-group"> -->
+                                            <v-select 
+                                                @search="selectCliente"
+                                                label="nombreCompleto"
+                                                :options="arrayCliente"
+                                                placeholder="Buscar Cliente..."
+                                                @input="getCliente"
+                                            >
+                                            </v-select>  
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Lista de Productos</label>
                                         <div class="input-group">
                                         <input type="text" disabled  class="form-control frm-control-sm" placeholder="Añadir una lista">
-                                        <button type="submit"   class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> </button>
+                                        <button type="submit" @click="abrirModal('menu','lista')"  class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> </button>
                                     </div>                                  
                                     </div>
                                 </div>
+
 
 
                                 <div class="col-md-11">
@@ -161,12 +196,13 @@
                                             </v-select>  
                                     </div>
                                 </div>
+
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label>Agregar</label>
                                         <div class="form-inline">
                                             <!-- <input type="text" readonly class="form-control" placeholder="Seleccione Lista"> -->
-                                            <button  class="btn btn-success form-control">
+                                            <button @click="agregarDetalle()" class="btn btn-success form-control">
                                                 <i class="icon-plus"></i>
                                             </button> 
                                         </div>                                    
@@ -181,32 +217,41 @@
                                                 <tr>
                                                     <th>Producto</th>
                                                     <th>Precio</th>
-                                                    <th>Foto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>SubTotal</th>
                                                     <th>Opciones</th>
                                                 </tr>
                                             </thead>
-                                            <!-- <tbody v-if="arrayDetalle.length">
+                                            <tbody v-if="arrayDetalle.length">
 
                                                     <tr v-for="(detalle,index) in arrayDetalle" :key="detalle.id">
                                                         <td v-text="detalle.nombre"></td>
                                                         <td v-text="detalle.precio"></td>
-                                                        <td><img :src="`${detalle.foto}`" width="100px" alt=""></td>
+                                                        <td><input v-model="detalle.cantidad" class="form-control"></td>
+                                                        <td> {{detalle.precio*detalle.cantidad}}</td>
                                                         <td>
                                                             <button @click="eliminarDetalle(index)" class=" btn btn-danger btn-sm">
                                                                 <i class="icon-close" ></i>
                                                             </button>
+                                                           
                                                         </td>
                                                     </tr>
-                                            </tbody> -->
-                                            <!-- <tbody v-else>
-                                                <td colspan="4">No ha asignado ningun producto </td>
-                                            </tbody> -->
+                                                     <tr style="background-color: #CEECF5;">
+                                                        <td colspan="4" align="right"><strong>Total :</strong></td>
+                                                        <td>
+                                                            {{ total = (obtenerTotal)  }} .Bs
+                                                        </td>
+                                                     </tr>                   
+                                            </tbody>
+                                            <tbody v-else>
+                                                <td colspan="5" align="center"><strong>No ha asignado ningun producto</strong></td>
+                                            </tbody>
                                         </table>
                                     </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <button  @click="guardarMenu()" class="btn btn-success">Registrar </button>
+                                    <button  @click="guardarOrden()" class="btn btn-success">Guardar </button>
                                     <button @click="mostrarListado()" class="btn btn-secondary">Cerrar </button>
                                 </div>
                             </div>
@@ -216,11 +261,81 @@
             </div> <!--card-->
         </div> <!--div fluid-->
 
+        <!-- Modal -->
+            <!--Inicio del modal agregar/actualizar-->
+            <div id="modal" class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-primary modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" v-text="tituloModal"></h4>
+                            <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                                <div class="form-group row">
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <select class="form-control col-md-6" v-model="criterioProducto">
+                                            <option value="producto">Producto</option>
+                                            <option value="categoria">Categoria</option>
+                                            </select>
+                                            <input type="text" v-model="buscarProducto" @keyup.enter="listarProducto(buscarProducto,criterioProducto)" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
+                                            <button type="submit" @click="listarProducto(buscarProducto,criterioProducto)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            <table class="table table-bordered table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Categoría</th>
+                                        <th>Precio</th>
+                                        <th>Foto</th>
+                                        <th>Descripción</th>
+                                        <th>Opciones</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="producto in arrayProducto" :key="producto.id">
+                                    
+                                        <td v-text="producto.nombre"></td>
+                                        <td v-text="producto.categoria"></td>
+                                        <td v-text="producto.precio"></td>
+                                        <td><img :src="`${producto.foto}`" width="100px" alt=""></td>
+                                        <td v-text="producto.descripcion"></td>
+                                        <td>
+                                            <button type="button" @click="agregarDetalleModal(producto)" class="btn btn-success btn-sm">
+                                                <i class="icon-check"></i>
+                                            </button>
+                                        </td>
+                                    </tr>             
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
+                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarArticulo()">Guardar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarArticulo()">Actualizar</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!--Fin del modal-->
+        <!-- Fin Modal -->
+
     </main>
 </template>
-
 <script>
     import vSelect from 'vue-select';
+    import vSelect1 from 'vue-select';
     import Datepicker from 'vuejs-datepicker';
     import 'vue-select/dist/vue-select.css';
     export default {
@@ -231,6 +346,13 @@
                 descripcion : '',
                 ubicacion   : '',
                 listado     : 1,
+
+
+                idCliente       : 0,
+                nombreCliente   : '',
+                apellidoCliente : '',
+
+                buscarProducto : '',
 
 
                 idProducto  : 0,
@@ -247,16 +369,23 @@
                 
                 arrayMesa         :[],
                 arrayProducto     :[],
+                arrayCliente      :[],
                 arrayDetalle      :[],
                 arrayMenuDetalle  :[],
                 arrayProductoMenu :[],
 
-                modal: 0,
-                tituloModal: '',
-                tipoAccion: 0,
-                errorMesa: 0,
+                modal       : 0,
+                tituloModal : '',
+                tipoAccion  : 0,
+                errorMesa   : 0,
+
+                criterioProducto : 'producto',
+                buscarProducto : '',
+
                 errorMostrarMsjMesa: [],
                 
+                total: 0, 
+
                 pagination: {
                     'total': 0,
                     'current_page': 0,
@@ -274,6 +403,7 @@
         components: {
         // 'barcode': VueBarcode
         vSelect,
+        vSelect1,
         Datepicker
         },
         computed: {
@@ -301,6 +431,13 @@
                     from++;
                 }
                 return pagesArray;
+            },
+            obtenerTotal: function(){
+                var resultado = 0.0 ;
+                for (let index = 0; index < this.arrayDetalle.length; index++) {
+                    resultado = resultado + (this.arrayDetalle[index].precio*this.arrayDetalle[index].cantidad);
+                }
+                return resultado;
             }
         },
         methods: {
@@ -315,7 +452,7 @@
                 }
             },
             listarMesa(page, buscar, criterio) {
-            // listarMesa(buscar, criterio) {
+                // listarMesa(buscar, criterio) {
                 let me = this;
                 
                 var url = '/mesa?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
@@ -329,6 +466,29 @@
                     .catch(function(error) {
                         console.log(error)
                     });
+            },
+            selectCliente(search,loading){
+                 let me=this;
+                loading(true);
+                var url= '/cliente/selectCliente?filtro='+search;
+                axios.get(url).then(function (response) {
+                    //console.log(response);
+                    var respuesta= response.data;
+                    me.arrayCliente = respuesta.clientes;
+                    loading(false);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getCliente(val2){
+                        let me=this;
+                        me.loading          = true;
+                        me.idCliente        = val2.id;
+                        me.nombreCliente    = val2.nombres;
+                        me.apellidoCliente  = val2.apellidos;
+                        console.log(val2);
+                        me.searchProducto = 1;
             },
             selectProducto(search,loading){
                 let me=this;
@@ -480,52 +640,123 @@
                     }
                 })
             },
-            validarMesa() {
-                this.errorMesa = 0;
-                this.errorMostrarMsjMesa = [];
+            cerrarModal(){
+                
+                this.modal=0;
+                this.tituloModal='';
+                document.getElementsByTagName("html")[0].style.overflow = "auto";
 
-                if (!this.capacidad) this.errorMostrarMsjMesa.push("Debe completar el campo Nombre ");
-                if (this.errorMostrarMsjMesa.length) this.errorMesa = 1;
-                return this.errorMesa;
             },
-            cerrarModal() {
-                this.modal = 0;
-                this.tituloModal = '';
-                this.capacidad = 0;
-                this.descripcion = '';
-                this.ubicacion = '';
+            abrirModal(modelo, accion, data = []){
+
+                        document.getElementsByTagName("html")[0].style.overflow = "hidden";
+                        document.getElementsByTagName("body")[0].animate({scrollTop:'0px'});
+                        this.modalContenido ='lista';
+                                this.arrayProducto=[];
+                                this.buscarProducto='';
+                                this.modal=1;
+                                this.tituloModal = "Seleccione productos ";
             },
-            abrirModal(modelo, accion, data = []) {
-                switch (modelo) {
-                    case "mesa":
-                        {
-                            switch (accion) {
-                                case 'registrar':
-                                    {
-                                        this.modal = 1;
-                                        this.tituloModal = 'Guardar Mesa'
-                                        this.capacidad = 0;
-                                        this.ubicacion = '';
-                                        this.descripcion = '';
-                                        this.tipoAccion = 1;
-                                        break;
-                                    }
-                                case 'actualizar':
-                                    {
-                                        this.modal = 1;
-                                        this.tituloModal = 'Modificar Mesa';
-                                        this.tipoAccion = 2;
-                                        this.idMesa =       data['id'];
-                                        this.ocupacion =    data['ocupacion'];
-                                        this.capacidad =    data['capacidad'];
-                                        this.descripcion =  data['descripcion'];
-                                        this.ubicacion =    data['ubicacion'];
-                                        break;
-                                    }
-                            }
+            encuentra(id){
+                var sw = false;
+                for (let index = 0; index < this.arrayDetalle.length; index++) {
+                    var idProducto = this.arrayDetalle[index].id;
+                    if(idProducto == id){
+                        sw = true;
+                    }
+                }
+                return sw;
+            },
+            agregarDetalleModal(data=[]){
+                console.log(data);
+                let me=this;
+                var existe = this.encuentra(data['id']);
+
+                        if(existe){
+                            iziToast.show({
+                                title :"Error!!",
+                                message :"El producto ya se encuentra agregado",
+                            });
+                        }else{
+                   
+                            me.arrayDetalle.push({
+                                "id"    : data['id'],
+                                "nombre":data['nombre'],
+                                "precio":data['precio'],
+                                "cantidad":1
+                            });
+                            iziToast.success({
+                                        title:"agregado correctamente !!"
+                            });
+                            this.idProducto=0;
+                        }
+            },
+            eliminarDetalle(index){
+                let me = this;
+                me.arrayDetalle.splice(index, 1);
+
+                iziToast.error({
+                    title:"Eliminado",
+                    message :"Producto eliminado del detalle"
+                })
+            },
+            agregarDetalle(){
+                let me=this;
+
+                if(me.idProducto ==0){
+                     iziToast.error({
+                        title:"selccione un producto!!"
+                     });
+                }else{
+                        var existe = this.encuentra(this.idProducto);
+
+                        if(existe){
+                            iziToast.show({
+                                title :"Error!!",
+                                message :"El producto ya se encuentra agregado",
+                            });
+                        }else{
+                   
+                             me.arrayDetalle.push({
+                                            "id" : me.idProducto,
+                                            "nombre":me.producto,
+                                            "foto":me.foto,
+                                            "precio":me.precio,
+                                            "cantidad":1
+                            });
+                            iziToast.success({
+                                        title:"agregado correctamente !!"+existe
+                            });
+                            this.idProducto=0;
                         }
                 }
+            },
+            guardarOrden(){
+                if (this.validarMenu()){
+                    this.mostrarError();
+                }else{
+                    let me = this;
+                    axios.post('/ordenAtencion/guardar',{
+                        'idCliente'     : this.idCliente,
+                        'idMesa'        : this.idMesa,
+                        'data'          : this.arrayDetalle,
+                    }).then(function (response) {
+                        me.cerrarModal();
+                        this.listarMesa(1, 0, 'ocupado');
+
+                        // me.resetVariable();
+                        me.mostrarListado()
+
+                        iziToast.info({
+                            title: 'Exito!',
+                            message: 'Se ha guardado con exito!',
+                        });
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
             }
+
         },
         mounted() {
             this.listarMesa(1, this.buscar, this.criterio);

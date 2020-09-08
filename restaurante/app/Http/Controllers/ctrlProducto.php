@@ -118,7 +118,6 @@ class ctrlProducto extends Controller{
 
         return ['productos' => $productos];
     }
-    
     public function guardar(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = new producto();
@@ -135,7 +134,6 @@ class ctrlProducto extends Controller{
         $producto->descripcion = $request->descripcion;
         $producto->save();
     }
-
     public function modificar(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = producto::findOrFail($request->id);
@@ -150,7 +148,6 @@ class ctrlProducto extends Controller{
         $producto->descripcion = $request->descripcion;
         $producto->save();
     }
-
     public function eliminar(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = producto::findOrFail($request->id);

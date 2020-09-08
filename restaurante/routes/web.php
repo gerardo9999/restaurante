@@ -12,6 +12,7 @@ Route::get('/index', function () {
     return view('contenido/contenido');
 });
 
+
 Route::get('categoria','ctrlCategoria@index');
 Route::post('categoria/guardar','ctrlCategoria@store');
 Route::put('categoria/actualizar','ctrlCategoria@update');
@@ -24,8 +25,6 @@ Route::post('producto/modificar','ctrlProducto@modificar');
 Route::post('producto/eliminar','ctrlProducto@eliminar');
 Route::get('producto/buscarProducto','ctrlProducto@buscarProducto');
 Route::get('/producto/menu','ctrlProducto@productoMenu');
-
-
 Route::get('/producto/selectProducto', 'ctrlProducto@selectProducto');
 // Route::get('/producto/buscarProducto', 'ctrlProducto@buscarProducto');
 
@@ -38,12 +37,11 @@ Route::post('mesa/eliminar','ctrlMesa@eliminar');
 Route::get('menu','ctrlMenu@mostrar');
 Route::post('menu/guardar','ctrlMenu@guardar');
 
-
-
 Route::get('cliente','ctrlCliente@index');
 Route::post('cliente/guardar','ctrlCliente@store');
 Route::put('cliente/actualizar','ctrlCliente@update');
 Route::put('cliente/eliminar','ctrlCliente@delete');
+Route::get('/cliente/selectCliente','ctrlCliente@selectCliente'); 
 
 
 
@@ -58,6 +56,11 @@ Route::get('tipo','ctrlTipo@index');
 Route::post('tipo/guardar','ctrlTipo@store');
 Route::put('tipo/actualizar','ctrlTipo@update');
 Route::put('tipo/eliminar','ctrlTipo@delete');
+
+
+
+
+
 
 //Route::get('/','ctrlRestaurante@welcome')->name('welcome.inicio');
 /*
