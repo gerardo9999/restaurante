@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class ctrlMesa extends Controller
 {
 
+
+
     public function mostrar(Request $request){
         //if(!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
@@ -52,6 +54,10 @@ class ctrlMesa extends Controller
         $mesa->save();
     }
     public function eliminar(Request $request){
+        $mesa= mesa::findOrFail($request->id);
+        $mesa->delete();
+    }
+    public function desocupado(Request $request){
         $mesa= mesa::findOrFail($request->id);
         $mesa->delete();
     }

@@ -146,7 +146,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="guardarProducto()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProducto()  ">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="modificarProducto()">Modificar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -183,7 +183,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'producto',
+                criterio : 'nombre',
                 buscar : '',
                 arrayCategoria :[],
             }
@@ -287,7 +287,7 @@
                 let data   = new FormData();
                 data.append('idCategoria',this.idCategoria);
                 data.append('nombre'     ,this.nombre);
-                data.append('foto'       ,this.foto,data);
+                data.append('foto'       ,this.foto);
                 data.append('precio'     , this.precio)
                 data.append('descripcion',this.descripcion);
                 data.append('id'     ,this.id);

@@ -2935,7 +2935,7 @@ __webpack_require__.r(__webpack_exports__);
           axios.post('/mesa/eliminar', {
             'id': id
           }).then(function (response) {
-            me.listarMesa(1, '', 'nombre');
+            me.listarMesa(1, '', 'descripcion');
             swal('Eliminado!', 'El registro ha sido eliminado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -3253,7 +3253,7 @@ __webpack_require__.r(__webpack_exports__);
         'to': 0
       },
       offset: 3,
-      criterio: 'producto',
+      criterio: 'nombre',
       buscar: '',
       arrayCategoria: []
     };
@@ -3365,7 +3365,7 @@ __webpack_require__.r(__webpack_exports__);
       var data = new FormData();
       data.append('idCategoria', this.idCategoria);
       data.append('nombre', this.nombre);
-      data.append('foto', this.foto, data);
+      data.append('foto', this.foto);
       data.append('precio', this.precio);
       data.append('descripcion', this.descripcion);
       data.append('id', this.id);
@@ -43068,7 +43068,7 @@ var render = function() {
                           },
                           [_c("i", { staticClass: "icon-pencil" })]
                         ),
-                        _vm._v("  \n                                "),
+                        _vm._v("  \n                                    "),
                         _c(
                           "button",
                           {
@@ -43114,7 +43114,7 @@ var render = function() {
                                 [_c("i", { staticClass: "fa fa-lock" })]
                               )
                             ],
-                        _vm._v(">        \n                             ")
+                        _vm._v(">        \n                                ")
                       ],
                       2
                     )
@@ -44123,11 +44123,11 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.actualizarProducto()
+                            return _vm.modificarProducto()
                           }
                         }
                       },
-                      [_vm._v("Actualizar")]
+                      [_vm._v("Modificar")]
                     )
                   : _vm._e()
               ])
