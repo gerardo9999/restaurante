@@ -15,18 +15,14 @@ class CreateVehiculoTable extends Migration
     {
         Schema::create('vehiculo', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipoVehiculo',100)->nullable();
-            $table->string('caracteristicas',100);
-            $table->string('placa',100);
-            $table->integer('idRepartidor')->unsigned();
+            $table->string('tipoVehiculo')->nullable();
+            $table->string('caracteristicas',50);
+            $table->string('placa',50);
 
+            $table->integer('idRepartidor')->unsigned();
             $table->foreign('idRepartidor')->references('id')->on('repartidor')->onDelete('cascade');
         });
- 
-    
     }
-
-
     public function down()
     {
         Schema::dropIfExists('vehiculo');

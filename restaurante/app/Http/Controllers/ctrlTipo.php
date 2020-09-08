@@ -53,10 +53,10 @@ class ctrlTipo extends Controller
         $tipo= tipo::findOrFail($request->id);
         $tipo->delete();
     }
-    /*public function selectTipo(){
+    public function selectTipo(){
         $tipo = tipo::select('id','nombre')->orderBy('nombre', 'asc')->get();
         return ['tipo' => $tipo];
-    }*/
+    }
 
 
 }

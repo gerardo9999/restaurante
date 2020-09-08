@@ -26,6 +26,10 @@ Vue.component('frm-reserva', require('./components/frmReserva.vue').default);
 Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
 Vue.component('frm-tipo', require('./components/frmTipo.vue').default);
 Vue.component('frm-producto', require('./components/frmProducto.vue').default);
+<<<<<<< HEAD
+=======
+//Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
+>>>>>>> 5262d9f10b8dba530a4730ff53cfed55d29c6816
 Vue.component('frm-vehiculo', require('./components/frmVehiculo.vue').default);
 Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
 
