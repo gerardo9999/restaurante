@@ -4,161 +4,260 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Admin</a></li>
         </ol>
+
         <div class="container-fluid">
-            <!-- Ejemplo de tabla Listado -->
             <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Mesa
+                <template v-if="listado">
+                    <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Mesa 
                     <button type="button" @click="abrirModal('mesa','registrar')" class="btn btn-secondary">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
                 </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <div class="input-group">
-                                <select class="form-control col-md-3" v-model="criterio">
-                                <option value="nombre">Nombre</option>
-                                </select>
-                                <input type="text" v-model="buscar" @keyup.enter="listarMesa(1, buscar, criterio)" class="form-control" placeholder="Texto a buscar">
-                                <button type="submit" @click="listarMesa(1, buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                </template>
+                <template v-else>
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Mesa  - {{ idMesa }}
+                    </div>
+                </template>
+
+                <div class="card-body"><!--card Body-->
+                    <template v-if="listado">
+                            <!-- <template>  Listado -->
+                                <div class="form-group row">  <!--Busqueda-->
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <select class="form-control col-md-8" v-model="criterio">
+                                            <option value="capacidad">Capacidad</option>
+                                            <option value="ubicacion">Ubicacion</option>
+                                            </select>
+                                            <input type="text" v-model="buscar" @keyup.enter="listarMesa(1,buscar, criterio)" class="form-control" placeholder="Buscar">                                
+                                            <button type="submit" @click="listarMesa(1,buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i></button>
+
+                                            <template v-if="mesaOcupado=='cris'">
+                                                <button type="submit"  @click="estadoMesa('verde')" class="btn btn-secondary"><i class="fa fa-check"></i> Estado</button>
+                                            </template>
+                                            
+                                            <template v-if="mesaOcupado=='verde'">
+                                                <button type="submit"  @click="estadoMesa('rojo')" class="btn btn-success"><i class="fa fa-check"></i>Estado</button>
+                                            </template>
+                                            
+                                            <template v-if="mesaOcupado=='rojo'">
+                                                <button type="submit"  @click="estadoMesa('verde')" class="btn btn-danger"><i class="fa fa-check"></i>Estado</button>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div> <!-- fin fr busqueda -->
+                                <div class="row"> 
+                                    <div class="col-md-12"> <!--lista--> <br>
+                                        <div class="row" >
+                                            <div v-for="mesa in arrayMesa" :key="mesa.id" class="col-md-4">
+                                                <table  class="table table-bordered table-striped table-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                            <div class="card">
+                                                                <template v-if="mesa.ocupado">
+                                                                    <div class="card-header alert-success">
+                                                                        <span class="badge badge-success">Mesa Libre</span>
+                                                                    </div>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <div class="card-header alert-danger">
+                                                                        <span class="badge badge-danger">Mesa Ocupada</span>
+                                                                    </div>
+                                                                </template>
+                                                                
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-6">
+                                                                            <img width="50px" height="50px" src="imagenes/icon_mesa_black.png" alt="">
+
+
+                                                                        </div>
+                                                                        <div class="col-6">
+
+                                                                            <div class="row p-1">
+                                                                                    <button type="button" @click="verOrden(mesa)" class="btn btn-info btn-sm">
+                                                                                        <i class="icon-map"></i> Orden Atencion
+                                                                                    </button> &nbsp;
+                                                                            </div>                                                                        
+                                                                                                                                                
+                                                                            
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <template v-if="mesa.ocupado">
+                                                                    <div class="card-footer alert-success">
+                                                                        <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
+                                                                    </div>
+
+                                                                </template>
+                                                                <template v-else>
+                                                                    <div class="card-footer alert-danger">
+                                                                        <h6><img width="15px" src="imagenes/persona.png" alt=""> <strong v-text="mesa.capacidad"></strong> </h6> 
+                                                                    </div>
+                                                                </template>
+
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                <nav>
+                                    <ul class="pagination">
+                                        <li class="page-item" v-if="pagination.current_page > 1">
+                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
+                                        </li>
+                                        <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page==isActived ? 'active' :'']">
+                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio)" v-text="page">1</a>
+                                        </li>
+                                        <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio)">Sig</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div> <!--lista-->
+                        </div>
+                    </template>
+
+                    <template v-else>
+
+
+
+
+                        <div class="card-body">
+                            <div class="form-group row border">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Mesa</label>
+                                        <input type="text" disabled  class="form-control frm-control-sm" >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Lista de Productos</label>
+                                        <div class="input-group">
+                                        <input type="text" disabled  class="form-control frm-control-sm" placeholder="Añadir una lista">
+                                        <button type="submit"   class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> </button>
+                                    </div>                                  
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-11">
+                                    <div class="form-group">
+                                        <label for="">Seleccione Producto</label>
+                                        <!-- <div class="input-group"> -->
+                                            <v-select 
+                                                @search="selectProducto"
+                                                label="nombre"
+                                                :options="arrayProducto"
+                                                placeholder="Buscar Producto..."
+                                                @input="getProducto"
+                                            >
+                                            </v-select>  
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <label>Agregar</label>
+                                        <div class="form-inline">
+                                            <!-- <input type="text" readonly class="form-control" placeholder="Seleccione Lista"> -->
+                                            <button  class="btn btn-success form-control">
+                                                <i class="icon-plus"></i>
+                                            </button> 
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row border" >
+                                
+                                    <div class="table-responsive col-md-12 p-4"  >
+                                        <table class="table table-bordered table-striped table-sm">
+                                            <thead >
+                                                <tr>
+                                                    <th>Producto</th>
+                                                    <th>Precio</th>
+                                                    <th>Foto</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <!-- <tbody v-if="arrayDetalle.length">
+
+                                                    <tr v-for="(detalle,index) in arrayDetalle" :key="detalle.id">
+                                                        <td v-text="detalle.nombre"></td>
+                                                        <td v-text="detalle.precio"></td>
+                                                        <td><img :src="`${detalle.foto}`" width="100px" alt=""></td>
+                                                        <td>
+                                                            <button @click="eliminarDetalle(index)" class=" btn btn-danger btn-sm">
+                                                                <i class="icon-close" ></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                            </tbody> -->
+                                            <!-- <tbody v-else>
+                                                <td colspan="4">No ha asignado ningun producto </td>
+                                            </tbody> -->
+                                        </table>
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <button  @click="guardarMenu()" class="btn btn-success">Registrar </button>
+                                    <button @click="mostrarListado()" class="btn btn-secondary">Cerrar </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <table class="table table-bordered table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th>Capacidad</th>
-                                <th>Descripcion</th>
-                                <th>Estado</th>
-                                <th>Ubicacion</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="mesa in arrayMesa" :key="mesa.id">
-                                <td v-text="mesa.capacidad"></td>
-                                <td v-text="mesa.descripcion"></td>
-                                <td>
-                                    <div v-if="mesa.ocupado">
-                                        <span class="badge badge-success">Libre</span>
-                                    </div>
-                                    <div v-else>
-                                        <span class="badge badge-danger">Ocupado</span>
-                                    </div>
-                                </td>
-                                
-                                <td v-text="mesa.ubicacion"></td>
-                                <td>
-                                    <button type="button" @click="abrirModal('mesa','actualizar',mesa)" class="btn btn-warning btn-sm">
-                                        <i class="icon-pencil"></i>
-                                    </button> &nbsp;
-
-                                    <button type="button" class="btn btn-danger btn-sm" @click="eliminarMesa(mesa.id)">
-                                        <i class="icon-trash"></i>
-                                    </button>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item" v-if="pagination.current_page > 1">
-                                <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
-                            </li>
-                            <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page==isActived ? 'active' :'']">
-                                <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio)" v-text="page">1</a>
-                            </li>
-                            <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio)">Sig</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- Fin ejemplo de tabla Listado -->
-        </div>
-        <!--Inicio del modal agregar/actualizar-->
-        <div class="modal fade" tabindex="-1" :class="{'mostrar' :modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-primary modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" v-text="tituloModal"></h4>
-                        <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                            
-                            <div class="form-group row">
-
-                                <label class="col-md-3 form-control-label" for="text-input">Capacidad  </label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="capacidad" class="form-control" placeholder="Capacidad">
-                                </div>
-
-                            </div>
-
-                            <div class="form-group row">
-
-
-                                <label class="col-md-3 form-control-label" for="text-input">Ubicacion</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="ubicacion" class="form-control" placeholder="Ubicacion">
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-group row">
-
-                                <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
-                                <div class="col-md-9">
-                                    <textarea v-model="descripcion" id="" cols="90" rows="5"></textarea>
-                                    <!-- <input type="text"  class="form-control" placeholder="Capacidad"> -->
-                                </div>
-
-                            </div>
-                            <div v-show="errorMesa" class="form-group row div-error">
-                                <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjMesa" :key="error" v-text="error">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarMesa()">Guardar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarMesa()">Modificar</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!--Fin del modal-->   
+                    </template>
+                </div> <!--card-body-->
+            </div> <!--card-->
+        </div> <!--div fluid-->
     </main>
 </template>
 
 <script>
+    import vSelect from 'vue-select';
+    import Datepicker from 'vuejs-datepicker';
+    import 'vue-select/dist/vue-select.css';
     export default {
         data() {
             return {
-                idMesa: 0,
-                capacidad: 0,
-                descripcion: '',
-                ubicacion: '',
-                ocupado: true,
-                arrayMesa: [],
+                idMesa      : 0,
+                capacidad   : 0,
+                descripcion : '',
+                ubicacion   : '',
+                listado     : 1,
+
+
+                idProducto  : 0,
+                producto    : '',
+                precio      : 0,
+                foto        :'',
+                fecha       :null,
+
+                idMesaDetalle : 0,
+
+                estado      : 0,
+                mesaOcupado : 'cris',
+                ocupado     : true,
+                
+                arrayMesa         :[],
+                arrayProducto     :[],
+                arrayDetalle      :[],
+                arrayMenuDetalle  :[],
+                arrayProductoMenu :[],
+
                 modal: 0,
                 tituloModal: '',
                 tipoAccion: 0,
                 errorMesa: 0,
                 errorMostrarMsjMesa: [],
+                
                 pagination: {
                     'total': 0,
                     'current_page': 0,
@@ -167,10 +266,16 @@
                     'from': 0,
                     'to': 0,
                 },
+                
                 offset: 3,
-                criterio: 'nombre',
+                criterio: 'capacidad',
                 buscar: ''
             }
+        }, 
+        components: {
+        // 'barcode': VueBarcode
+        vSelect,
+        Datepicker
         },
         computed: {
             isActived: function() {
@@ -200,19 +305,58 @@
             }
         },
         methods: {
+            estadoMesa(color){
+                this.mesaOcupado=color;
+
+                if(color=='rojo'){
+                    this.listarMesa(1,0,'ocupado');
+                }
+                if(color=='verde'){
+                    this.listarMesa(1,1,'ocupado')
+                }
+            },
             listarMesa(page, buscar, criterio) {
+            // listarMesa(buscar, criterio) {
                 let me = this;
+                
                 var url = '/mesa?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
-                
-                
+                // var url = '/mesa?buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function(response) {
                         var respuesta = response.data;
                         me.arrayMesa = respuesta.mesa.data;
                         me.pagination = respuesta.pagination;
+                        // console.log(respuesta)
                     })
                     .catch(function(error) {
                         console.log(error)
                     });
+            },
+            selectProducto(search,loading){
+                let me=this;
+                loading(true);
+                var url= '/producto/selectProducto?filtro='+search;
+                axios.get(url).then(function (response) {
+                    //console.log(response);
+                    var respuesta= response.data;
+                    me.arrayProducto = respuesta.productos;
+                    loading(false);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getProducto(val1){
+                if(val1){
+                        let me=this;
+                        me.loading    = true;
+                        me.idProducto = val1.id;
+                        me.precio     = val1.precio;
+                        me.foto       = val1.foto;
+                        me.producto   = val1.nombre;
+                        console.log(val1);
+                        me.searchProducto = 1;
+                }
+
             },
             cambiarPagina(page, buscar, criterio) {
                 let me = this;
@@ -235,9 +379,47 @@
                 axios.post(url,data).then(function(response) {
                     me.cerrarModal();
                     me.listarMesa(1, '', 'nombre');
+
+                    
+                    iziToast.success({
+                            title: 'Guardado con exito!',
+                            message: 'Se ha registrado una nueva mesa',
+
+
+                    });
+                    
                 }).catch(function(error) {
                     console.log(error);
                 });
+            },
+            mostrarListado(){
+                this.listado = 1;
+
+            },
+            listarProducto(buscar,criterio,){
+                
+                let me=this;
+                var url= '/producto/buscarProducto?buscar='+ buscar + '&criterio='+ criterio;
+
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.arrayProducto = respuesta.producto.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            },
+            ocultarListado(){
+                this.listado = 0;
+            },
+            verOrden(mesa){
+                this.ocultarListado();
+
+                console.log(mesa.id)
+                this.idMesa      = mesa.id;
+                this.capacidad   = mesa.capacidad;
+                this.ubicacion   = mesa.ubicacion;
+                this.descripcion = mesa.descripcion;
             },
             actualizarMesa() {
                 if (this.validarMesa()) {
@@ -348,6 +530,7 @@
         },
         mounted() {
             this.listarMesa(1, this.buscar, this.criterio);
+            // this.listarMesa(this.buscar, this.criterio);
         }
     }
 </script>

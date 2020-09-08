@@ -4,13 +4,18 @@
                     <li  @click="menu=0" class="nav-item">
                         <a class="nav-link active" href="#"><i class="icon-speedometer"></i> Escritorio</a>
                     </li>
+
+
                     <li class="nav-title">
                         Mantenimiento
                     </li>
-                    <li @click="menu=7" class="nav-item">
+
+
+                    <li @click="menu=1" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-book-open"></i> Clientes</span></a>
                     </li>
 
+                    
                     <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Productos</a>
                         <ul class="nav-dropdown-items">

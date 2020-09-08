@@ -14,12 +14,12 @@ class ctrlMenu extends Controller
         $criterio = $request->criterio;
         if($buscar==''){
             $menu= menu::select('menu.id','menu.fecha')
-            ->orderBy('menu.id','desc')->paginate(10);
+            ->orderBy('menu.id','desc')->paginate(20);
         }
         else{
             $menu= menu::select('menu.id','menu.fecha')
             ->where('menu.'.$criterio,'=',$buscar)
-            ->orderBy('menu.id','desc')->paginate(10);            
+            ->orderBy('menu.id','desc')->paginate(20);            
         }
         
         return [
@@ -31,25 +31,30 @@ class ctrlMenu extends Controller
                 'from'         => $menu->firstItem(),
                 'to'           => $menu->lastItem(),
             ],
-            'menu' => $menu
+            'menus' => $menu
         ];
     }
 
     public function guardar(Request $request){
+        
         $menu = new menu();
         $menu->fecha = $request->fecha;
         $menu->save();
 
         
         $listaMenu = $request->data;
+
         foreach($listaMenu as $ep=>$det)
         {
             $listaMenu = new listaMenu();
             $listaMenu->estado = 1;
-            $listaMenu->idProducto = $det['idProducto'];
-            $listaMenu->idMenu = $det['idMenu'];
+            $listaMenu->idProducto = $det['id'];
+            $listaMenu->idMenu = $menu->id;
             $listaMenu->save();
         }    
+    }
+    public function listaMenu(){
+
     }
 
 

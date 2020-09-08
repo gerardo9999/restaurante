@@ -116,7 +116,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Precio</label>
                                     <div class="col-md-9">
-                                        <input type="number" v-model="precio" class="form-control" placeholder="">                                        
+                                        <input type="number" v-model="idProducto" class="form-control" placeholder="">                                        
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -160,7 +160,7 @@
     export default {
         data (){
             return {
-                id: 0,
+                idProducto: 0,
                 idCategoria : 0,
                 nombreCategoria : '',
                 nombre : '',
@@ -278,28 +278,29 @@
                 });
             },
             actualizarProducto(){
-               if (this.validarProducto()){
-                    return;
-                }
+            //    if (this.validarProducto()){
+            //         return;
+            //     }
                 let url    = '/producto/modificar';
                 let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
-                let data   = new FormData();
-                data.append('idCategoria',this.idCategoria);
-                data.append('nombre'     ,this.nombre);
-                data.append('foto'       ,this.foto,data);
-                data.append('precio'     , this.precio)
 
-                data.append('descripcion',this.descripcion);
-                data.append('id'     ,this.id);
-
+                
                 let me = this;
 
-                axios.post(url,data,header).then(function (response) {
+                axios.post(url,{
+                    'descripcion': this.descripcion,
+                    'id': this.idProducto,
+                    'foto': this.foto,
+                    'nombre': this.nombre,
+                    'precio': this.precio,
+                    'idCategoria': this.idCategoria,
+                    
+                }).then(function (response) {
                     me.cerrarModal();
                     me.listarProducto(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
-                }); 
+                });  
             },
             eliminarProducto(id) {
                 swal({
@@ -388,15 +389,15 @@
                             {
                                 //console.log(data);
                                 this.modal=1;
-                                this.tituloModal='Modificar Producto';
-                                this.tipoAccion=2;
-                                this.id=data['id'];
-                                this.idCategoria=data['idCategoria'];
-                                this.codigo=data['codigo'];
-                                this.nombre = data['nombre'];
-                                this.foto=data['foto'];
-                                this.precio=data['precio'];
-                                this.descripcion= data['descripcion'];
+                                this.tituloModal    ='Modificar Producto';
+                                this.tipoAccion     = 2;
+                                this.idProducto     = data['id'];
+                                this.idCategoria    = data['idCategoria'];
+                                this.codigo         = data['codigo'];
+                                this.nombre         = data['nombre'];
+                                this.foto           = data['foto'];
+                                this.precio         = data['precio'];
+                                this.descripcion    = data['descripcion'];
                                 break;
                             }
                         }

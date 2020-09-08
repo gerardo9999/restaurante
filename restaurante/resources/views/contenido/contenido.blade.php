@@ -1,12 +1,11 @@
  @extends('index')
 @section('contenido')
+    
+
     <template v-if="menu==0">
-        <!--<example-component></example-component>   -->
+        <frm-mesa></frm-mesa>
     </template>
 
-    <template v-if="menu==1">
-        <frm-categoria></frm-categoria>
-    </template>
     <template v-if="menu==2">
         <frm-producto></frm-producto>
     </template>
@@ -17,38 +16,13 @@
 
     <template v-if="menu==4">
         <frm-repartidor></frm-repartidor>
-    </template>
-
-    <template v-if="menu==5">
-        @livewire('lista')
-    </template>
-    
-    <template v-if="menu==6">
+    </template>    
+    <template v-if="menu==1">
          <frm-cliente></frm-cliente>
-    </template>
-
-    <template v-if="menu==7">
-        <frm-cliente></frm-cliente>
     </template>
 
     <template v-if="menu==8">
         <frm-menu></frm-menu>
-
     </template>
 
-    <template v-if="menu==9">
-        <h1>Contenido Menu 9</h1>
-    </template>
-
-    <template v-if="menu==10">
-        <h1>Contenido Menu 10</h1>
-    </template>
-
-    <template v-if="menu==11">
-        <h1>Contenido Menu 11</h1>
-    </template>
-
-    <template v-if="menu==12">
-        <h1>Contenido Menu 12</h1>
-    </template>
 @endsection

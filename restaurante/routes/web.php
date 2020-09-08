@@ -22,15 +22,21 @@ Route::get('producto','ctrlProducto@mostrar');
 Route::post('producto/guardar','ctrlProducto@guardar');
 Route::post('producto/modificar','ctrlProducto@modificar');
 Route::post('producto/eliminar','ctrlProducto@eliminar');
+Route::get('producto/buscarProducto','ctrlProducto@buscarProducto');
+Route::get('/producto/menu','ctrlProducto@productoMenu');
 
 
 Route::get('/producto/selectProducto', 'ctrlProducto@selectProducto');
-Route::get('/producto/buscarProducto', 'ctrlProducto@buscarProducto');
+// Route::get('/producto/buscarProducto', 'ctrlProducto@buscarProducto');
 
 Route::get('mesa','ctrlMesa@mostrar');
 Route::post('mesa/guardar','ctrlMesa@guardar');
 Route::post('mesa/modificar','ctrlMesa@modificar');
 Route::post('mesa/eliminar','ctrlMesa@eliminar');
+
+
+Route::get('menu','ctrlMenu@mostrar');
+Route::post('menu/guardar','ctrlMenu@guardar');
 
 
 

@@ -360,7 +360,7 @@
                                 case 'registrar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Registrar Cliente'
+                                        this.tituloModal = 'Guardar Cliente'
                                         this.nombres = '';
                                         this.apellidos = '';
                                         this.login = '';

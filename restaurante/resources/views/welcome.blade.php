@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+@livewireStyles
         <!-- Styles -->
         <style>
             html, body {
@@ -96,5 +96,6 @@
                 </div>
             </div>
         </div>
+@livewireScripts
     </body>
 </html>

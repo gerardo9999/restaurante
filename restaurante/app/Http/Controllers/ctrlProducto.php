@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\categoria;
+use App\listaMenu;
 use Illuminate\Http\Request;
 use App\producto;
 use Illuminate\Contracts\Cache\Store;
@@ -66,8 +67,46 @@ class ctrlProducto extends Controller{
     }
     
     public function buscarProducto(Request $request){
-        $producto = producto::where('producto.nombre','=',$request->nombre)->take(1)->get();
-        return ['producto'=>$producto];
+        // if (!$request->ajax()) return redirect('/');
+
+        $buscar   = $request->buscar;
+        $criterio = $request->criterio;
+       
+
+
+        
+        if ($buscar==''){
+            $producto = producto::join('categoria','producto.idCategoria','=','categoria.id')
+            ->select('producto.id',
+                     'producto.idCategoria',
+                     'producto.nombre',
+                     'producto.precio',
+                     'producto.foto',
+                     'categoria.nombre as categoria',
+                     'producto.descripcion'
+                     )
+            ->orderBy('producto.id', 'desc')->paginate(5);
+        }
+        else{
+            
+            $producto = producto::join('categoria','producto.idCategoria','=','categoria.id')
+            ->select('producto.id',
+                        'producto.idCategoria',
+                        'producto.nombre',
+                        'producto.precio',
+                        'producto.foto',
+                        'categoria.nombre as categoria',
+                        'producto.precio',
+                        'producto.descripcion'
+                        )
+            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->orderBy('producto.id', 'desc')->paginate(5);
+        }
+        
+
+        return [
+            'producto' => $producto
+        ];
     }
     public function selectProducto(Request $request){
         
@@ -117,6 +156,16 @@ class ctrlProducto extends Controller{
         $producto = producto::findOrFail($request->id);
         $producto->delete();
         return ['producto' => $producto];
+    }
+    public function productoMenu(Request $request){
+        $id = $request->id;
+
+        $productoMenu = listaMenu::join('menu','menu.id','=','listamenu.idMenu')
+                                ->join('producto','producto.id','listamenu.idProducto')
+                                ->select('producto.id','producto.foto','producto.nombre','producto.precio','listamenu.estado')->where('menu.id','=',$id)->get(); 
+        return [
+            'productoMenu'=> $productoMenu
+        ];
     }
 
 }
