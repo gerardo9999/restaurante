@@ -44,6 +44,7 @@ Route::get('cliente','ctrlCliente@index');
 Route::post('cliente/guardar','ctrlCliente@store');
 Route::put('cliente/actualizar','ctrlCliente@update');
 Route::put('cliente/eliminar','ctrlCliente@delete');
+Route::get('/cliente/selectCliente', 'ctrlCliente@selectCliente');
 
 
 /////----------------Repartidor-----------------///
@@ -51,6 +52,7 @@ Route::get('repartidor','ctrlRepartidor@index');
 Route::post('repartidor/guardar','ctrlRepartidor@store');
 Route::put('repartidor/actualizar','ctrlRepartidor@update');
 Route::put('repartidor/eliminar','ctrlRepartidor@delete');
+Route::get('/repartidor/selectRepartidor', 'ctrlRepartidor@selectRepartidor');
 
 
 /////----------------Tipo-----------------///
@@ -60,12 +62,12 @@ Route::put('tipo/actualizar','ctrlTipo@update');
 Route::put('tipo/eliminar','ctrlTipo@delete');
 
 /////----------------Vehiculo-----------------///
-Route::get('vehiculo','ctrlVehiculo@index');
-Route::post('vehiculo/guardar','ctrlVehiculo@store');
-Route::put('vehiculo/actualizar','ctrlVehiculo@update');
-Route::put('vehiculo/eliminar','ctrlVehiculo@delete');
+Route::get('vehiculo','ctrlVehiculo@mostrar');
+Route::post('vehiculo/guardar','ctrlVehiculo@guardar');
+Route::post('vehiculo/modificar','ctrlVehiculo@modificar');
+Route::post('vehiculo/eliminar','ctrlVehiculo@eliminar');
 
-
+//------------------reserva----------------//
 Route::get('reserva','ctrlReserva@mostrar');
 Route::post('reserva/guardar','ctrlReserva@guardar');
 Route::post('reserva/modificar','ctrlReserva@modificar');

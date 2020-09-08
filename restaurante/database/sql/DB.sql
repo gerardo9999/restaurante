@@ -19,17 +19,12 @@ id int primary key auto_increment,
 fecha date,
 hora time, 
 tabla varchar(20),
-<<<<<<< HEAD
-codigoTabla int,
-}transaccion varchar(50)
-=======
 transaccion varchar(50),
 tablaCodigo varchar(50),
 
 
 idUsuario int not null,
 foreign key(idUsuario) references usuario(id),
->>>>>>> c2f781fe8e89516b139a7274a23276750f48e89a
 );
 
 create table repartidor(

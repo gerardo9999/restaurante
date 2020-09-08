@@ -20,7 +20,15 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('frm-categoria', require('./components/frmCategoria.vue').default);
+Vue.component('frm-repartidor', require('./components/frmRepartidor.vue').default);
 Vue.component('frm-reserva', require('./components/frmReserva.vue').default);
+Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
+Vue.component('frm-tipo', require('./components/frmTipo.vue').default);
+Vue.component('frm-producto', require('./components/frmProducto.vue').default);
+Vue.component('frm-vehiculo', require('./components/frmVehiculo.vue').default);
+Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

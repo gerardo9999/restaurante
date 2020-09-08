@@ -10,12 +10,10 @@
 
     <template v-if="menu==2">
         <frm-producto></frm-producto>
-
     </template>
 
     <template v-if="menu==3">
         <frm-mesa></frm-mesa>
-
     </template>
 
     <template v-if="menu==4">
@@ -23,7 +21,7 @@
     </template>
 
     <template v-if="menu==5">
-        <frm-vehiculo></frm-vehiculo>
+       <frm-vehiculo></frm-vehiculo>
     </template>
     
     <template v-if="menu==6">
