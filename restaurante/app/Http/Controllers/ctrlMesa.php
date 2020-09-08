@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 class ctrlMesa extends Controller
 {
 
-
-
     public function mostrar(Request $request){
         //if(!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
