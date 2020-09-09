@@ -106,13 +106,13 @@
 
                                                                             <template v-if="mesa.ocupado">
 
-                                                                                <button type="button" @click="verOrden(mesa)" class="btn btn-danger btn-sm">
+                                                                                <button type="button" @click="editarOrden(mesa)" class="btn btn-danger btn-sm">
                                                                                             <img width="30px" height="30px" src="imagenes/icono-restaurante.png" alt="">
                                                                                 </button> &nbsp;
 
                                                                             </template>
                                                                             <template v-else>
-                                                                                <button type="button" @click="editarOrden(mesa)" class="btn btn-success btn-sm">
+                                                                                <button type="button" @click="verOrden(mesa)" class="btn btn-success btn-sm">
                                                                                             <img width="30px" height="30px" src="imagenes/icono-restaurante.png" alt="">
                                                                                 </button> &nbsp;
                                                                             </template>
@@ -185,7 +185,7 @@
                                 </div>
 
 
-
+                                
                                 <div class="col-md-11">
                                     <div class="form-group">
                                         <label for="">Seleccione Producto</label>

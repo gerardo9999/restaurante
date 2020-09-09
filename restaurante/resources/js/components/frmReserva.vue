@@ -104,7 +104,7 @@
                                     <div class="col-md-9">
                                         <select class="form-control" v-model="idCliente">
                                             <option value="0" disabled>Seleccione</option>
-                                            <option v-for="cliente in arrayCliente" :key="cliente.id" :value="cliente.id" v-text="cliente.nombres"></option>
+                                            <option v-for="cliente in arrayCliente" :key="cliente.id" :value="cliente.id" v-text="cliente.nombreCompleto"></option>
                                         </select>                                        
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="guardarReserva()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarReserva()  ">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarReserva()">Modificar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -250,7 +250,7 @@
                 axios.get(url).then(function (response) {
                     //console.log(response);
                     var respuesta= response.data;
-                    me.arrayCliente = respuesta.cliente;
+                    me.arrayCliente = respuesta.clientes;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -292,7 +292,7 @@
                     return;
                 }
                 let url    = '/reserva/modificar';
-                let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
+     /*           let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
                 let data   = new FormData();
                 data.append('idCliente',this.idCliente);
                 data.append('comensales'     ,this.comensales);
@@ -300,11 +300,19 @@
                 data.append('fecha'       ,this.fecha);
                 data.append('hora'       ,this.hora);
                 data.append('0bservacion'     , this.observacion);
-                data.append('id'     ,this.id);
+                data.append('id'     ,this.id);*/
 
                 let me = this;
 
-                axios.post(url,data,header).then(function (response) {
+                axios.post(url,{
+                    'comensales': this.comensales,
+                    'telefono' : this.telefono,
+                    'fecha' : this.fecha,
+                    'hora' : this.hora,
+                    'observacion' : this.observacion,
+                    'idCliente' : this.idCliente,
+                    'id' : this.id 
+                }).then(function (response) {
                     me.cerrarModal();
                     me.listarReserva(1,'','comensales');
                 }).catch(function (error) {

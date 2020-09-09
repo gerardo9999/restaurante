@@ -11,7 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-<<<<<<< HEAD
 mix.styles([
     'resources/plantilla/css/font-awesome.min.css',
     'resources/plantilla/css/simple-line-icons.min.css',
@@ -30,7 +29,3 @@ mix.styles([
 
 ], 'public/js/plantilla.js')
 .js(['resources/js/app.js'],'public/js/app.js');
-=======
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
->>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80

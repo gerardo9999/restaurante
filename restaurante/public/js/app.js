@@ -2502,8 +2502,7 @@ __webpack_require__.r(__webpack_exports__);
         'empresa': this.empresa,
         'telefono': this.telefono,
         'direccion': this.direccion,
-        'email': this.email,
-        'estado': this.estado
+        'email': this.email
       }).then(function (response) {
         me.cerrarModal();
         me.listarCliente(1, '', 'nombres');
@@ -2575,8 +2574,8 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.password) this.errorMostrarMsjCliente.push("Debe completar el campo Password ");
       if (!this.empresa) this.errorMostrarMsjCliente.push("Debe completar el campo Empresa ");
       if (!this.direccion) this.errorMostrarMsjCliente.push("Debe completar el campo Direccion ");
-      if (!this.email) this.errorMostrarMsjCliente.push("Debe completar el campo Email ");
-      if (!this.estado) this.errorMostrarMsjCliente.push("Debe completar el campo Estado ");
+      if (!this.email) this.errorMostrarMsjCliente.push("Debe completar el campo Email "); //if (!this.estado) this.errorMostrarMsjCliente.push("Debe completar el campo Estado ");
+
       if (this.errorMostrarMsjCliente.length) this.errorCliente = 1;
       return this.errorCliente;
     },
@@ -5550,7 +5549,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (response) {
         //console.log(response);
         var respuesta = response.data;
-        me.arrayCliente = respuesta.cliente;
+        me.arrayCliente = respuesta.clientes;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -5595,21 +5594,26 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var url = '/reserva/modificar';
-      var header = {
-        headers: {
-          'Content-Tipe': 'multipart/form-data'
-        }
-      };
-      var data = new FormData();
-      data.append('idCliente', this.idCliente);
-      data.append('comensales', this.comensales);
-      data.append('telefono', this.telefono);
-      data.append('fecha', this.fecha);
-      data.append('hora', this.hora);
-      data.append('0bservacion', this.observacion);
-      data.append('id', this.id);
+      /*           let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
+                 let data   = new FormData();
+                 data.append('idCliente',this.idCliente);
+                 data.append('comensales'     ,this.comensales);
+                 data.append('telefono'       ,this.telefono);
+                 data.append('fecha'       ,this.fecha);
+                 data.append('hora'       ,this.hora);
+                 data.append('0bservacion'     , this.observacion);
+                 data.append('id'     ,this.id);*/
+
       var me = this;
-      axios.post(url, data, header).then(function (response) {
+      axios.post(url, {
+        'comensales': this.comensales,
+        'telefono': this.telefono,
+        'fecha': this.fecha,
+        'hora': this.hora,
+        'observacion': this.observacion,
+        'idCliente': this.idCliente,
+        'id': this.id
+      }).then(function (response) {
         me.cerrarModal();
         me.listarReserva(1, '', 'comensales');
       })["catch"](function (error) {
@@ -45796,7 +45800,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Capacidad  ")]
+                        [_vm._v("Capacidad")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -46430,7 +46434,7 @@ var render = function() {
                                                                       click: function(
                                                                         $event
                                                                       ) {
-                                                                        return _vm.verOrden(
+                                                                        return _vm.editarOrden(
                                                                           mesa
                                                                         )
                                                                       }
@@ -46468,7 +46472,7 @@ var render = function() {
                                                                       click: function(
                                                                         $event
                                                                       ) {
-                                                                        return _vm.editarOrden(
+                                                                        return _vm.verOrden(
                                                                           mesa
                                                                         )
                                                                       }
@@ -49072,7 +49076,7 @@ var render = function() {
                                 key: cliente.id,
                                 domProps: {
                                   value: cliente.id,
-                                  textContent: _vm._s(cliente.nombres)
+                                  textContent: _vm._s(cliente.nombreCompleto)
                                 }
                               })
                             })
@@ -49346,7 +49350,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Actualizar")]
+                      [_vm._v("Modificar")]
                     )
                   : _vm._e()
               ])
@@ -66228,12 +66232,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! C:\xampp\htdocs\sisRestaurante\restaurante\restaurante\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\sisRestaurante\restaurante\restaurante\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Restaurante\restaurante\resources\js\app.js */"./resources/js/app.js");
->>>>>>> 994bd56307464dc4e1034b09c9eb4a104cd473d1
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\sisRestaurante\restaurante\restaurante\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -260,7 +260,6 @@
                     'telefono': this.telefono,
                     'direccion': this.direccion,
                     'email': this.email,
-                    'estado': this.estado,
                 }).then(function(response) {
                     me.cerrarModal();
                     me.listarCliente(1, '', 'nombres');
@@ -342,7 +341,7 @@
                  if (!this.empresa) this.errorMostrarMsjCliente.push("Debe completar el campo Empresa ");
                 if (!this.direccion) this.errorMostrarMsjCliente.push("Debe completar el campo Direccion ");
                 if (!this.email) this.errorMostrarMsjCliente.push("Debe completar el campo Email ");
-                if (!this.estado) this.errorMostrarMsjCliente.push("Debe completar el campo Estado ");
+                //if (!this.estado) this.errorMostrarMsjCliente.push("Debe completar el campo Estado ");
                 if (this.errorMostrarMsjCliente.length) this.errorCliente = 1;
                 return this.errorCliente;
             },

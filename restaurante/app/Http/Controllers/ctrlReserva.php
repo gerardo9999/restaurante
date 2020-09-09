@@ -85,7 +85,7 @@ class ctrlReserva extends Controller
         $reserva->hora = $request->hora;
         $reserva->observacion = $request->observacion;
         $reserva->idCliente = $request->idCliente;
-        $reserva->save();
+        $reserva->update();
     }
 
     public function eliminar(Request $request){

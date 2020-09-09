@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ctrlCliente extends Controller{
+class ctrlCliente extends Controller
+{
 
     public function index(Request $request){
          //if(!$request->ajax()) return redirect('/');
@@ -82,15 +83,12 @@ class ctrlCliente extends Controller{
     public function delete(Request $request){
          $cliente= cliente::findOrFail($request->id);
          $cliente->delete();
-<<<<<<< HEAD
-=======
-     }
-     public function selectCliente(){
+    }
+     /*public function selectCliente(){
          $cliente = cliente::select('id','nombres')->orderBy('nombres', 'asc')->get();
          return ['cliente' => $cliente];
      }
->>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
-    }
+    }*/
     public function selectCliente(Request $request){
         
             // if (!$request->ajax()) return redirect('/');
