@@ -100,7 +100,7 @@
                             
                             <div class="form-group row">
 
-                                <label class="col-md-3 form-control-label" for="text-input">Capacidad  </label>
+                                <label class="col-md-3 form-control-label" for="text-input">Capacidad</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="capacidad" class="form-control" placeholder="Capacidad">
                                 </div>
