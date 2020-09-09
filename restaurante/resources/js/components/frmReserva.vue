@@ -112,13 +112,13 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Comensales</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="comensales" class="form-control" placeholder="Nombre de Reserva">                                        
+                                        <input type="text" v-model="comensales" class="form-control" placeholder="Cantidad de Comensales">                                        
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="telefono" class="form-control" placeholder="Telefono de Reserva">                                        
+                                        <input type="text" v-model="telefono" class="form-control" placeholder="Telefono">                                        
                                     </div>
                                 </div>
                                  <div class="form-group row">
@@ -274,7 +274,7 @@
                 let data = new FormData();
                     data.append('idCliente', this.idCliente)
                     data.append('comensales'     , this.comensales)
-                    data.append('telefono'       , this.telefonoo)
+                    data.append('telefono'       , this.telefono)
                     data.append('fecha'     , this.fecha)
                     data.append('hora'     , this.hora)
                     data.append('observacion', this.observacion)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\reserva;
 use App\cliente;
+use Illuminate\Support\Facades\DB;
 
 class ctrlReserva extends Controller
 {
@@ -27,7 +28,7 @@ class ctrlReserva extends Controller
                      'reserva.fecha',
                      'reserva.hora',
                      'reserva.observacion',
-                     'cliente.nombres as cliente'
+                     DB::raw('CONCAT(nombres, ", ", apellidos) as cliente')
                     
                      )
             ->orderBy('reserva.id', 'desc')->paginate(10);
@@ -42,7 +43,7 @@ class ctrlReserva extends Controller
                         'reserva.fecha',
                         'reserva.hora',
                         'reserva.observacion',
-                        'cliente.nombres as cliente'
+                        DB::raw('CONCAT(nombres, ", ", apellidos) as cliente')
                        
                         )
             ->where($criterio.'.comensales', 'like', '%'. $buscar . '%')

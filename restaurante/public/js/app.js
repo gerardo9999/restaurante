@@ -5620,7 +5620,7 @@ __webpack_require__.r(__webpack_exports__);
       var data = new FormData();
       data.append('idCliente', this.idCliente);
       data.append('comensales', this.comensales);
-      data.append('telefono', this.telefonoo);
+      data.append('telefono', this.telefono);
       data.append('fecha', this.fecha);
       data.append('hora', this.hora);
       data.append('observacion', this.observacion);
@@ -49200,7 +49200,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            placeholder: "Nombre de Reserva"
+                            placeholder: "Cantidad de Comensales"
                           },
                           domProps: { value: _vm.comensales },
                           on: {
@@ -49236,10 +49236,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Telefono de Reserva"
-                          },
+                          attrs: { type: "text", placeholder: "Telefono" },
                           domProps: { value: _vm.telefono },
                           on: {
                             input: function($event) {

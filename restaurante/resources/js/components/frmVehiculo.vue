@@ -40,7 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>TipoVehiculo</th>
-                                    <th>Repartidor</th>
+                                     <th>Repartidor</th>
                                     <th>Caracteristicas</th>
                                     <th>Placa</th>
                                     <th>Opciones</th>
