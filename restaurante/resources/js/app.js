@@ -8,6 +8,22 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+// import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+// Install BootstrapVue
+// Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+// Vue.use(IconsPlugin)
+
+
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// importar  './custom.scss'
+
+// import './custom.scss'
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -28,7 +44,15 @@ Vue.component('frm-tipo', require('./components/frmTipo.vue').default);
 Vue.component('frm-producto', require('./components/frmProducto.vue').default);
 Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
 Vue.component('frm-vehiculo', require('./components/frmVehiculo.vue').default);
+Vue.component('frm-orden', require('./components/frmOrdenAtencion.vue').default);
+Vue.component('frm-menu', require('./components/frmMenu.vue').default);
 
+
+
+
+// Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
+// Vue.component('frm-producto', require('./components/frmProducto.vue').default);
+// Vue.component('frm-repartidor', require('./components/frmRepartidor.vue').default);
 
 
 /**

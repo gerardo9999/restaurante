@@ -3,20 +3,16 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::get('/index', function () {
     return view('contenido/contenido');
 });
+
 
 //----------CATEGORIA-------------////
 Route::get('categoria','ctrlCategoria@index');
@@ -31,6 +27,11 @@ Route::get('producto','ctrlProducto@mostrar');
 Route::post('producto/guardar','ctrlProducto@guardar');
 Route::post('producto/modificar','ctrlProducto@modificar');
 Route::post('producto/eliminar','ctrlProducto@eliminar');
+Route::get('producto/buscarProducto','ctrlProducto@buscarProducto');
+Route::get('/producto/menu','ctrlProducto@productoMenu');
+Route::get('/producto/selectProducto', 'ctrlProducto@selectProducto');
+// Route::get('/producto/buscarProducto', 'ctrlProducto@buscarProducto');
+
 
 /////----------------Mesa-----------------///
 Route::get('mesa','ctrlMesa@mostrar');
@@ -39,13 +40,18 @@ Route::post('mesa/modificar','ctrlMesa@modificar');
 Route::post('mesa/eliminar','ctrlMesa@eliminar');
 
 
+Route::get('menu','ctrlMenu@mostrar');
+Route::post('menu/guardar','ctrlMenu@guardar');
 
 /////----------------Cliente-----------------///
 Route::get('cliente','ctrlCliente@index');
 Route::post('cliente/guardar','ctrlCliente@store');
 Route::put('cliente/actualizar','ctrlCliente@update');
 Route::put('cliente/eliminar','ctrlCliente@delete');
-Route::get('/cliente/selectCliente', 'ctrlCliente@selectCliente');
+Route::get('/cliente/selectCliente','ctrlCliente@selectCliente'); 
+
+
+Route::post('ordenAtencion/guardar', 'ctrlOrdenAtencion@guardar');
 
 
 /////----------------Repartidor-----------------///
@@ -73,3 +79,11 @@ Route::get('reserva','ctrlReserva@mostrar');
 Route::post('reserva/guardar','ctrlReserva@guardar');
 Route::post('reserva/modificar','ctrlReserva@modificar');
 Route::post('reserva/eliminar','ctrlReserva@eliminar');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -16,12 +16,14 @@ class ctrlMesa extends Controller
         $criterio = $request->criterio;
         if($buscar==''){
             $mesa= mesa::select('mesa.id','mesa.capacidad','descripcion','ocupado','ubicacion')
-            ->orderBy('mesa.id','desc')->paginate(10);
+            ->orderBy('mesa.id','desc')
+            ->paginate(12);
         }
         else{
             $mesa= mesa::select('mesa.id','mesa.capacidad','descripcion','ocupado','ubicacion')
             ->where('mesa.'.$criterio,'=',$buscar)
-            ->orderBy('mesa.id','desc')->paginate(10);            
+            ->orderBy('mesa.id','desc')
+            ->paginate(12);            
         }
         
         return [

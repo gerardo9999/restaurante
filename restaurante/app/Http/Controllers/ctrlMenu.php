@@ -1,12 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\listaMenu;
 use App\menu;
 use App\producto;
 use Illuminate\Http\Request;
 
 class ctrlMenu extends Controller
 {
+<<<<<<< HEAD
+    public function mostrar(Request $request){
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        if($buscar==''){
+            $menu= menu::select('menu.id','menu.fecha')
+            ->orderBy('menu.id','desc')->paginate(20);
+        }
+        else{
+            $menu= menu::select('menu.id','menu.fecha')
+            ->where('menu.'.$criterio,'=',$buscar)
+            ->orderBy('menu.id','desc')->paginate(20);            
+        }
+        
+        return [
+            'pagination' => [
+                'total'        => $menu->total(),
+                'current_page' => $menu->currentPage(),
+                'per_page'     => $menu->perPage(),
+                'last_page'    => $menu->lastPage(),
+                'from'         => $menu->firstItem(),
+                'to'           => $menu->lastItem(),
+            ],
+            'menus' => $menu
+=======
     /**
      * Display a listing of the resource.
      *
@@ -19,10 +46,14 @@ class ctrlMenu extends Controller
     public function validacion($request){
         $reglas = [
             'fecha'=> ['required','date']
+>>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
         ];
-        $this->validate($request,$reglas);
     }
 
+<<<<<<< HEAD
+    public function guardar(Request $request){
+        
+=======
 
     public function crear()
     {
@@ -41,12 +72,26 @@ class ctrlMenu extends Controller
     public function guardar(Request $request)
     {
         $this->validacion($request);
+>>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
         $menu = new menu();
-        $menu->fecha = $request->get('fecha');
+        $menu->fecha = $request->fecha;
         $menu->save();
 
-        return redirect('/menus')->with('success','el registro se ha guardado correctamente');
+        
+        $listaMenu = $request->data;
+
+        foreach($listaMenu as $ep=>$det)
+        {
+            $listaMenu = new listaMenu();
+            $listaMenu->estado = 1;
+            $listaMenu->idProducto = $det['id'];
+            $listaMenu->idMenu = $menu->id;
+            $listaMenu->save();
+        }    
     }
+<<<<<<< HEAD
+    public function listaMenu(){
+=======
     /**
      * Update the specified resource in storage.
      *
@@ -61,10 +106,12 @@ class ctrlMenu extends Controller
         $menu =  menu::findOrFail($id);
         $menu->fecha = $request->get('fecha');
         $menu->update();
+>>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
 
-        return redirect('/menus')->with('info','el registro se ha actualizado correctamente');  
     }
 
+<<<<<<< HEAD
+=======
     /**
      * Remove the specified resource from storage.
      *
@@ -75,7 +122,7 @@ class ctrlMenu extends Controller
     {
         $menu =  menu::findOrFail($id);
         $menu->delete();
+>>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
 
-        return redirect('/menus')->with('danger','el registro se ha eliminado correctamente');  
-    }
+   
 }

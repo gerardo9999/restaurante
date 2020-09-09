@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 create database briela;
 use briela;
+>>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
 
 create table cliente(
 id int primary key auto_increment,

@@ -21,7 +21,11 @@ class CreateVehiculoTable extends Migration
 
             $table->integer('idRepartidor')->unsigned();
             $table->foreign('idRepartidor')->references('id')->on('repartidor')->onDelete('cascade');
+<<<<<<< HEAD
+        });    
+=======
         });
+>>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
     }
     public function down()
     {
