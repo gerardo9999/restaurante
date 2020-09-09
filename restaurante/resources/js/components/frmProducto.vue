@@ -117,7 +117,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Precio</label>
                                     <div class="col-md-9">
-                                        <input type="number" v-model="idProducto" class="form-control" placeholder="">                                        
+                                        <input type="number" v-model="precio" class="form-control" placeholder="">                                        
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -146,7 +146,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="guardarProducto()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="modificarProducto()">Modificar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProducto()">Modificar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -183,7 +183,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'nombre',
+                criterio : 'producto',
                 buscar : '',
                 arrayCategoria :[],
             }

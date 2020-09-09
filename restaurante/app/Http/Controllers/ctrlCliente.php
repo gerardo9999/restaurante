@@ -82,14 +82,7 @@ class ctrlCliente extends Controller{
     public function delete(Request $request){
          $cliente= cliente::findOrFail($request->id);
          $cliente->delete();
-<<<<<<< HEAD
-=======
-     }
-     public function selectCliente(){
-         $cliente = cliente::select('id','nombres')->orderBy('nombres', 'asc')->get();
-         return ['cliente' => $cliente];
-     }
->>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
+    
     }
     public function selectCliente(Request $request){
         

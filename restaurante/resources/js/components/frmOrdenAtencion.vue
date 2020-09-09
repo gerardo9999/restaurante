@@ -25,6 +25,8 @@
                 </template>
 
                 <div class="card-body"><!--card Body-->
+
+
                     <template v-if="listado">
                             <!-- <template>  Listado -->
                                 <div class="form-group row">  <!--Busqueda-->
@@ -106,13 +108,13 @@
 
                                                                             <template v-if="mesa.ocupado">
 
-                                                                                <button type="button" @click="verOrden(mesa)" class="btn btn-danger btn-sm">
+                                                                                <button type="button" @click="editarOrden(mesa)" class="btn btn-danger btn-sm">
                                                                                             <img width="30px" height="30px" src="imagenes/icono-restaurante.png" alt="">
                                                                                 </button> &nbsp;
 
                                                                             </template>
                                                                             <template v-else>
-                                                                                <button type="button" @click="editarOrden(mesa)" class="btn btn-success btn-sm">
+                                                                                <button type="button" @click="verFormularioDetalle(mesa)" class="btn btn-success btn-sm">
                                                                                             <img width="30px" height="30px" src="imagenes/icono-restaurante.png" alt="">
                                                                                 </button> &nbsp;
                                                                             </template>
@@ -253,14 +255,33 @@
                                         </table>
                                     </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <button  @click="guardarOrden()" class="btn btn-success">Guardar </button>
-                                    <button @click="mostrarListado()" class="btn btn-secondary">Cerrar </button>
+
+
+                            <template v-if="actualizar">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <button  @click="modificarDetalle()" class="btn btn-success">Actualizar </button>
+                                        <button @click="mostrarListado()" class="btn btn-secondary">Cerrar </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </template>
+                            <template v-else>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <button  @click="guardarOrden()" class="btn btn-success">Guardar </button>
+                                        <button @click="mostrarListado()" class="btn btn-secondary">Cerrar </button>
+                                    </div>
+                                </div>
+                            </template>                            
+                            
+                                
+                            
+
                         </div>
                     </template>
+
+
+
                 </div> <!--card-body-->
             </div> <!--card-->
         </div> <!--div fluid-->
@@ -358,6 +379,7 @@
                 apellidoCliente : '',
 
                 buscarProducto : '',
+                
 
 
                 idProducto  : 0,
@@ -378,6 +400,7 @@
                 arrayDetalle      :[],
                 arrayMenuDetalle  :[],
                 arrayProductoMenu :[],
+                arrayGetDetalle   :[],
 
                 modal       : 0,
                 tituloModal : '',
@@ -388,6 +411,9 @@
                 buscarProducto : '',
 
                 errorMostrarMsjMesa: [],
+
+
+                actualizar : 0,
                 
                 total: 0, 
 
@@ -472,10 +498,10 @@
                         console.log(error)
                     });
             },
-            editarOrden(mesa){
-                iziToast.success({
-                    title: "En proceso....."
-                })
+            restearArray(){
+                this.arrayProducto = [];
+                this.arrayDetalle  = [];
+                this.arrayCliente  = [];
             },
             selectCliente(search,loading){
                  let me=this;
@@ -581,7 +607,7 @@
             ocultarListado(){
                 this.listado = 0;
             },
-            verOrden(mesa){
+            verFormularioDetalle(mesa){
                 this.ocultarListado();
 
                 console.log(mesa.id)
@@ -591,9 +617,8 @@
                 this.descripcion = mesa.descripcion;
             },
             actualizarMesa() {
-                if (this.validarMesa()) {
-                    return;
-                }
+                
+                
                 let me = this;
                 let url = '/mesa/modificar';
                 
@@ -751,7 +776,7 @@
                         'idMesa'        : this.idMesa,
                         'data'          : this.arrayDetalle,
                     }).then(function (response) {
-                        me.listarMesa(1,0,'ocupado');
+                        me.listarMesa(1,1,'ocupado');
                         // me.resetVariable();
                         me.mostrarListado()
 
@@ -763,6 +788,70 @@
                         console.log(error);
                     });
                 // }
+            },
+            editarOrden(mesa){
+                this.actualizar = 1;
+                this.restearArray();
+                
+                var id = mesa.id;
+
+                iziToast.success({
+                    title: "En proceso.....Espere por favor"+mesa.id
+
+                });
+
+
+                let me = this;
+                var url = 'detalleOrden/buscar?filtro='+id;
+
+                axios.get(url).then(function(response){
+                    var respuesta = response.data;
+                    me.arrayDetalle = respuesta.detalle;
+                    me.arrayCliente = respuesta.cliente;
+                    me.idMesa = respuesta.idMesa;
+                    me.idCliente = respuesta.idCliente;
+                    me.idOrdenAtencion =respuesta.idOrdenAtencion
+                    console.log(me.arrayProducto);
+                    console.log(me.arrayCliente);
+                    console.log(me.arrayDetalle);
+                    console.log(me.idMesa);
+                    console.log(me.idCliente);
+                })
+
+                .catch((error) => {
+                    console.log(error);
+                });
+
+                this.ocultarListado();
+
+            },
+            modificarDetalle(){
+                
+                let url    = 'detalleOrden/modificar';
+                // let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
+
+                
+                let me = this;
+
+                axios.post(url,{
+                    "idCliente" : this.idCliente,
+                    "idMesa"    : this.idMesa,
+                    "idOrdenAtencion"   : this.idOrdenAtencion,
+                    "data"      : this.arrayDetalle 
+                }).then(function (response) {
+                    me.restearArray();
+                    me.mostrarListado();
+                    me.listarProducto(1,1,'ocupado');
+                }).catch(function (error) {
+                    console.log(error);
+                    console.log(me.idCliente);
+                    console.log(me.idMesa);
+                    console.log(me.idOrdenAtencion);
+                    console.log(me.arrayDetalle);
+
+                });  
+
+
             }
 
         },

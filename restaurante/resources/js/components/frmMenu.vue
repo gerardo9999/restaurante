@@ -544,28 +544,6 @@
                 this.fecha = null;
                 this.arrayDetalle =[];
             },
-            actualizarArticulo(){
-               if (this.validarMenu()){
-                    return;
-                }
-                
-                let me = this;
-
-                axios.put('/menu/actualizar',{
-                    'idcategoria': this.idcategoria,
-                    'codigo': this.codigo,
-                    'nombre': this.nombre,
-                    'stock': this.stock,
-                    'precio_venta': this.precio_venta,
-                    'descripcion': this.descripcion,
-                    'id': this.articulo_id
-                }).then(function (response) {
-                    me.cerrarModal();
-                    me.listarMenu(1,'','nombre');
-                }).catch(function (error) {
-                    console.log(error);
-                }); 
-            },
             desactivarArticulo(id){
                swal({
                 title: 'Esta seguro de desactivar este artículo?',

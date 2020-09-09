@@ -4,7 +4,7 @@
         <frm-cliente></frm-cliente>
     </template>
     <template v-if="menu==2">
-        Modulo de Reservas
+        <frm-reserva></frm-reserva>
     </template>
     <template v-if="menu==3">
         Modulo de Pedidos
@@ -22,7 +22,7 @@
         <frm-producto></frm-producto>
     </template>
     <template v-if="menu==8">
-        Modulo de Vehiculo
+        <frm-repartidor></frm-repartidor>
     </template>
     <template v-if="menu==9">
         <frm-vehiculo></frm-vehiculo>
