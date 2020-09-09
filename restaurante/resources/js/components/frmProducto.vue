@@ -32,6 +32,7 @@
                                     <input type="text" v-model="buscar" @keyup.enter="listarProducto(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
                                     <button type="submit" @click="listarProducto(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
+
                                  -->
                             </div>
                             
@@ -57,7 +58,7 @@
                                     <td><img :src="`${producto.foto}`" width="100px" alt=""></td>
                                     <td v-text="producto.descripcion"></td>
                                     <td>
-                                        <button type="button" @click="abrirModal('producto','actualizar',producto)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('producto','modificar',producto)" class="btn btn-warning btn-sm">
                                             <i class="icon-pencil"></i>
                                         </button> &nbsp;
 
@@ -126,9 +127,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Descripción</label>
                                     <div class="col-md-9">
-                                        <input type="email" v-model="descripcion" class="form-control" placeholder="Ingrese descripción">
+                                        <input type="text" v-model="descripcion" class="form-control" placeholder="Ingrese descripción">
                                     </div>
                                 </div>
 
@@ -145,7 +146,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="guardarProducto()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProducto()  ">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="modificarProducto()">Modificar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -182,7 +183,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'producto',
+                criterio : 'nombre',
                 buscar : '',
                 arrayCategoria :[],
             }
@@ -385,7 +386,7 @@
                                 this.tipoAccion = 1;
                                 break;
                             }
-                            case 'actualizar':
+                            case 'modificar':
                             {
                                 //console.log(data);
                                 this.modal=1;

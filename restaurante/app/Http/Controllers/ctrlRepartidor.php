@@ -71,10 +71,10 @@ class ctrlRepartidor extends Controller
          $repartidor= repartidor::findOrFail($request->id);
          $repartidor->delete();
      }
-     /*public function selectRepartidor(){
+     public function selectRepartidor(){
          $repartidor = repartidor::select('id','nombre')->orderBy('nombre', 'asc')->get();
          return ['repartidor' => $repartidor];
-     }*/
+     }
 
      
 }

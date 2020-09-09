@@ -5,110 +5,151 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\vehiculo;
 use App\repartidor;
+
 class ctrlVehiculo extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        if($request){
-            $query=trim($request->get('searchText'));
-            
-            $vehiculos=vehiculo::join('repartidor','repartidor.id', '=', 'vehiculo.idRepartidor')
-            ->select('vehiculo.tipoVehiculo', 
-            'vehiculo.caracteristicas', 
-            'vehiculo.placa', 
-            'vehiculo.id', 
-            'repartidor.nombre', 
-            'repartidor.apellidos', 
-            'repartidor.login', 
-            'repartidor.password', 
-            'repartidor.cedulaID', 
-            'repartidor.telefono', 
-            'repartidor.direccion')->where('repartidor.nombre','LIKE','%'.$query.'%')
-            ->paginate(10);
+<<<<<<< HEAD
+    
+    public function mostrar(Request $request){
+        
+        // if (!$request->ajax()) return redirect('/');
 
-        }
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
        
-     
-        return view('modules.vehiculo.table',['vehiculos'=>$vehiculos,'searchText'=>$query ]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $repartidores=repartidor::all();
-        return view('modules.vehiculo.frmCreate',['repartidores'=>$repartidores]);
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+        
+        if ($buscar==''){
+            $vehiculo = vehiculo::join('repartidor','vehiculo.idRepartidor','=','repartidor.id')
+            ->select('vehiculo.id',
+                     'vehiculo.idRepartidor',
+                     'vehiculo.tipoVehiculo',
+                     'vehiculo.caracteristicas',
+                     'vehiculo.placa',
+                     'repartidor.nombre as repartidor'
+                    
+                     )
+            ->orderBy('vehiculo.id', 'desc')->paginate(10);
+        }
+        else{
+            
+            $vehiculo = vehiculo::join('repartidor','vehiculo.idRepartidor','=','repartidor.id')
+            ->select('vehiculo.id',
+                        'vehiculo.idRepartidor',
+                        'vehiculo.tipoVehiculo',
+                        'vehiculo.caracteristicas',
+                        'vehiculo.placa',
+                        'repartidor.nombre as repartidor'
+                       
+                        )
+            ->where($criterio.'.tipoVehiculo', 'like', '%'. $buscar . '%')
+            ->orderBy('vehiculo.id', 'desc')->paginate(10);
+        }
+        
+
+        return [
+            'pagination' => [
+                'total'        => $vehiculo->total(),
+                'current_page' => $vehiculo->currentPage(),
+                'per_page'     => $vehiculo->perPage(),
+                'last_page'    => $vehiculo->lastPage(),
+                'from'         => $vehiculo->firstItem(),
+                'to'           => $vehiculo->lastItem(),
+            ],
+            'vehiculo' => $vehiculo
+        ];
+    }
+    
+    public function guardar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
         $vehiculo = new vehiculo();
-        $vehiculo->tipoVehiculo = $request->get('tipoVehiculo');
-        $vehiculo->caracteristicas = $request->get('caracteristicas');
-        $vehiculo->placa = $request->get('placa');
-        $vehiculo->idRepartidor = $request->get('idRepartidor');
+       
+=======
+    public function mostrar(Request $request){
+        
+        // if (!$request->ajax()) return redirect('/');
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;   
+        if ($buscar==''){
+            $vehiculo = vehiculo::join('repartidor','vehiculo.idRepartidor','=','repartidor.id')
+            ->select('vehiculo.id',
+                     'vehiculo.idRepartidor',
+                     'vehiculo.tipoVehiculo',
+                     'vehiculo.caracteristicas',
+                     'vehiculo.placa',
+                     'repartidor.nombre as repartidor',
+                     )
+            ->orderBy('vehiculo.id', 'desc')->paginate(10);
+        }
+        else{
+            
+            $vehiculo = vehiculo::join('repartidor','vehiculo.idRepartidor','=','repartidor.id')
+            ->select('vehiculo.id',
+                        'vehiculo.idRepartidor',
+                        'vehiculo.tipoVehiculo',
+                        'vehiculo.caracteristicas',
+                        'vehiculo.placa',
+                        'repartidor.nombre as repartidor',
+                        )
+            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->orderBy('vehiculo.id', 'desc')->paginate(10);
+        }
+        
+
+        return [
+            'pagination' => [
+                'total'        => $vehiculo->total(),
+                'current_page' => $vehiculo->currentPage(),
+                'per_page'     => $vehiculo->perPage(),
+                'last_page'    => $vehiculo->lastPage(),
+                'from'         => $vehiculo->firstItem(),
+                'to'           => $vehiculo->lastItem(),
+            ],
+            'vehiculo' => $vehiculo
+        ];
+    }
+    
+    public function guardar(Request $request){
+       
+        $vehiculo = new vehiculo();
+     
+>>>>>>> 5262d9f10b8dba530a4730ff53cfed55d29c6816
+        $vehiculo->tipoVehiculo = $request->tipoVehiculo;
+        $vehiculo->caracteristicas = $request->caracteristicas;
+        $vehiculo->placa = $request->placa;
+        $vehiculo->idRepartidor = $request->idRepartidor;
         $vehiculo->save();
-
-        return redirect('/vehiculos')->with('success','el registro se ha guardado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
+    public function modificar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+        $vehiculo = vehiculo::findOrFail($request->id);
+<<<<<<< HEAD
+        $vehiculo->tipoVehiculo = $request->tipoVehiculo;
+        $vehiculo->caracterissticas = $request->caracteristicas;
+        $vehiculo->placa = $request->placa;
+        $vehiculo->idRepartidor = $request->idRepartidor;
+        $vehiculo->save();
     }
 
-
-    public function edit($id)
-    {
-        $vehiculos=vehiculo::join('repartidor','repartidor.id', '=', 'vehiculo.idRepartidor')
-        ->select('vehiculo.tipoVehiculo', 
-        'vehiculo.caracteristicas', 
-        'vehiculo.placa')->where('vehiculo.id','=',$id)
-        ->get();
-        $repartidores=repartidor::all();
-        return view('modules.vehiculo.frmUpdate',['vehiculo'=>$vehiculos, 'repartidor'=>$repartidores]);
+=======
+        $vehiculo->idRepartidor = $request->idRepartidor;
+        $vehiculo->tipoVehiculo = $request->TipoVehiculo;
+        $vehiculo->caracteristicas = $request->caracteristicas;
+        $vehiculo->placa = $request->placa;
+        $vehiculo->save();
     }
-
-
-    public function update(Request $request, $id)
-    {
-        $vehiculo = vehiculo::findOrFail($id);
-        $vehiculo->tipoVehiculo = $request->get('tipoVehiculo');
-        $vehiculo->caracteristicas = $request->get('caracteristicas');
-        $vehiculo->placa = $request->get('placa');
-        $vehiculo->idRepartidor = $request->get('idRepartidor');
-        
-        $vehiculo->update();
-        
-        return redirect('/vehiculos')->with('info','el registro se ha guardado correctamente');
-    }
-
-
-    public function destroy($id)
-    {
-        $vehiculo = vehiculo::findOrFail($id);
+>>>>>>> 5262d9f10b8dba530a4730ff53cfed55d29c6816
+    public function eliminar(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+        $vehiculo = vehiculo::findOrFail($request->id);
         $vehiculo->delete();
-
-        return redirect('/vehiculos')->with('danger','el registro se ha guardado correctamente');
+        return ['vehiculo' => $vehiculo];
+<<<<<<< HEAD
+    }   
+=======
     }
+>>>>>>> 5262d9f10b8dba530a4730ff53cfed55d29c6816
 }

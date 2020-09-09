@@ -37,19 +37,33 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('frm-categoria', require('./components/frmCategoria.vue').default);
-Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
-// Vue.component('frm-orden', require('./components/frmOrdenServicio.vue').default);
-Vue.component('frm-producto', require('./components/frmProducto.vue').default);
 Vue.component('frm-repartidor', require('./components/frmRepartidor.vue').default);
-// Vue.component('frm-orden', require('./components/frmOrdenAtencion.vue').default);
+Vue.component('frm-reserva', require('./components/frmReserva.vue').default);
+Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
+Vue.component('frm-tipo', require('./components/frmTipo.vue').default);
+Vue.component('frm-producto', require('./components/frmProducto.vue').default);
+Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
+Vue.component('frm-vehiculo', require('./components/frmVehiculo.vue').default);
 Vue.component('frm-orden', require('./components/frmOrdenAtencion.vue').default);
-
 Vue.component('frm-menu', require('./components/frmMenu.vue').default);
 
 
+
+
+// Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
+// Vue.component('frm-producto', require('./components/frmProducto.vue').default);
+// Vue.component('frm-repartidor', require('./components/frmRepartidor.vue').default);
+
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
 const app = new Vue({
     el: '#app',
-    data :{
-        menu : 0
+    data:{
+        menu:0
     }
 });

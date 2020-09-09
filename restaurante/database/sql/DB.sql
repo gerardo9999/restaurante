@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+create database briela;
+use briela;
+>>>>>>> 77858cce029d1861b0b1dd6d2973c486e3c44e80
 
 create table cliente(
 id int primary key auto_increment,
@@ -139,23 +144,32 @@ foreign key(idCategoria) references categoria(id)
 create table detalleorden(
 <<<<<<< HEAD
 cantidad int,
+=======
+<<<<<<< HEAD
+cantidad int,
 idOrden int not null,
 idProducto int not null,
 primary key(idOrden,idProducto),
 =======
 
+>>>>>>> c2f781fe8e89516b139a7274a23276750f48e89a
 idOrden int not null,
 idProducto int not null,
-
 primary key(idOrden,idProducto),
+<<<<<<< HEAD
+=======
 cantidad int,
 
 >>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
+>>>>>>> c2f781fe8e89516b139a7274a23276750f48e89a
 foreign key(idOrden) references ordenatencion(id),
 foreign key(idProducto) references producto(id)
 );
 
 create table detallepedido(
+<<<<<<< HEAD
+cantidad int,
+=======
 <<<<<<< HEAD
 cantidad int,
 idPedido int not null,
@@ -164,15 +178,20 @@ primary key(idPedido,idProducto),
 foreign key(idPedido) references pedido(id),
 foreign key(idProducto) references producto(id)
 =======
+>>>>>>> c2f781fe8e89516b139a7274a23276750f48e89a
 idPedido int not null,
 idProducto int not null,
-
 primary key(idPedido,idProducto),
+<<<<<<< HEAD
+foreign key(idPedido) references pedido(id),
+foreign key(idProducto) references producto(id)
+=======
 cantidad int,
 
 foreign key(idPedido) references pedido(idPedido),
 foreign key(idProducto) references producto(idProducto)
 >>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
+>>>>>>> c2f781fe8e89516b139a7274a23276750f48e89a
 );
 
 create table precios(
@@ -191,20 +210,26 @@ fecha date
 create table listamenu(
 <<<<<<< HEAD
 estado bit, 
+=======
+<<<<<<< HEAD
+estado bit, 
 idProducto int not null,
 idMenu int not null,
 primary key(idProducto,idMenu),
 =======
 
+>>>>>>> c2f781fe8e89516b139a7274a23276750f48e89a
 idProducto int not null,
 idMenu int not null,
-
 primary key(idProducto,idMenu),
+<<<<<<< HEAD
+=======
 
 estado bit, 
 
 
 >>>>>>> eefac3b76922004cab4d6aeeaae7a3c91c8189aa
+>>>>>>> c2f781fe8e89516b139a7274a23276750f48e89a
 foreign key(idProducto) references producto(id),
 foreign key(idMenu) references menu(id)
 );

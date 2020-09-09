@@ -59,6 +59,10 @@ class ctrlMesa extends Controller
         $mesa= mesa::findOrFail($request->id);
         $mesa->delete();
     }
+    public function desocupado(Request $request){
+        $mesa= mesa::findOrFail($request->id);
+        $mesa->delete();
+    }
     // public function selectCategoria(){
     //     $mesa = mesa::select('id','nombre')->orderBy('nombre', 'asc')->get();
     //     return ['mesa' => $mesa];
