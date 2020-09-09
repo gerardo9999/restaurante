@@ -14,6 +14,7 @@ Route::get('/index', function () {
 });
 
 
+
 //----------CATEGORIA-------------////
 Route::get('categoria','ctrlCategoria@index');
 Route::post('categoria/guardar','ctrlCategoria@store');
@@ -51,7 +52,11 @@ Route::put('cliente/eliminar','ctrlCliente@delete');
 Route::get('/cliente/selectCliente','ctrlCliente@selectCliente'); 
 
 
-Route::post('ordenAtencion/guardar', 'ctrlOrdenAtencion@guardar');
+
+Route::post('/ordenAtencion/guardar', 'ctrlOrdenAtencion@guardar');
+Route::get('detalleOrden/buscar','ctrlOrdenAtencion@buscarDetalle');
+Route::post('detalleOrden/modificar','ctrlOrdenAtencion@modificarDetalle');
+
 
 
 /////----------------Repartidor-----------------///
@@ -60,6 +65,8 @@ Route::post('repartidor/guardar','ctrlRepartidor@store');
 Route::put('repartidor/actualizar','ctrlRepartidor@update');
 Route::put('repartidor/eliminar','ctrlRepartidor@delete');
 Route::get('/repartidor/selectRepartidor', 'ctrlRepartidor@selectRepartidor');
+
+
 
 
 /////----------------Tipo-----------------///
