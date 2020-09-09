@@ -271,7 +271,7 @@
                                 case 'actualizar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Actualizar Categoria';
+                                        this.tituloModal = 'Modificar Categoria';
                                         this.tipoAccion = 2;
                                         this.idCategoria = data['id'];
                                         this.nombre = data['nombre'];

@@ -393,7 +393,7 @@
                             case 'registrar':
                             {
                                 this.modal = 1;
-                                this.tituloModal = 'Guardar Reserva';
+                                this.tituloModal = 'Registrar Reserva';
                                 this.idCliente=0;
                                 this.nombresCliente='';
                                 this.codigo='';

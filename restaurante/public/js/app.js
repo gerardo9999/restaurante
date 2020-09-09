@@ -2211,7 +2211,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'actualizar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Categoria';
+                  this.tituloModal = 'Modificar Categoria';
                   this.tipoAccion = 2;
                   this.idCategoria = data['id'];
                   this.nombre = data['nombre'];
@@ -2594,7 +2594,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'registrar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Guardar Cliente';
+                  this.tituloModal = 'Registrar Cliente';
                   this.nombres = '';
                   this.apellidos = '';
                   this.login = '';
@@ -2611,7 +2611,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'actualizar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Cliente';
+                  this.tituloModal = 'Modificar Cliente';
                   this.tipoAccion = 2;
                   this.idCliente = data['id'];
                   this.nombres = data['nombres'];
@@ -4909,7 +4909,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'registrar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Guardar Producto';
+                  this.tituloModal = 'Registrar Producto';
                   this.idCategoria = 0;
                   this.nombreCategoria = '';
                   this.codigo = '';
@@ -5308,7 +5308,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'actualizar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Repartidor';
+                  this.tituloModal = 'Modificar Repartidor';
                   this.tipoAccion = 2;
                   this.idRepartidor = data['id'];
                   this.nombre = data['nombre'];
@@ -5729,7 +5729,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'registrar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Guardar Reserva';
+                  this.tituloModal = 'Registrar Reserva';
                   this.idCliente = 0;
                   this.nombresCliente = '';
                   this.codigo = '';
@@ -6434,7 +6434,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'registrar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Guardar Vehiculo';
+                  this.tituloModal = 'Registrar Vehiculo';
                   this.idRepartidor = 0;
                   this.nombreRepartidor = '';
                   this.codigo = '';
@@ -45041,7 +45041,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Registrar ")]
+                        [_vm._v("Guardar ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -45332,7 +45332,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Actualizar")]
+                      [_vm._v("Modificar")]
                     )
                   : _vm._e()
               ])
@@ -46921,7 +46921,7 @@ var render = function() {
                                         }
                                       }
                                     },
-                                    [_vm._v("Actualizar ")]
+                                    [_vm._v("Modificar ")]
                                   ),
                                   _vm._v(" "),
                                   _c(
@@ -50565,7 +50565,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Actualizar")]
+                      [_vm._v("Modificar")]
                     )
                   : _vm._e()
               ])

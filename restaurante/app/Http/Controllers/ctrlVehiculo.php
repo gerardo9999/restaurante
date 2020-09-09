@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\vehiculo;
 use App\repartidor;
+use Illuminate\Support\Facades\DB;
 
 class ctrlVehiculo extends Controller
 {
@@ -21,7 +22,9 @@ class ctrlVehiculo extends Controller
                      'vehiculo.tipoVehiculo',
                      'vehiculo.caracteristicas',
                      'vehiculo.placa',
-                     'repartidor.nombre as repartidor')
+                     DB::raw('CONCAT(nombre, ", ", apellidos) as repartidor'
+                     )
+                     )
             ->orderBy('vehiculo.id', 'desc')->paginate(10);
         }
         else{
@@ -32,7 +35,8 @@ class ctrlVehiculo extends Controller
                         'vehiculo.tipoVehiculo',
                         'vehiculo.caracteristicas',
                         'vehiculo.placa',
-                        'repartidor.nombre as repartidor'
+                        DB::raw('CONCAT(nombre, ", ", apellidos) as repartidor'
+                        )
                         )
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
             ->orderBy('vehiculo.id', 'desc')->paginate(10);

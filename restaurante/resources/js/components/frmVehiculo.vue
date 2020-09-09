@@ -136,7 +136,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="guardarVehiculo()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarVehiculo()  ">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarVehiculo()  ">Modificar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -358,7 +358,7 @@
                             case 'registrar':
                             {
                                 this.modal = 1;
-                                this.tituloModal = 'Guardar Vehiculo';
+                                this.tituloModal = 'Registrar Vehiculo';
                                 this.idRepartidor=0;
                                 this.nombreRepartidor='';
                                 this.codigo='';

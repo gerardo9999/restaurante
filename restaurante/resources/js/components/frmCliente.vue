@@ -358,7 +358,7 @@
                                 case 'registrar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Guardar Cliente'
+                                        this.tituloModal = 'Registrar Cliente'
                                         this.nombres = '';
                                         this.apellidos = '';
                                         this.login = '';
@@ -374,7 +374,7 @@
                                 case 'actualizar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Actualizar Cliente';
+                                        this.tituloModal = 'Modificar Cliente';
                                         this.tipoAccion = 2;
                                         this.idCliente = data['id'];
                                         this.nombres = data['nombres'];

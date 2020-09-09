@@ -205,7 +205,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <button  @click="guardarMenu()" class="btn btn-success">Registrar </button>
+                                    <button  @click="guardarMenu()" class="btn btn-success">Guardar </button>
                                     <button @click="mostrarListado()" class="btn btn-secondary">Cerrar </button>
                                 </div>
                             </div>
@@ -278,7 +278,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarArticulo()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarArticulo()">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarArticulo()">Modificar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->

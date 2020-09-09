@@ -375,7 +375,7 @@
                             case 'registrar':
                             {
                                 this.modal = 1;
-                                this.tituloModal = 'Guardar Producto';
+                                this.tituloModal = 'Registrar Producto';
                                 this.idCategoria=0;
                                 this.nombreCategoria='';
                                 this.codigo='';

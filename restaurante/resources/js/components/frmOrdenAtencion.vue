@@ -260,7 +260,7 @@
                             <template v-if="actualizar">
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <button  @click="modificarDetalle()" class="btn btn-success">Actualizar </button>
+                                        <button  @click="modificarDetalle()" class="btn btn-success">Modificar </button>
                                         <button @click="mostrarListado()" class="btn btn-secondary">Cerrar </button>
                                     </div>
                                 </div>

@@ -350,7 +350,7 @@
                                 case 'actualizar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'Actualizar Repartidor';
+                                        this.tituloModal = 'Modificar Repartidor';
                                         this.tipoAccion = 2;
                                         this.idRepartidor = data['id'];
                                         this.nombre = data['nombre'];
