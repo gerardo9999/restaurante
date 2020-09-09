@@ -80,6 +80,8 @@ Route::post('reserva/guardar','ctrlReserva@guardar');
 Route::post('reserva/modificar','ctrlReserva@modificar');
 Route::post('reserva/eliminar','ctrlReserva@eliminar');
 
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
