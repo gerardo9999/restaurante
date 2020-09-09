@@ -38,9 +38,10 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('frm-categoria', require('./components/frmCategoria.vue').default);
 Vue.component('frm-cliente', require('./components/frmCliente.vue').default);
-Vue.component('frm-mesa', require('./components/frmMesa.vue').default);
+// Vue.component('frm-orden', require('./components/frmOrdenServicio.vue').default);
 Vue.component('frm-producto', require('./components/frmProducto.vue').default);
 Vue.component('frm-repartidor', require('./components/frmRepartidor.vue').default);
+// Vue.component('frm-orden', require('./components/frmOrdenAtencion.vue').default);
 Vue.component('frm-orden', require('./components/frmOrdenAtencion.vue').default);
 
 Vue.component('frm-menu', require('./components/frmMenu.vue').default);

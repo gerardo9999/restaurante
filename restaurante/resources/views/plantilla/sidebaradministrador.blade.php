@@ -4,13 +4,9 @@
                     <li  @click="menu=0" class="nav-item">
                         <a class="nav-link active" href="#"><i class="icon-speedometer"></i> Escritorio</a>
                     </li>
-
-
                     <li class="nav-title">
                         Mantenimiento
                     </li>
-
-
                     <li @click="menu=1" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-book-open"></i> Clientes</span></a>
                     </li>
@@ -24,7 +20,7 @@
                     </li>
 
                     <li @click="menu=4" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-book-open"></i>Mesas</span></a>
+                        <a class="nav-link" href="#"><i class="icon-book-open"></i>Orden Atencion</span></a>
                     </li>
 
                     <li @click="menu=5" class="nav-item">

@@ -13,9 +13,10 @@ class CreateMesaTable extends Migration
             $table->increments('id');
             $table->integer('capacidad');
             $table->text('descripcion');
-            $table->boolean('ocupado')->default(1);
+            $table->boolean('ocupado')->default(0);
             $table->string('ubicacion',50);
         });
+        
     }
     public function down()
     {

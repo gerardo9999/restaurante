@@ -44,6 +44,9 @@ Route::put('cliente/eliminar','ctrlCliente@delete');
 Route::get('/cliente/selectCliente','ctrlCliente@selectCliente'); 
 
 
+Route::post('ordenAtencion/guardar', 'ctrlOrdenAtencion@guardar');
+
+
 
 Route::get('repartidor','ctrlRepartidor@index');
 Route::post('repartidor/guardar','ctrlRepartidor@store');

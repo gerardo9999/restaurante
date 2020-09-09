@@ -10,7 +10,7 @@
         Modulo de Pedidos
     </template>
     <template v-if="menu==4">
-        <frm-mesa></frm-mesa>
+        <frm-orden></frm-orden>
     </template>
     <template v-if="menu==5">
         <frm-menu></frm-menu>
@@ -25,7 +25,7 @@
         Modulo de Vehiculo
     </template>
     <template v-if="menu==9">
-        <frm-categoria></frm-categoria>
+        <frm-vehiculo></frm-vehiculo>
     </template>
     <template v-if="menu==10">
         Modulos de Usuarios
