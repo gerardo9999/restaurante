@@ -36,7 +36,7 @@ class ctrlProducto extends Controller{
         else{
             
             $producto = producto::join('categoria','producto.idCategoria','=','categoria.id')
-            ->select('producto.id',
+            ->select(   'producto.id',
                         'producto.idCategoria',
                         'producto.nombre',
                         'producto.precio',
@@ -105,12 +105,60 @@ class ctrlProducto extends Controller{
             'producto' => $producto
         ];
     }
+
+    public function menuProducto(Request $request){
+        // if (!$request->ajax()) return redirect('/');
+
+        $buscar   = $request->buscar;
+        $criterio = $request->criterio;
+       
+
+
+        
+        if ($buscar==''){
+            $producto = listaMenu::join('producto','producto.id','=','listamenu.idProducto')
+            ->join('menu','menu.id','listamenu.idMenu')
+            ->select('producto.id as idProducto',
+                     'listamenu.id',
+                     'producto.idCategoria',
+                     'producto.nombre',
+                     'producto.precio',
+                     'producto.foto',
+                     'producto.descripcion'
+                     )
+            ->orderBy('producto.id', 'desc')
+            ->where('menu.estado','=',1)
+            ->paginate(5);
+        }
+        else{
+            
+            $producto = listaMenu::join('producto','producto.id','=','listamenu.idProducto')
+            ->join('menu','menu.id','listamenu.idMenu')
+            ->select('producto.id as idProducto',
+                        'listamenu.id',
+                        'producto.idCategoria',
+                        'producto.nombre',
+                        'producto.precio',
+                        'producto.foto',
+                        'producto.precio',
+                        'producto.descripcion'
+                        )
+            ->where('menu.estado','=',1)
+            ->where('producto.'.$criterio, 'like', '%'. $buscar . '%')
+            ->orderBy('producto.id', 'desc')->paginate(5);
+        }
+        
+
+        return [
+            'producto' => $producto
+        ];
+    }
     public function selectProducto(Request $request){
         
         // if (!$request->ajax()) return redirect('/');
 
         $filtro = $request->filtro;
-        $productos = producto::where('producto.nombre', 'like', '%'. $filtro . '%')
+        $productos = producto::select('id as idProducto','precio','foto','descripcion','nombre')->where('producto.nombre', 'like', '%'. $filtro . '%')
         ->orderBy('producto.nombre', 'asc')->get();
 
         return ['productos' => $productos];
@@ -149,7 +197,7 @@ class ctrlProducto extends Controller{
         // if (!$request->ajax()) return redirect('/');
         $producto = producto::findOrFail($request->id);
         $producto->delete();
-      //  return ['producto' => $producto];
+
     }
     public function productoMenu(Request $request){
         $id = $request->id;

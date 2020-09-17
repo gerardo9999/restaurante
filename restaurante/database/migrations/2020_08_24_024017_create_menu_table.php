@@ -17,15 +17,12 @@ class CreateMenuTable extends Migration
         Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha')->nullable();
+            $table->boolean('estado')->default(0);
         });
        // DB::table('menu')->insert(array('id'=>1,'fecha'=>'2020/08/23'));
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('menu');

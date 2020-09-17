@@ -7,6 +7,7 @@ use App\detalleOrden;
 use App\mesa;
 use Illuminate\Http\Request;
 use App\ordenAtencion;
+use App\producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -36,8 +37,9 @@ class ctrlOrdenAtencion extends Controller
                 
                 $detalle = new detalleOrden();
                 $detalle->cantidad = $det['cantidad'];
-                $detalle->idProducto = $det['id'];
+                $detalle->idProducto = $det['idProducto'];
                 $detalle->idOrdenAtencion = $ordenAtencion->id;
+                $detalle->subTotal = ($det['cantidad']*$det['precio']);
                 $detalle->save();
 
                 $total = $total + ($det['cantidad']*$det['precio']);
@@ -49,13 +51,14 @@ class ctrlOrdenAtencion extends Controller
             $mesa = mesa::findOrFail($request->idMesa);
             $mesa->ocupado = 1; 
             $mesa->update();
-
     }
 
     public function buscarDetalle(Request $request){
 
 
+
         $id = $request->filtro;
+
         $detalle = detalleOrden::join('ordenatencion','ordenatencion.id','=','detalleorden.idOrdenAtencion')
         ->join('producto','producto.id','=','detalleorden.idProducto')->select('detalleorden.id as idDetalle',
         'detalleorden.cantidad','detalleorden.id','detalleorden.idProducto','detalleorden.idOrdenAtencion'
@@ -64,19 +67,29 @@ class ctrlOrdenAtencion extends Controller
         ->where('ordenatencion.idMesa','=',$id)->where('ordenatencion.estado','=',1)
         ->get();
 
+
         $cliente = ordenAtencion::join('cliente','cliente.id','=','ordenatencion.idCliente')
         ->join('mesa','mesa.id','=','ordenatencion.idMesa')->where('mesa.id','=',$id)
-        ->select(DB::raw('CONCAT(nombres, ", ", apellidos) as nombreCompleto'),'cliente.id','empresa')->where('ordenatencion.estado','=',1)
+        ->select(DB::raw('CONCAT(nombres, " ", apellidos) as nombreCompleto'),'cliente.id','empresa')->where('ordenatencion.estado','=',1)
         ->get();
+        
+ 
         
 
 
+        $orden = ordenAtencion::where('ordenatencion.id','=',$detalle[0]->idOrdenAtencion)->get(); 
+
+        
+        $total = $orden[0]->montoTotal;
 
         return ['detalle'   => $detalle,
                 'cliente'   => $cliente,
                 'idMesa'    => $detalle[0]->idMesa,
                 'idCliente' => $cliente[0]->id,
-                'idOrdenAtencion'   => $detalle[0]->idOrdenAtencion 
+                'idOrdenAtencion'   => $detalle[0]->idOrdenAtencion ,
+                'orden'=>$orden,
+                'nombreCompleto' => $cliente[0]->nombreCompleto,
+                'montoTotal' =>$total
                 ];
     }
     public function modificarDetalle(Request $request){
@@ -92,6 +105,7 @@ class ctrlOrdenAtencion extends Controller
         $ordenAtencion->montoTotal = 0;
         $ordenAtencion->fecha= date('Y-m-d');
         $ordenAtencion->update();
+
 
         $detalle = $request->data;
         $total = 0;
@@ -114,5 +128,75 @@ class ctrlOrdenAtencion extends Controller
         $mesa = mesa::findOrFail($request->idMesa);
         $mesa->ocupado = 1; 
         $mesa->update();
+    }
+
+    public function itemEliminar(Request $request){
+         
+        $detalleOrden= detalleOrden::findOrFail($request->id);
+        $idProducto = $detalleOrden->idProducto;
+
+        $producto = producto::findOrFail($idProducto);
+        $precioProducto = $producto->precio;
+        
+        $subTotal =  $detalleOrden->cantidad * $precioProducto;
+        
+        $idOrdenAtencion = $detalleOrden->idOrdenAtencion;
+        $ordenAtencion = ordenAtencion::findOrFail($idOrdenAtencion);
+
+        $ordenAtencion->montoTotal = $ordenAtencion->montoTotal - $subTotal;
+        $ordenAtencion->update();        
+        $detalleOrden->delete();   
+    }
+    public function itemActualizar(Request $request){
+         
+
+        $detalle = detalleOrden::findOrFail($request->idDetalle);
+        $detalle->cantidad = $request->cantidad;
+        $detalle->subTotal =  ($request->cantidad*$request->precio);
+        $detalle->update();
+
+        $total = DB::table('detalleorden')
+        ->select(DB::raw("sum(detalleorden.subTotal) as Total"))->where('idOrdenAtencion','=',$request->idOrdenAtencion)
+        ->get();
+
+        $ordenAtencion = ordenAtencion::findOrFail($request->idOrdenAtencion);
+        $ordenAtencion->montoTotal =  $total[0]->Total;
+        $ordenAtencion->update();
+        
+    }
+
+    public function agregarProductoDetalle(Request $request){
+
+        // 'idProducto'     
+        // 'precio'         
+        // 'idOrdenAtencion'
+        
+        $detalle = new detalleOrden();
+        $detalle->cantidad = 1;
+        $detalle->subTotal = $request->precio;
+        $detalle->idOrdenAtencion = $request->idOrdenAtencion;
+        $detalle->idProducto = $request->idProducto;
+        $detalle->save();
+
+
+        $total = DB::table('detalleorden')
+        ->select(DB::raw("sum(detalleorden.subTotal) as Total"))->where('idOrdenAtencion','=',$request->idOrdenAtencion)
+        ->get();
+
+        $ordenAtencion = ordenAtencion::findOrFail($request->idOrdenAtencion);
+        $ordenAtencion->montoTotal =  $total[0]->Total;
+        $ordenAtencion->update();
+
+    }
+    public function finalizarOrden(Request $request){
+        
+        $mesa = mesa::findOrFail($request->idMesa);
+        $mesa->ocupado = 0;
+        $mesa->update();
+
+        $ordenAtencion =  ordenAtencion::findOrFail($request->idOrdenAtencion);
+        $ordenAtencion->estado = 0;
+        $ordenAtencion->update();
+
     }
 }

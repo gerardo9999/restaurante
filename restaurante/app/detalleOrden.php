@@ -10,6 +10,7 @@ class detalleOrden extends Model
     protected $primaryKey ='id';
     protected $fillable = [
         'cantidad',
+        'subTotal',
         'idOrdenAtencion',
         'idProducto',
     ];

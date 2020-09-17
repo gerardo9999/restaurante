@@ -14,7 +14,17 @@ class ctrlVehiculo extends Controller
         // if (!$request->ajax()) return redirect('/');
 
         $buscar = $request->buscar;
-        $criterio = $request->criterio;   
+        $criterio = $request->criterio;
+        $atributo1= '';
+        $atributo2= '';
+        if($criterio=="vehiculo"){
+            $atributo1 = 'tipoVehiculo';
+            $atributo2 = 'placa';
+        }else{
+            $atributo1 ="nombre";
+            $atributo2 ="apellidos";
+        }
+
         if ($buscar==''){
             $vehiculo = vehiculo::join('repartidor','vehiculo.idRepartidor','=','repartidor.id')
             ->select('vehiculo.id',
@@ -22,7 +32,9 @@ class ctrlVehiculo extends Controller
                      'vehiculo.tipoVehiculo',
                      'vehiculo.caracteristicas',
                      'vehiculo.placa',
-                     DB::raw('CONCAT(nombre, ", ", apellidos) as repartidor'
+                     DB::raw('CONCAT(nombre, " ", apellidos) as repartidor',
+                     'repartidor.nombre',
+                     'repartidor.apellidos'
                      )
                      )
             ->orderBy('vehiculo.id', 'desc')->paginate(10);
@@ -35,10 +47,13 @@ class ctrlVehiculo extends Controller
                         'vehiculo.tipoVehiculo',
                         'vehiculo.caracteristicas',
                         'vehiculo.placa',
-                        DB::raw('CONCAT(nombre, ", ", apellidos) as repartidor'
+                        DB::raw('CONCAT(nombre, " ", apellidos) as repartidor',
+                        'repartidor.nombre',
+                        'repartidor.apellidos'
                         )
                         )
-            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->where($criterio.'.'.$atributo1, 'like', '%'. $buscar . '%')
+            ->orWhere($criterio.'.'.$atributo2, 'like', '%'. $buscar . '%')
             ->orderBy('vehiculo.id', 'desc')->paginate(10);
         }
         
@@ -71,7 +86,7 @@ class ctrlVehiculo extends Controller
         // if (!$request->ajax()) return redirect('/');
         $vehiculo = vehiculo::findOrFail($request->id);
         $vehiculo->idRepartidor = $request->idRepartidor;
-        $vehiculo->tipoVehiculo = $request->TipoVehiculo;
+        $vehiculo->tipoVehiculo = $request->tipoVehiculo;
         $vehiculo->caracteristicas = $request->caracteristicas;
         $vehiculo->placa = $request->placa;
         $vehiculo->save();

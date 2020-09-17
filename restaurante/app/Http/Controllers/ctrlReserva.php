@@ -13,45 +13,51 @@ class ctrlReserva extends Controller
         
         // if (!$request->ajax()) return redirect('/');
 
-        $buscar = $request->buscar;
+        $buscar = $request->get('buscar');
         $criterio = $request->criterio;
-       
-
-
+           
         
-        if ($buscar==''){
-            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')
-            ->select('reserva.id',
-                     'reserva.idCliente',
-                     'reserva.comensales',
-                     'reserva.telefono',
-                     'reserva.fecha',
-                     'reserva.hora',
-                     'reserva.observacion',
-                     DB::raw('CONCAT(nombres, ", ", apellidos) as cliente')
-                    
-                     )
-            ->orderBy('reserva.id', 'desc')->paginate(10);
+        if($buscar==""){
+            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')->select(
+                "reserva.id",
+                "reserva.comensales",
+                "reserva.telefono",
+                "reserva.fecha",
+                "reserva.hora",
+                "reserva.observacion",
+                "reserva.idCliente",
+                "cliente.nombres",
+                "cliente.apellidos",
+                DB::raw('CONCAT(nombres, " ",apellidos)as nombreCompleto')
+            )
+            ->orderBy('reserva.id','desc')
+            ->paginate(10);
+        }else{
+            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')->select(
+                "reserva.id",
+                "reserva.comensales",
+                "reserva.telefono",
+                "reserva.fecha",
+                "reserva.hora",
+                "reserva.observacion",
+                "idCliente",
+                "cliente.nombres",
+                "cliente.apellidos",
+                DB::raw('CONCAT(nombres, " ",apellidos)as nombreCompleto')
+            )
+            ->orderBy('reserva.id','desc')
+            ->where($criterio.'.nombres', 'like', '%'.$buscar.'%')
+            ->paginate(10);
         }
-        else{
-            
-            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')
-            ->select('reserva.id',
-                        'reserva.idCliente',
-                        'reserva.comensales',
-                        'reserva.telefono',
-                        'reserva.fecha',
-                        'reserva.hora',
-                        'reserva.observacion',
-                        DB::raw('CONCAT(nombres, ", ", apellidos) as cliente')
-                       
-                        )
-            ->where($criterio.'.comensales', 'like', '%'. $buscar . '%')
-            ->orderBy('reserva.id', 'desc')->paginate(10);
-        }
+
+    
+
+      
+
         
 
         return [
+
             'pagination' => [
                 'total'        => $reserva->total(),
                 'current_page' => $reserva->currentPage(),
@@ -60,7 +66,7 @@ class ctrlReserva extends Controller
                 'from'         => $reserva->firstItem(),
                 'to'           => $reserva->lastItem(),
             ],
-            'reserva' => $reserva
+            'reserva' => $reserva,
         ];
     }
     
@@ -79,6 +85,7 @@ class ctrlReserva extends Controller
 
     public function modificar(Request $request){
         // if (!$request->ajax()) return redirect('/');
+
         $reserva = reserva::findOrFail($request->id);
         $reserva->comensales = $request->comensales;
         $reserva->telefono = $request->telefono;

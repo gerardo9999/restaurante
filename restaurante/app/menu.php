@@ -9,7 +9,8 @@ class menu extends Model
     protected $table = 'menu';
     protected $primaryKey ='id';
     protected $fillable = [
-        'fecha'
+        'fecha',
+        'estado'
     ];
     public $timestamps=false;
 }

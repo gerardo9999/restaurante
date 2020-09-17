@@ -31,39 +31,69 @@ Route::post('producto/eliminar','ctrlProducto@eliminar');
 Route::get('producto/buscarProducto','ctrlProducto@buscarProducto');
 Route::get('/producto/menu','ctrlProducto@productoMenu');
 Route::get('/producto/selectProducto', 'ctrlProducto@selectProducto');
+Route::get('/producto/menuProducto', 'ctrlProducto@menuProducto');
 // Route::get('/producto/buscarProducto', 'ctrlProducto@buscarProducto');
+
 
 
 /////----------------Mesa-----------------///
 Route::get('mesa','ctrlMesa@mostrar');
 Route::post('mesa/guardar','ctrlMesa@guardar');
 Route::post('mesa/modificar','ctrlMesa@modificar');
+Route::post('mesa/libre','ctrlMesa@libre');
+Route::post('mesa/ocupado','ctrlMesa@ocupado');
 Route::post('mesa/eliminar','ctrlMesa@eliminar');
 
 
+
+/////----------------Rol-----------------///
+Route::get('rol','ctrlRol@rolUser');
+
+/////----------------Menú-----------------///
 Route::get('menu','ctrlMenu@mostrar');
 Route::post('menu/guardar','ctrlMenu@guardar');
 
 /////----------------Cliente-----------------///
 Route::get('cliente','ctrlCliente@index');
 Route::post('cliente/guardar','ctrlCliente@store');
-Route::put('cliente/actualizar','ctrlCliente@update');
-Route::put('cliente/eliminar','ctrlCliente@delete');
+Route::post('cliente/actualizar','ctrlCliente@update');
+Route::post('cliente/activar','ctrlCliente@activar');
+Route::post('cliente/desactivar','ctrlCliente@desactivar');
+Route::post('cliente/eliminar','ctrlCliente@delete');
 Route::get('/cliente/selectCliente','ctrlCliente@selectCliente'); 
+Route::get('/cliente/dato','ctrlCliente@datoUser'); 
+
+/////----------------Usuario-----------------///
+Route::get('usuario','ctrlUsuario@index');
+Route::post('usuario/guardar','ctrlUsuario@guardar');
 
 
-
+/////---------------Orden---------------------------- ///////
 Route::post('/ordenAtencion/guardar', 'ctrlOrdenAtencion@guardar');
 Route::get('detalleOrden/buscar','ctrlOrdenAtencion@buscarDetalle');
 Route::post('detalleOrden/modificar','ctrlOrdenAtencion@modificarDetalle');
+Route::post('/finalizar/orden','ctrlOrdenAtencion@finalizarOrden');
+
+
+
+Route::post('/item/eliminar','ctrlOrdenAtencion@itemEliminar');
+Route::post('/item/actualizar','ctrlOrdenAtencion@itemActualizar');
+
+
+
+//////------------------Detalle-----------------------------///////
+Route::post('/agregar/producto/detalle','ctrlOrdenAtencion@agregarProductoDetalle');
+
+// 
+
 
 
 
 /////----------------Repartidor-----------------///
 Route::get('repartidor','ctrlRepartidor@index');
 Route::post('repartidor/guardar','ctrlRepartidor@store');
-Route::put('repartidor/actualizar','ctrlRepartidor@update');
-Route::put('repartidor/eliminar','ctrlRepartidor@delete');
+Route::post('repartidor/actualizar','ctrlRepartidor@update');
+Route::post('repartidor/eliminar','ctrlRepartidor@delete');
 Route::get('/repartidor/selectRepartidor', 'ctrlRepartidor@selectRepartidor');
 
 

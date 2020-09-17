@@ -16,6 +16,7 @@ class CreateDetalleordenTable extends Migration
         Schema::create('detalleorden', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cantidad');
+            $table->float('subTotal');
 
             $table->integer('idOrdenAtencion')->unsigned();
             $table->integer('idProducto')->unsigned();

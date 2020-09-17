@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\repartidor;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ctrlRepartidor extends Controller
-{
+class ctrlRepartidor extends Controller{
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
          //if(!$request->ajax()) return redirect('/');
          $buscar = $request->buscar;
          $criterio = $request->criterio;
@@ -20,11 +19,19 @@ class ctrlRepartidor extends Controller
              'repartidor.password',
              'repartidor.cedulaID',
              'repartidor.telefono',
+             'repartidor.email',
              'repartidor.direccion')
              ->orderBy('repartidor.id','desc')->paginate(10);
          }
          else{
-             $repartidor= repartidro::select('repartidor.id','repartidor.nombre')
+             $repartidor= repartidor::select('repartidor.id','repartidor.nombre',
+             'repartidor.apellidos',
+             'repartidor.login',
+             'repartidor.password',
+             'repartidor.cedulaID',
+             'repartidor.telefono',
+             'repartidor.email',
+             'repartidor.direccion')
              ->where('repartidor.'.$criterio, 'like', '%'.$buscar.'%')
              ->orderBy('repartidor.id','desc')->paginate(10);            
          }
@@ -40,41 +47,74 @@ class ctrlRepartidor extends Controller
              ],
              'repartidor' => $repartidor
          ];
-     }
-     public function store(Request $request)
-     {        
+    }
+    public function store(Request $request){        
          $repartidor = new repartidor();
          $repartidor->nombre = $request->nombre;
          $repartidor->apellidos = $request->apellidos;
          $repartidor->login = $request->login;
          $repartidor->password = Hash::make( $request->password);
          $repartidor->cedulaID = $request->cedulaID;
+         $repartidor->email = $request->email;
          $repartidor->telefono = $request->telefono;
          $repartidor->direccion = $request->direccion;
          $repartidor->save();
-     }
-     public function update(Request $request)
-     {
-         if(!$request->ajax()) return redirect('/');
+
+
+            $usuario = new User();
+            $usuario->name      = $request->login;
+            $usuario->email     = $request->email;
+            $usuario->nombre    = $request->nombre;
+            $usuario->apellidos = $request->apellidos;
+            $usuario->password = $repartidor->password; 
+            $usuario->save();
+
+            $usuario->assignRole('repartidor');
+
+
+    }
+    public function update(Request $request){
+
+        //  if(!$request->ajax()) return redirect('/');
          $repartidor= repartidor::findOrFail($request->id);
          $repartidor->nombre = $request->nombre;
          $repartidor->apellidos = $request->apellidos;
          $repartidor->login = $request->login;
-         $repartidor->password =Hash::make( $request->password);
+         if($request->password!=""){
+            $repartidor->password =Hash::make( $request->password);
+         }
          $repartidor->cedulaID = $request->cedulaID;
          $repartidor->telefono = $request->telefono;
          $repartidor->direccion = $request->direccion;
-         $repartidor->save();
-     }
-     public function delete(Request $request)
-     {
+         $repartidor->update();
+
+         $idUser = $this->buscarId($repartidor->email);
+
+        $usuario = User::findOrFail($idUser);
+        $usuario->name      = $request->login;
+        $usuario->email     = $request->email;
+        $usuario->nombre    = $request->nombre;
+        $usuario->apellidos = $request->apellidos;
+        $usuario->password = Hash::make( $request->password); 
+        $usuario->update();
+
+    }
+    public function delete(Request $request){
+
          $repartidor= repartidor::findOrFail($request->id);
          $repartidor->delete();
+
+         $idUser = $this->buscarId($repartidor->email);
+
+         $usuario = User::findOrFail($idUser);
+         $usuario->delete();
      }
-     public function selectRepartidor(){
+    public function selectRepartidor(){
          $repartidor = repartidor::select('id','nombre')->orderBy('nombre', 'asc')->get();
          return ['repartidor' => $repartidor];
-     }
-
-     
+    }
+    public function buscarId($email){
+        $usuario = User::where('users.email',$email)->get();
+        return $usuario[0]->id;
+    }     
 }

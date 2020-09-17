@@ -279,9 +279,9 @@
                 });
             },
             actualizarProducto(){
-            //    if (this.validarProducto()){
-            //         return;
-            //     }
+                //    if (this.validarProducto()){
+                //         return;
+                //     }
                 let url    = '/producto/modificar';
                 let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
 

@@ -17,7 +17,7 @@ class CreateOrdenatencionTable extends Migration
             $table->increments('id');
             $table->date('fecha');
             $table->float('montoTotal');
-            $table->boolean('estado')->default(1);
+            $table->boolean('estado');
 
             $table->integer('idUsuario')->unsigned();
             $table->integer('idCliente')->unsigned();

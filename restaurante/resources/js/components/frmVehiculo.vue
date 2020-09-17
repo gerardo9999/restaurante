@@ -39,7 +39,7 @@
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th>TipoVehiculo</th>
+                                    <th>Vehiculo</th>
                                      <th>Repartidor</th>
                                     <th>Caracteristicas</th>
                                     <th>Placa</th>
@@ -106,9 +106,9 @@
                                 </div>
                                
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">TipoVehiculo</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Tipo Vehiculo</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="tipoVehiculo" class="form-control" placeholder="TipoVehiculo de Vehiculo">                                        
+                                        <input type="text" v-model="tipoVehiculo" class="form-control" placeholder="Tipo Vehiculo de Vehiculo">                                        
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -172,7 +172,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'tipoVehiculo',
+                criterio : 'vehiculo',
                 buscar : '',
                 arrayRepartidor :[],
             }
@@ -261,7 +261,11 @@
                 axios.post(url,data,header).then(function (response) {
                     console.log('Funcionexitosa')
                     me.cerrarModal();
-                    me.listarVehiculo(1,'','tipoVehiculo');
+                    me.listarVehiculo(1,'','vehiculo');
+                    iziToast.success({
+                            title: 'Exito!',
+                            message: 'Se ha registrado un nuevo vehiculo',
+                    });
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -283,7 +287,12 @@
 
                 axios.post(url,data,header).then(function (response) {
                     me.cerrarModal();
-                    me.listarVehiculo(1,'','tipoVehiculo');
+                    me.listarVehiculo(1,'','vehiculo');
+                     iziToast.info({
+                            title: 'Exito!',
+                            message: 'Se ha actualizado el vehiculo',
+                    });
+
                 }).catch(function (error) {
                     console.log(error);
                 }); 

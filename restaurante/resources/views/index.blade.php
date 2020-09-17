@@ -38,10 +38,9 @@
     </footer> --}} -->
     <!-- @stack('script') -->
     <!-- @yield('livewireScript') -->
-
     <script src="js/app.js"></script>
     <script src="js/plantilla.js"></script>
-    <!-- <script src="{{ asset('coreui/vendors/js/jquery.min.js')}}"></script> -->
+     <script src="{{ asset('coreui/vendors/js/jquery.min.js')}}"></script> 
     <!-- <script src="{{ asset('coreui/vendors/js/popper.min.js')}}"></script> -->
     <script src="{{ asset('coreui/vendors/js/bootstrap.min.js')}}"></script>
     <!-- <script src="{{ asset('coreui/vendors/js/pace.min.js')}}"></script> -->

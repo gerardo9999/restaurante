@@ -20,6 +20,7 @@
                                 <select class="form-control col-md-3" v-model="criterio">
                                 <option value="nombre">Nombre</option>
                                 <option value="apellidos">Apellidos</option>
+                                <option value="cedulaID">Cedula</option>
                                 </select>
                                 <input type="text" v-model="buscar" @keyup.enter="listarRepartidor(1, buscar, criterio)" class="form-control" placeholder="Texto a buscar">
                                 <button type="submit" @click="listarRepartidor(1, buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -124,6 +125,12 @@
                                     <input type="text" v-model="telefono" class="form-control" placeholder="Telefono">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Email</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="email" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
                              <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
                                 <div class="col-md-9">
@@ -161,6 +168,7 @@
                 nombre: '',
                 apellidos: '',
                 login: '',
+                email:'',
                 password: '',
                 cedulaID: '',
                 telefono: '',
@@ -241,10 +249,15 @@
                     'password': this.password,
                     'cedulaID': this.cedulaID,
                     'telefono': this.telefono,
+                    'email': this.email,
                     'direccion': this.direccion,
                 }).then(function(response) {
                     me.cerrarModal();
                     me.listarRepartidor(1, '', 'nombre');
+                    iziToast.success({
+                            title: 'Exito!',
+                            message: 'Se ha registrado un nuevo repartidor',
+                    });
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -254,18 +267,24 @@
                     return;
                 }
                 let me = this;
-                axios.put('/repartidor/actualizar', {
+                axios.post('/repartidor/actualizar', {
                     'nombre': this.nombre,
                     'apellidos': this.apellidos,
                     'login': this.login,
                     'password': this.password,
                     'cedulaID': this.cedulaID,
                     'telefono': this.telefono,
+                    'email': this.email,
                     'direccion': this.direccion,
                     'id': this.idRepartidor
+
                 }).then(function(response) {
                     me.cerrarModal();
                     me.listarRepartidor(1, '', 'nombre');
+                    iziToast.success({
+                            title: 'Exito!',
+                            message: 'Se ha actualizado el repartidor',
+                    });
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -287,7 +306,7 @@
                     if (result.value) {
                         let me = this;
 
-                        axios.put('/repartidor/eliminar', {
+                        axios.post('/repartidor/eliminar', {
                             'id': id
                         }).then(function(response) {
                             me.listarRepartidor(1, '', 'nombre');
@@ -356,9 +375,10 @@
                                         this.nombre = data['nombre'];
                                         this.apellidos = data['apellidos'];
                                         this.login = data['login'];
-                                        this.password = data['password'];
+                                        this.password = "";
                                         this.cedulaID = data['cedulaID'];
                                         this.telefono = data['telefono'];
+                                        this.email = data['email'];
                                         this.direccion = data['direccion'];
                                         break;
                                     }

@@ -15,15 +15,15 @@ class ctrlMesa extends Controller
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         if($buscar==''){
-            $mesa= mesa::select('mesa.id','mesa.capacidad','descripcion','ocupado','ubicacion')
+            $mesa= mesa::select('mesa.id as id','mesa.capacidad','descripcion','ocupado','ubicacion')
             ->orderBy('mesa.id','desc')
-            ->paginate(12);
+            ->paginate(8);
         }
         else{
             $mesa= mesa::select('mesa.id','mesa.capacidad','descripcion','ocupado','ubicacion')
-            ->where('mesa.'.$criterio,'=',$buscar)
+            ->where('mesa.'.$criterio,'like','%'.$buscar.'%')
             ->orderBy('mesa.id','desc')
-            ->paginate(12);            
+            ->paginate(8);            
         }
         
         return [
@@ -42,7 +42,7 @@ class ctrlMesa extends Controller
         $mesa = new mesa();
         $mesa->capacidad = $request->capacidad;
         $mesa->descripcion = $request->descripcion;
-        $mesa->ocupado = 1;
+        $mesa->ocupado = 0;
         $mesa->ubicacion = $request->ubicacion;
         $mesa->save();
     }
@@ -51,7 +51,7 @@ class ctrlMesa extends Controller
         $mesa = mesa::findOrFail($request->id);
         $mesa->capacidad = $request->capacidad;
         $mesa->descripcion = $request->descripcion;
-        $mesa->ocupado = 1;
+        $mesa->ocupado = 0;
         $mesa->ubicacion = $request->ubicacion;
         $mesa->save();
     }
@@ -59,10 +59,17 @@ class ctrlMesa extends Controller
         $mesa= mesa::findOrFail($request->id);
         $mesa->delete();
     }
-    public function desocupado(Request $request){
+    public function libre(Request $request){
         $mesa= mesa::findOrFail($request->id);
-        $mesa->delete();
+        $mesa->ocupado = 0;
+        $mesa->update();
     }
+    public function ocupado(Request $request){
+        $mesa= mesa::findOrFail($request->id);
+        $mesa->ocupado = 1;
+        $mesa->update();
+    }
+
     // public function selectCategoria(){
     //     $mesa = mesa::select('id','nombre')->orderBy('nombre', 'asc')->get();
     //     return ['mesa' => $mesa];

@@ -20,8 +20,9 @@ class CreateRepartidorTable extends Migration
             $table->string('nombre',100)->nullable();
             $table->string('apellidos',100);
             $table->string('login',100);
+            $table->string('email',100);
             $table->string('password',100);
-            $table->string('cedulaID',10);
+            $table->string('cedulaID',50);
             $table->string('telefono',20);
             $table->string('direccion',100);
         });

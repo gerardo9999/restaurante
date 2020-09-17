@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePreciosTable extends Migration
+class CreateBitacoraTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreatePreciosTable extends Migration
      */
     public function up()
     {
-        Schema::create('precios', function (Blueprint $table) {
+        Schema::create('bitacora', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('precio',100);
             $table->date('fecha');
-
-            $table->integer('idProducto')->unsigned();
-            $table->foreign('idProducto')->references('id')->on('producto')->onDelete('cascade');
+            $table->time('hora');
+            $table->string('tabla');
+            $table->string('transaccion');
+            $table->integer('idUsuario')->unsigned();
+            $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +31,6 @@ class CreatePreciosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('precios');
+        Schema::dropIfExists('bitacora');
     }
 }

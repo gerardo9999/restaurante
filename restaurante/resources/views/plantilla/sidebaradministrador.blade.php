@@ -15,12 +15,16 @@
                         <a class="nav-link" href="#"><i class="icon-book-open"></i> Reservas</span></a>
                     </li>
 
+                    <li @click="menu=13" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-book-open"></i> Mesas</span></a>
+                    </li>
+
                     <li @click="menu=3" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-book-open"></i> Pedidos</span></a>
                     </li>
 
                     <li @click="menu=4" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-book-open"></i>Orden Atencion</span></a>
+                        <a class="nav-link" href="#"><i class="icon-book-open"></i>Orden</span></a>
                     </li>
 
                     <li @click="menu=5" class="nav-item">
@@ -54,6 +58,9 @@
                         <ul class="nav-dropdown-items">
                             <li @click="menu=10" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-bag"></i>Usuarios</a>
+                            </li>
+                            <li @click="menu=14" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-bag"></i>Roles</a>
                             </li>
                             <li @click="menu=11" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-bag"></i>Bitacora</a>

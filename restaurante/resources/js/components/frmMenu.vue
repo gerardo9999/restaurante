@@ -7,16 +7,19 @@
             <div class="container-fluid">
                
                 <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Menu
-                        <button type="button" @click="ocultarListado()" class="btn btn-secondary">
-                            <i class="icon-plus"></i>&nbsp;Nuevo
-                        </button>
-                    </div>
+                    
+                    
+
                     <template v-if="listado">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Menu
+                            <button type="button" @click="ocultarListado()" class="btn btn-secondary">
+                                <i class="icon-plus"></i>&nbsp;Nuevo
+                            </button>
+                        </div>
                         <div class="row">
 
-                            <div class="col-5">
+                            <div class="col-6">
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <div class="col-md-12">
@@ -33,14 +36,20 @@
                                         <thead>
                                             <tr>
                                                 <th>Fecha</th>
+                                                <th>Estado</th>
                                                 <th>Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <template v-for="menu in arrayMenu" >
+                                            <tr v-for="menu in arrayMenu" :key="menu.id">
                                                 <template v-if="marcar==menu.id">
-                                                    <tr>
                                                         <td v-text="menu.fecha"></td>
+                                                        <template v-if="menu.estado">
+                                                                <td><span class="badge badge-success">Activado</span></td>
+                                                        </template>
+                                                        <template v-else>
+                                                                <td><span class="badge badge-danger">Desactivado</span></td>
+                                                        </template>
                                                         <td>
                                                             <button type="button" @click="verProducto(menu.id)" class="btn btn-success btn-sm">
                                                             <i class="icon-check"></i>
@@ -49,11 +58,15 @@
                                                             <i class="icon-trash"></i>
                                                             </button> &nbsp;
                                                         </td>
-                                                    </tr>  
                                                 </template>
                                                 <template v-else>
-                                                     <tr>
                                                         <td v-text="menu.fecha"></td>
+                                                        <template v-if="menu.estado">
+                                                                <td><span class="badge badge-success">Activado</span></td>
+                                                        </template>
+                                                        <template v-else>
+                                                                <td><span class="badge badge-danger">Desactivado</span></td>
+                                                        </template>
                                                         <td>
                                                             <button type="button" @click="verProducto(menu.id)" class="btn btn-info btn-sm">
                                                             <i class="icon-eye"></i>
@@ -62,10 +75,8 @@
                                                             <i class="icon-trash"></i>
                                                             </button> &nbsp;
                                                         </td>
-                                                    </tr>  
-                                                </template>
-
-                                            </template>                              
+                                                </template>    
+                                            </tr>                           
                                         </tbody>
                                     </table>
                                     <nav>
@@ -83,8 +94,7 @@
                                     </nav>
                                 </div>
                             </div>
-
-                            <div class="col-7">
+                            <div class="col-6">
                                   <div class="card-body">
                                     <div class="form-group row">
                                         <div class="col-md-6">
@@ -104,7 +114,6 @@
                                                 <th>Nombre</th>
                                                 <th>Precio</th>
                                                 <th>Foto</th>
-                                                <th>Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -112,11 +121,6 @@
                                                 <td v-text="lista.nombre"></td>
                                                 <td v-text="lista.precio"></td>
                                                 <td><img :src="`${lista.foto}`" width="100px" alt=""></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-success btn-sm">
-                                                        &nbsp;$
-                                                    </button> 
-                                                </td>
                                             </tr>                                
                                         </tbody>
                                     </table>
@@ -124,9 +128,11 @@
                             </div>
                         </div>
                     </template>
-
-
                     <template v-else>
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Menu
+                            
+                        </div>
                         <div class="card-body">
                             <div class="form-group row border">
                                 <div class="col-md-6">
@@ -185,10 +191,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody v-if="arrayDetalle.length">
-
                                                     <tr v-for="(detalle,index) in arrayDetalle" :key="detalle.id">
                                                         <td v-text="detalle.nombre"></td>
-                                                        <td v-text="detalle.precio"></td>
+                                                        <td><input type="number" v-model="detalle.precio" class="form-control"></td>
                                                         <td><img :src="`${detalle.foto}`" width="100px" alt=""></td>
                                                         <td>
                                                             <button @click="eliminarDetalle(index)" class=" btn btn-danger btn-sm">
@@ -427,6 +432,7 @@
                 }
             },
             agregarDetalleModal(data=[]){
+                
                 console.log(data);
                 let me=this;
                 var existe = this.encuentra(data['id']);
@@ -440,9 +446,9 @@
                    
                             me.arrayDetalle.push({
                                 "id"    : data['id'],
-                                "nombre":data['nombre'],
-                                "foto"  :data['foto'],
-                                "precio":data['precio']
+                                "nombre": data['nombre'],
+                                "foto"  : data['foto'],
+                                "precio": data['precio']
                             });
                             iziToast.success({
                                         title:"agregado correctamente !!"
@@ -530,7 +536,6 @@
                         me.listarMenu(1,'','fecha');
                         me.resetVariable();
                         me.mostrarListado()
-
                         iziToast.info({
                             title: 'Exito!',
                             message: 'El Menu se ha guardado con exito!',
@@ -543,6 +548,8 @@
             resetVariable(){
                 this.fecha = null;
                 this.arrayDetalle =[];
+                this.arrayProducto=[];
+                this.arrayMenuDetalle=[];
             },
             desactivarArticulo(id){
                swal({

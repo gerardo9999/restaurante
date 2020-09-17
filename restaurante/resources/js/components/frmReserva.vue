@@ -18,7 +18,6 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
-                                      <option value="reserva">Reserva</option>
                                       <option value="cliente">Cliente</option>
                                     </select>
                                     <input type="text" v-model="buscar" @keyup.enter="listarReserva(1,buscar,criterio)" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
@@ -53,7 +52,7 @@
                                 <tr v-for="reserva in arrayReserva" :key="reserva.id">
                                  
                                     <td v-text="reserva.comensales"></td>
-                                    <td v-text="reserva.cliente"></td>
+                                    <td v-text="reserva.nombreCompleto"></td>
                                     <td v-text="reserva.telefono"></td>
                                     <td v-text="reserva.fecha"></td>
                                     <td v-text="reserva.hora"></td>
@@ -191,7 +190,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'comensales',
+                criterio : 'cliente',
                 buscar : '',
                 arrayCliente :[],
             }
@@ -282,7 +281,11 @@
                 axios.post(url,data,header).then(function (response) {
                     console.log('Funcionexitosa')
                     me.cerrarModal();
-                    me.listarReserva(1,'','comensales');
+                    me.listarReserva(1,'','cliente');
+                    iziToast.success({
+                            title: 'Exito!',
+                            message: 'Se ha registrado una nueva reserva',
+                    });
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -292,29 +295,24 @@
                     return;
                 }
                 let url    = '/reserva/modificar';
-     /*           let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
-                let data   = new FormData();
-                data.append('idCliente',this.idCliente);
-                data.append('comensales'     ,this.comensales);
-                data.append('telefono'       ,this.telefono);
-                data.append('fecha'       ,this.fecha);
-                data.append('hora'       ,this.hora);
-                data.append('0bservacion'     , this.observacion);
-                data.append('id'     ,this.id);*/
-
                 let me = this;
 
                 axios.post(url,{
                     'comensales': this.comensales,
-                    'telefono' : this.telefono,
-                    'fecha' : this.fecha,
-                    'hora' : this.hora,
+                    'telefono'  : this.telefono,
+                    'fecha'     : this.fecha,
+                    'hora'      : this.hora,
                     'observacion' : this.observacion,
                     'idCliente' : this.idCliente,
                     'id' : this.id 
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarReserva(1,'','comensales');
+                    me.listarReserva(1,'','clientes');
+                    iziToast.info({
+                            title: 'Exito!',
+                            message: 'Se ha actualizado la reserva',
+                    });
+
                 }).catch(function (error) {
                     console.log(error);
                 }); 

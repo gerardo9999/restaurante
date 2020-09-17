@@ -17,8 +17,9 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <select class="form-control col-md-3" v-model="criterio">
-                                <option value="nombre">Nombre</option>
+                                <select class="form-control col-md-5" v-model="criterio">
+                                <option value="capacidad">Capacidad</option>
+                                <option value="ubicacion">Ubicacion</option>
                                 </select>
                                 <input type="text" v-model="buscar" @keyup.enter="listarMesa(1, buscar, criterio)" class="form-control" placeholder="Texto a buscar">
                                 <button type="submit" @click="listarMesa(1, buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -30,8 +31,8 @@
                             <tr>
                                 <th>Capacidad</th>
                                 <th>Descripcion</th>
-                                <th>Estado</th>
                                 <th>Ubicacion</th>
+                                <th>Estado</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -39,23 +40,29 @@
                             <tr v-for="mesa in arrayMesa" :key="mesa.id">
                                 <td v-text="mesa.capacidad"></td>
                                 <td v-text="mesa.descripcion"></td>
+                                <td v-text="mesa.ubicacion"></td>
                                 <td>
-                                    <div v-if="mesa.estado">
-                                        <span class="badge badge-success">Libre</span>
+                                    <div v-if="mesa.ocupado==1">
+                                        <span class="badge badge-danger">Ocupado</span>
                                     </div>
                                     <div v-else>
-                                        <span class="badge badge-danger">Ocupado</span>
+                                        <span class="badge badge-success">Libre</span>
+
                                     </div>
                                 </td>
                                  <td>
-                                        <button type="button" @click="abrirModal('mesa','actualizar',mesa)" class="btn btn-warning btn-sm">
+                                    
+                                    <button type="button" @click="abrirModal('mesa','actualizar',mesa)" class="btn btn-success btn-sm">
                                     <i class="icon-pencil"></i>
                                     </button> &nbsp;
                                         <button type="mesa" class="btn btn-danger btn-sm" @click="eliminarMesa(mesa.id)">
                                             <i class="icon-trash"></i>
                                         </button> &nbsp;
-                                        <template v-if="mesa.estado">
-                                            <button type="button" class="btn btn-success btn-sm" @click="ocupadoMesa(mesa.id)">
+                                        
+                                        
+                                        
+                                     <!--   <template v-if="mesa.ocupado==0">
+                                            <button type="button" class="btn btn-warning btn-sm" @click="ocupadoMesa(mesa.id)">
                                                 <i class="fa fa-unlock"></i>
                                             </button>
                                         </template>
@@ -63,7 +70,7 @@
                                             <button type="button" class="btn btn-danger btn-sm" @click="desocupadoMesa(mesa.id)">
                                                 <i class="fa fa-lock"></i>
                                             </button>
-                                        </template>>        
+                                        </template>  -->    
                                     </td>           
                             </tr>
                         </tbody>
@@ -122,7 +129,7 @@
 
                                 <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
                                 <div class="col-md-9">
-                                    <textarea v-model="descripcion" id="" cols="90" rows="5"></textarea>
+                                    <textarea v-model="descripcion" id="" class="form-control" cols="90" rows="5"></textarea>
                                     <!-- <input type="text"  class="form-control" placeholder="Capacidad"> -->
                                 </div>
 
@@ -174,7 +181,7 @@
                     'to': 0,
                 },
                 offset: 3,
-                criterio: 'nombre',
+                criterio: 'capacidad',
                 buscar: ''
             }
         },
@@ -220,14 +227,11 @@
                         console.log(error)
                     });
             },
-
             cambiarPagina(page, buscar, criterio) {
                 let me = this;
                 me.pagination.current_page = page;
                 me.listarMesa(page, buscar, criterio);
             },
-
-
             registrarMesa() {
                 if (this.validarMesa()) {
                     return;
@@ -244,6 +248,10 @@
                 axios.post(url,data).then(function(response) {
                     me.cerrarModal();
                     me.listarMesa(1, '', 'nombre');
+                      iziToast.success({
+                            title: 'Exito!',
+                            message: 'Se ha registrado una nueva mesa',
+                    });
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -265,6 +273,10 @@
                 axios.post(url,data).then(function(response) {
                     me.cerrarModal();
                     me.listarMesa(1, '', 'nombre');
+                    iziToast.info({
+                            title: 'Exito!',
+                            message: 'Se ha actualizado la mesa',
+                    });
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -325,7 +337,7 @@
                 if (result.value) {
                     let me = this;
 
-                    axios.put('/mesa/desocupado',{
+                    axios.post('mesa/libre',{
                         'id': id
                     }).then(function (response) {
                         me.listarMesa(1, '', 'descripcion');
@@ -364,10 +376,10 @@
                 if (result.value) {
                     let me = this;
 
-                    axios.put('/mesa/ocupado',{
+                    axios.post('mesa/ocupado',{
                         'id': id
                     }).then(function (response) {
-                        me.listarMesa(1, '', 'descripcion');
+                        me.listarMesa(1, '', 'capacidad');
                         swal(
                         'Ocupada!',
                         'La Mesa esta Ocupada.',

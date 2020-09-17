@@ -14,12 +14,12 @@ class CreateClienteTable extends Migration
             $table->increments('id');
             $table->string('nombres',100)->nullable();
             $table->string('apellidos',100);
-            $table->string('login',100);
-            $table->string('password',100);
-            $table->string('empresa',100)->nullable();
-            $table->string('telefono',20)->nullable();
-            $table->string('direccion',100)->nullable();
-            $table->string('email',50);
+            $table->string('login',100)->nullable();
+            $table->string('password',100)->nullable();
+            $table->string('empresa',100)->nullable()->nullable();
+            $table->string('telefono',20)->nullable()->nullable();
+            $table->string('direccion',100)->nullable()->nullable();
+            $table->string('email',50)->nullable();
             $table->string('estado')->default(1);
 
         });

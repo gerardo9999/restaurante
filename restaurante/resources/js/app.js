@@ -47,6 +47,11 @@ Vue.component('frm-vehiculo', require('./components/frmVehiculo.vue').default);
 Vue.component('frm-orden', require('./components/frmOrdenAtencion.vue').default);
 Vue.component('frm-menu', require('./components/frmMenu.vue').default);
 
+Vue.component('frm-rol', require('./components/frmRoles.vue').default);
+Vue.component('frm-usuario', require('./components/frmUsuario.vue').default);
+Vue.component('frm-detalle', require('./components/frmDetalle.vue').default);
+
+
 
 
 

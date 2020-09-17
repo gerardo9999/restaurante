@@ -28,12 +28,18 @@
         <frm-vehiculo></frm-vehiculo>
     </template>
     <template v-if="menu==10">
-        Modulos de Usuarios
+        <frm-usuario></frm-usuario>  
     </template>
     <template v-if="menu==11">
         Modulo de Bitacora
     </template>
     <template v-if="menu==12">
         Modulo de Reporte
+    </template>
+    <template v-if="menu==13">
+        <frm-mesa></frm-mesa>
+    </template>
+    <template v-if="menu==14">
+        <frm-rol></frm-rol>
     </template>
 @endsection
