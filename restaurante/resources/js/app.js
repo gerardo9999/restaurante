@@ -50,6 +50,7 @@ Vue.component('frm-menu', require('./components/frmMenu.vue').default);
 Vue.component('frm-rol', require('./components/frmRoles.vue').default);
 Vue.component('frm-usuario', require('./components/frmUsuario.vue').default);
 Vue.component('frm-detalle', require('./components/frmDetalle.vue').default);
+Vue.component('frm-bitacora', require('./components/frmBitacora.vue').default);
 
 
 

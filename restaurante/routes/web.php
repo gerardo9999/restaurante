@@ -119,6 +119,16 @@ Route::post('reserva/eliminar','ctrlReserva@eliminar');
 
 
 
+
+
+Route::get('bitacora','ctrlBitacora@mostrar');
+
+
+
+
+
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

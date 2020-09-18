@@ -13,22 +13,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Icons -->
     <link href="css/plantilla.css" rel="stylesheet">
-
-
-    <!-- @stack('style') -->
-    <!-- @yield('livewireStyle') -->
+    @livewireStyles
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 <div id="app" >
     @include('plantilla.header')
     <div class="app-body">
-       
-        @include('plantilla.sidebaradministrador')
-        <!-- Contenido Principal -->
-
-        @yield('contenido')
-        <!-- /Fin del contenido principal -->
+        @livewire('contenedor')
     </div>
 </div>
 <!--     
@@ -36,14 +28,13 @@
         <span><a href="http://www.incanatoit.com/">IncanatoIT</a> &copy; 2017</span>
         <span class="ml-auto">Desarrollado por <a href="http://www.incanatoit.com/">IncanatoIT</a></span>
     </footer> --}} -->
-    <!-- @stack('script') -->
-    <!-- @yield('livewireScript') -->
+    @livewireScripts
     <script src="js/app.js"></script>
     <script src="js/plantilla.js"></script>
-     <script src="{{ asset('coreui/vendors/js/jquery.min.js')}}"></script> 
-    <!-- <script src="{{ asset('coreui/vendors/js/popper.min.js')}}"></script> -->
+    <script src="{{ asset('coreui/vendors/js/jquery.min.js')}}"></script> 
+    <script src="{{ asset('coreui/vendors/js/popper.min.js')}}"></script> 
     <script src="{{ asset('coreui/vendors/js/bootstrap.min.js')}}"></script>
-    <!-- <script src="{{ asset('coreui/vendors/js/pace.min.js')}}"></script> -->
-    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
+    <script src="{{ asset('coreui/vendors/js/pace.min.js')}}"></script> 
+    {{-- <script src="{{ asset('js/app.js') }}"></script>  --}}
 </body>
 </html>

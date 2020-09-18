@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class ctrlCliente extends Controller
 {
-
     public function index(Request $request){
 
         if(!$request->ajax()) return redirect('/index');
@@ -132,9 +131,9 @@ class ctrlCliente extends Controller
     public function update(Request $request){
          
 
-        if(!$request->ajax()) return redirect('/index');         
-        try {
-             DB::beginTransaction();
+        // if(!$request->ajax()) return redirect('/index');         
+        // try {
+        //      DB::beginTransaction();
         
                 $cliente= cliente::findOrFail($request->id);
                 $cliente->nombres = $request->nombres;
@@ -181,10 +180,11 @@ class ctrlCliente extends Controller
                 }
 
                 $bitacora = bitacora::guardar('cliente','actuaizar');
-            DB::commit();
-        } catch (\Throwable $th) {
-             DB::rollback();
-        }
+
+        //     DB::commit();
+        // } catch (\Throwable $th) {
+        //      DB::rollback();
+        // }
     }
     public function delete(Request $request){
 

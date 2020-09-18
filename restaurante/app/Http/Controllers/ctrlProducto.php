@@ -178,6 +178,9 @@ class ctrlProducto extends Controller{
         }
         $producto->descripcion = $request->descripcion;
         $producto->save();
+
+        
+
     }
     public function modificar(Request $request){
         // if (!$request->ajax()) return redirect('/');

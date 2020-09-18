@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class ctrlOrdenAtencion extends Controller
 {
-    
-    
-    
     public function guardar(Request $request){
 
             $id = auth()->id();
@@ -52,7 +49,6 @@ class ctrlOrdenAtencion extends Controller
             $mesa->ocupado = 1; 
             $mesa->update();
     }
-
     public function buscarDetalle(Request $request){
 
 
@@ -129,7 +125,6 @@ class ctrlOrdenAtencion extends Controller
         $mesa->ocupado = 1; 
         $mesa->update();
     }
-
     public function itemEliminar(Request $request){
          
         $detalleOrden= detalleOrden::findOrFail($request->id);
@@ -164,7 +159,6 @@ class ctrlOrdenAtencion extends Controller
         $ordenAtencion->update();
         
     }
-
     public function agregarProductoDetalle(Request $request){
 
         // 'idProducto'     

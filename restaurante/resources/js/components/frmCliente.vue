@@ -280,20 +280,31 @@
                 }).then(function(response) {
                     me.cerrarModal();
                     me.listarCliente(1, '', 'nombres');
+
+    // error      info
+
                     iziToast.success({
                             title: 'Exito!',
                             message: 'Se ha registrado un nuevo cliente',
                     });
+
+
+
                 }).catch(function(error) {
                     console.log(error);
                 });
             },
             actualizarCliente() {
-                if (this.validarCliente()) {
-                    return;
-                }
+                
+                
+                // if (this.validarCliente()) {
+                //     return;
+                // }
+                
                 let me = this;
-                axios.post('/cliente/actualizar', {
+            
+                var url= '/cliente/actualizar';
+                axios.post(url, {
                     'nombres'  : this.nombres,
                     'apellidos': this.apellidos,
                     'login'    : this.login,
@@ -306,6 +317,7 @@
                 }).then(function(response) {
                     me.cerrarModal();
                     me.listarCliente(1, '', 'nombres');
+
                     iziToast.info({
                             title: 'Exito!',
                             message: 'Se ha actualizado el cliente',
@@ -314,6 +326,10 @@
                 }).catch(function(error) {
                     console.log(error);
                 });
+
+
+
+
             },
             activarCliente(id) {
                 swal({

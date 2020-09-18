@@ -31,6 +31,5 @@ class bitacora extends Model
         $bitacora->transaccion = $transaccion;
         $bitacora->idUsuario =  $idUsuario;
         $bitacora->save();
-        // return $bitacora;
     }
 }
