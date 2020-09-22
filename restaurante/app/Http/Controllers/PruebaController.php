@@ -18,30 +18,31 @@ use Spatie\Permission\Models\Role;
 
 class PruebaController extends Controller
 {
-    public function prueba(Request $request){
+    public function prueba(){
+        $nombre     = "Guadalupe";
+        $apellidos  = "Rivero Quina";
+        $login      = "Quina26";
+        $email      = "guadalupequina@gmail.com";
+        $password   = Hash::make( "MGQM26quina");
+
+        $usuario = new User();
+        $usuario->name      = $login;
+        $usuario->email     = $email;
+        $usuario->nombre    = $nombre;
+        $usuario->apellidos = $apellidos;
+        $usuario->password = $password; 
+        $usuario->save();
+
+        //$usuario->assignRole('cliente');
+        $usuario->assignRole('administrador');
+
        
-        $repartidores = vehiculo::join('repartidor','repartidor.id','=','vehiculo.idRepartidor')
-            ->select(
-                'repartidor.nombre',
-                'repartidor.apellidos',
-                'repartidor.login',
-                'repartidor.password',
-                'repartidor.cedulaID',
-                'repartidor.telefono',
-                'repartidor.direccion',
-                'vehiculo.tipoVehiculo',
-                'vehiculo.caracteristicas',
-                'vehiculo.placa',
-                'vehiculo.idRepartidor'
-            )
-            // ->orWhere('repartidor.nombre','LIKE','%'.$searchText.'%')
-            ->paginate(10);
-    
-            return $repartidores;
+       
     }
     public function idUsuario(){
         return $this->rolUser();
     }
+
     public function clienteusuario(){
         
         $nombre     = "Gerardo";
