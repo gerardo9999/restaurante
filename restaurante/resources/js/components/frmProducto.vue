@@ -58,7 +58,7 @@
                                     <td><img :src="`${producto.foto}`" width="100px" alt=""></td>
                                     <td v-text="producto.descripcion"></td>
                                     <td>
-                                        <button type="button" @click="abrirModal('producto','modificar',producto)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('producto','modificar',producto)" class="btn btn-success btn-sm">
                                             <i class="icon-pencil"></i>
                                         </button> &nbsp;
 
@@ -283,20 +283,19 @@
                 //         return;
                 //     }
                 let url    = '/producto/modificar';
-                let header = { headers : {'Content-Tipe' : 'multipart/form-data' }}
 
+                let header = { headers : {'Content-Type' : 'multipart/form-data'} }
+                let data = new FormData();
+                    data.append('idCategoria', this.idCategoria)
+                    data.append('nombre'     , this.nombre)
+                    data.append('id'         , this.idProducto)
+                    data.append('foto'       , this.foto)
+                    data.append('precio'     , this.precio)
+                    data.append('descripcion', this.descripcion)
                 
                 let me = this;
 
-                axios.post(url,{
-                    'descripcion': this.descripcion,
-                    'id': this.idProducto,
-                    'foto': this.foto,
-                    'nombre': this.nombre,
-                    'precio': this.precio,
-                    'idCategoria': this.idCategoria,
-                    
-                }).then(function (response) {
+                axios.post(url,data,header).then(function (response) {
                     me.cerrarModal();
                     me.listarProducto(1,'','nombre');
                 }).catch(function (error) {

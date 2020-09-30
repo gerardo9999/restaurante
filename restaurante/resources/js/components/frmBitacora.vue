@@ -44,7 +44,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav>
+                   <nav>
                         <ul class="pagination">
                             <li class="page-item" v-if="pagination.current_page > 1">
                                 <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
@@ -116,16 +116,21 @@
             listarRegistros(page,buscar,criterio){
                 let me = this;
 
-                var url ='/bitacora?criterio='+ criterio +'&buscar='+buscar;
+                var url ='/bitacora?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
 
                 axios.get(url).then((response) => {
-                    var respuesta = response.data;
+                    var respuesta    = response.data;
                     me.ArrayBitacora = respuesta.bitacora.data
-                    me.pagination = respuesta.pagination;
+                    me.pagination    =  respuesta.pagination;
                 }).catch((value) => {
                     console.log(value);
                 });
-            }
+            },
+            cambiarPagina(page, buscar, criterio) {
+                let me = this;
+                me.pagination.current_page = page;
+                me.listarRegistros(page, buscar, criterio);
+            },
         },
         mounted() {
             this.listarRegistros(1,this.buscar,this.criterio);

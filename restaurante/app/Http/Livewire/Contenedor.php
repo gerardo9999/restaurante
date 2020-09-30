@@ -9,7 +9,7 @@ class Contenedor extends Component
     public $opcion = 0;
     public function render()
     {
-        return view('components.contenedor');
+        return view('livewire.contenedor');
     }
 
     public function contenido($opcion){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\bitacora;
 use Illuminate\Http\Request;
 use App\reserva;
 use App\cliente;
@@ -81,6 +82,8 @@ class ctrlReserva extends Controller
         $reserva->observacion = $request->observacion;
         $reserva->idCliente = $request->idCliente;
         $reserva->save();
+
+        $bitacora = bitacora::guardar('reserva','guardar');
     }
 
     public function modificar(Request $request){
@@ -94,12 +97,16 @@ class ctrlReserva extends Controller
         $reserva->observacion = $request->observacion;
         $reserva->idCliente = $request->idCliente;
         $reserva->update();
+
+        $bitacora = bitacora::guardar('reserva','actualizar');
     }
 
     public function eliminar(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $reserva = reserva::findOrFail($request->id);
         $reserva->delete();
+        $bitacora = bitacora::guardar('reserva','eliminar');
+
         return ['reserva' => $reserva];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\bitacora;
 use App\listaMenu;
 use App\menu;
 use App\precios;
@@ -40,12 +41,16 @@ class ctrlMenu extends Controller
     public function guardar(Request $request){
         
         DB::update('UPDATE menu set estado = 0');
+        $bitacora = bitacora::guardar('menu','actualizar');
 
+
+        
         $menu = new menu();
         $menu->fecha = $request->fecha;
         $menu->estado=1;
         $menu->save();
         $listaMenu = $request->data;
+        $bitacora = bitacora::guardar('menu','guardar');
 
         foreach($listaMenu as $ep=>$det){
             
@@ -54,10 +59,16 @@ class ctrlMenu extends Controller
             $precio->precio = $det['precio'] ;
             $precio->idProducto = $det['id'];
             $precio->save();
+            $bitacora = bitacora::guardar('precios','guardar');
+
 
             $producto = producto::findOrFail($det['id']);
             $producto->precio = $precio->precio;
             $producto->update(); 
+            $bitacora = bitacora::guardar('producto','actualizar');
+
+
+
 
             $listaMenu = new listaMenu();
             $listaMenu->estado = 1;
@@ -65,9 +76,31 @@ class ctrlMenu extends Controller
 
             $listaMenu->idMenu = $menu->id;
             $listaMenu->save();
-        }    
-    }
-    public function listaMenu(){
 
+            $bitacora = bitacora::guardar('listaMenu','guardar');
+
+
+        }    
+
+
+
+    }
+
+    public function activar(Request $request){
+        
+        DB::update('update menu set estado = 0 ');
+        $menu= menu::findOrFail($request->id);
+        $menu->estado = 1;
+        $menu->update();
+        $bitacora = bitacora::guardar('menu','actualizar-estado');
+    }
+
+    public function desactivar(Request $request){
+        
+        $menu= menu::findOrFail($request->id);
+        $menu->estado = 0;
+        $menu->update();
+        $bitacora = bitacora::guardar('menu','actualizar-estado');
+        
     }
 }

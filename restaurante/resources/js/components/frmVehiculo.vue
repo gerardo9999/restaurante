@@ -55,7 +55,7 @@
                                     <td v-text="vehiculo.caracteristicas"></td>
                                     <td v-text="vehiculo.placa"></td>
                                     <td>
-                                        <button type="button" @click="abrirModal('vehiculo','actualizar',vehiculo)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('vehiculo','actualizar',vehiculo)" class="btn btn-success btn-sm">
                                             <i class="icon-pencil"></i>
                                         </button> &nbsp;
 

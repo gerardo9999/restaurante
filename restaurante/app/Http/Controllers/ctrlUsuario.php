@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\bitacora;
 use App\cliente;
 use App\repartidor;
 use App\User;
@@ -71,6 +72,7 @@ class ctrlUsuario extends Controller{
     public function guardar(Request $request){
         try {
             DB::beginTransaction();
+
                 if($request->rol=="administrador"){
                     $usuario = new User();
                     $usuario->name      = $request->name;
@@ -80,20 +82,11 @@ class ctrlUsuario extends Controller{
                     $usuario->password  = Hash::make($request->password);
                     $usuario->save();
                     $usuario->assignRole($request->rol);
+                    $bitacora = bitacora::guardar('usuario','guardar-administrador');
                 }
                 if($request->rol=="cliente"){
         
-                    $cliente = new cliente();
-                    $cliente->nombres   = $request->nombre;
-                    $cliente->apellidos = $request->apellidos;
-                    $cliente->login     = $request->name;
-                    $cliente->password  = Hash::make( $request->password);
-                    $cliente->empresa   = $request->empresa;
-                    $cliente->telefono  = $request->telefono;
-                    $cliente->direccion = $request->direccion;
-                    $cliente->email     = $request->email;
-                    $cliente->estado    = 1;
-                    $cliente->save();
+
         
                     $usuario = new User();
                     $usuario->name      = $request->name;
@@ -103,27 +96,53 @@ class ctrlUsuario extends Controller{
                     $usuario->password = Hash::make( $request->password); 
                     $usuario->save();
                     $usuario->assignRole('cliente');
+
+                    $cliente            = new cliente();
+                    $cliente->id        = $usuario->id;
+                    $cliente->nombres   = $request->nombre;
+                    $cliente->apellidos = $request->apellidos;
+                    $cliente->login     = $request->name;
+                    $cliente->password  = Hash::make( $request->password);
+                    $cliente->empresa   = $request->empresa;
+                    $cliente->telefono  = $request->telefono;
+                    $cliente->direccion = $request->direccion;
+                    $cliente->email     = $request->email;
+                    $cliente->estado    = 0;
+                    $cliente->save();
+
+                    $bitacora = bitacora::guardar('usuario','guardar-cliente');
+                    $bitacora = bitacora::guardar('cliente','guardar');
+
                 }
                 if($request->rol=="repartidor"){
-                    $repartidor = new repartidor();
-                    $repartidor->nombre = $request->nombre;
-                    $repartidor->apellidos = $request->apellidos;
-                    $repartidor->login = $request->name;
-                    $repartidor->password = Hash::make( $request->password);
-                    $repartidor->cedulaID = $request->cedulaID;
-                    $repartidor->email = $request->email;
-                    $repartidor->telefono = $request->telefono;
-                    $repartidor->direccion = $request->direccion;
-                    $repartidor->save();
+                    
         
                     $usuario = new User();
                     $usuario->name      = $request->name;
                     $usuario->email     = $request->email;
                     $usuario->nombre    = $request->nombre;
                     $usuario->apellidos = $request->apellidos;
-                    $usuario->password = $repartidor->password; 
+                    $usuario->password  = Hash::make( $request->password); 
                     $usuario->save();
+
+
+                    $repartidor             = new repartidor();
+                    $repartidor->id         = $usuario->id;
+                    $repartidor->nombre     = $request->nombre;
+                    $repartidor->apellidos  = $request->apellidos;
+                    $repartidor->login      = $request->name;
+                    $repartidor->password   = Hash::make( $request->password);
+                    $repartidor->cedulaID   = $request->cedulaID;
+                    $repartidor->email      = $request->email;
+                    $repartidor->telefono   = $request->telefono;
+                    $repartidor->direccion  = $request->direccion;
+                    $repartidor->save();
+
                     $usuario->assignRole('repartidor');
+                    $bitacora = bitacora::guardar('usuario','guardar-repartidor');
+                    $bitacora = bitacora::guardar('repartidor','guardar');
+
+
                 }
             DB::commit();
         } catch (\Throwable $th) {

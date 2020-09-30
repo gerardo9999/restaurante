@@ -36,7 +36,7 @@
                             <tr v-for="categoria in arrayCategoria" :key="categoria.id">
                                 <td v-text="categoria.nombre"></td>
                                 <td>
-                                    <button type="button" @click="abrirModal('categoria','actualizar',categoria)" class="btn btn-warning btn-sm">
+                                    <button type="button" @click="abrirModal('categoria','actualizar',categoria)" class="btn btn-success btn-sm">
                                     <i class="icon-pencil"></i>
                                     </button> &nbsp;
                                     <button type="button" class="btn btn-danger btn-sm" @click="eliminarCategoria(categoria.id)">
@@ -74,7 +74,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <form  method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
@@ -184,6 +184,10 @@
                 }).then(function(response) {
                     me.cerrarModal();
                     me.listarCategoria(1, '', 'nombre');
+                    iziToast.success({
+                            title: 'Exito!',
+                            message: 'Se ha registrado una nueva categoria',
+                    });
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -193,12 +197,16 @@
                     return;
                 }
                 let me = this;
-                axios.put('/categoria/actualizar', {
+                axios.post('/categoria/actualizar', {
                     'nombre': this.nombre,
                     'id': this.idCategoria
                 }).then(function(response) {
                     me.cerrarModal();
                     me.listarCategoria(1, '', 'nombre');
+                     iziToast.info({
+                            title: 'Exito!',
+                            message: 'Se ha actualizado la categoria',
+                    });
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -220,7 +228,7 @@
                     if (result.value) {
                         let me = this;
 
-                        axios.put('/categoria/eliminar', {
+                        axios.post('/categoria/eliminar', {
                             'id': id
                         }).then(function(response) {
                             me.listarCategoria(1, '', 'nombre');

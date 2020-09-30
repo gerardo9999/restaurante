@@ -19,7 +19,12 @@ use Spatie\Permission\Models\Role;
 class PruebaController extends Controller
 {
     public function prueba(Request $request){
-       
+
+        $name='gerard_ch07';
+        $cliente_id = cliente::all();
+
+        return $cliente_id; 
+
         $repartidores = vehiculo::join('repartidor','repartidor.id','=','vehiculo.idRepartidor')
             ->select(
                 'repartidor.nombre',
@@ -208,54 +213,71 @@ class PruebaController extends Controller
 
     public function insertarUsuario(){
 
-        //         nombre: '',
-        //         apellidos: '',
-        //         email: '',
-        //         name: '',
-        //         password: '',
-        //         rol: '',
-        //         empresa :'',
-        //         telefono :'',
-        //         direccion : '',
 
-
-        try {
-            DB::beginTransaction();
-            $nombre     = "Gerardo";
-            $apellidos  = "Arias Justiniano";
-            $login      = "Gerardo99777";
-            $email      = "gerardoarias23@gmail.com";
-            $password   = Hash::make( "23defebrero");
             
-            $cliente = new cliente();
-            $cliente->nombres   = $nombre;
-            $cliente->apellidos = $apellidos;
-            $cliente->login     = $login;
-            $cliente->password  = $password;
-            $cliente->empresa   = "FINOR";
-            $cliente->telefono  = "5656735673";
-            $cliente->direccion = "C/5 B/Urkupiña";
-            $cliente->email     = $email;
-            $cliente->estado    = 1;
-            $cliente->save();
+            
+            $nombres    = ["Gerardo","Miguel","Eldy"];
+            $apellidos  = ["Arias Justiniano","Ortega Sanchez","Maldonado Cuellar"];
+            $logins     = ["gerardo99777","miguel9999","eldy233"];
+            $emails     = ["gerardoarias23@gmail.com","miguel09@gmail.com","eldymacu23@gmail.com"];
+            $password   = Hash::make( "23defebrero");
+            $roles   = ["administrador","repartidor","cliente"];          
+            $length = count($nombres);
+            $telefonos = ["776873687","78797987","65256521"];
+            $direcciones = ["C/5 B/Urkupiña","C/Bolivar","C/7 Villa Cochbamba"];
 
-            $usuario = new User();
-            $usuario->name      = $login;
-            $usuario->email     = $email;
-            $usuario->nombre    = $nombre;
-            $usuario->apellidos = $apellidos;
-            $usuario->password  = $password; 
-            $usuario->save();
+            for ($i=0; $i < $length; $i++) { 
 
-            $usuario->assignRole('cliente');
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-        }
+                $usuario = new User();
+                $usuario->name      = $logins[$i];
+                $usuario->email     = $emails[$i];
+                $usuario->nombre    = $nombres[$i];
+                $usuario->apellidos = $apellidos[$i];
+                $usuario->password  = $password; 
+                $usuario->save();
+    
+    
+                if($roles[$i]=="cliente"){
+                    $cliente = new cliente();
+                    $cliente->id = $usuario->id;
+                    $cliente->nombres   = $nombres[$i];
+                    $cliente->apellidos = $apellidos[$i];
+                    $cliente->login     = $logins[$i];
+                    $cliente->password  = Hash::make($password);
+                    $cliente->empresa   = "FINOR";
+                    $cliente->telefono  = $telefonos[$i];
+                    $cliente->direccion = $direcciones[$i];
+                    $cliente->email     = $emails[$i];
+                    $cliente->estado    = 0;
+                    $cliente->save();
+                }
+                if($roles[$i]=="repartidor"){
+                    $repartidor = new repartidor();
+                    $repartidor->id = $usuario->id;
+
+                    $repartidor->nombre = $nombres[$i];
+                    $repartidor->apellidos = $apellidos[$i];
+                    $repartidor->login = $logins[$i];
+                    $repartidor->password = Hash::make($password);
+                    $repartidor->cedulaID = "76769989";
+                    $repartidor->email = $emails[$i];
+                    $repartidor->telefono = $telefonos[$i];
+                    $repartidor->direccion = $direcciones[$i];
+                    $repartidor->save();
+                }
+
+                $usuario->assignRole($roles[$i]);
+    
+            }
+            
+        //     DB::commit();
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        // }
         
-        return [
-            "usuario"=> $usuario , "role"=>$usuario->roles[0]->name
+        return [ "Usuarios"=>User::all()
+            // "usuario"=> $usuario , "role"=>$usuario->roles[0]->name
         ];
     }
 

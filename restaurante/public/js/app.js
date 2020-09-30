@@ -2058,7 +2058,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarRegistros: function listarRegistros(page, buscar, criterio) {
       var me = this;
-      var url = '/bitacora?criterio=' + criterio + '&buscar=' + buscar;
+      var url = '/bitacora?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.ArrayBitacora = respuesta.bitacora.data;
@@ -2066,6 +2066,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (value) {
         console.log(value);
       });
+    },
+    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+      var me = this;
+      me.pagination.current_page = page;
+      me.listarRegistros(page, buscar, criterio);
     }
   },
   mounted: function mounted() {
@@ -2273,6 +2278,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.cerrarModal();
         me.listarCategoria(1, '', 'nombre');
+        iziToast.success({
+          title: 'Exito!',
+          message: 'Se ha registrado una nueva categoria'
+        });
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2283,12 +2292,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.put('/categoria/actualizar', {
+      axios.post('/categoria/actualizar', {
         'nombre': this.nombre,
         'id': this.idCategoria
       }).then(function (response) {
         me.cerrarModal();
         me.listarCategoria(1, '', 'nombre');
+        iziToast.info({
+          title: 'Exito!',
+          message: 'Se ha actualizado la categoria'
+        });
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2311,7 +2324,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('/categoria/eliminar', {
+          axios.post('/categoria/eliminar', {
             'id': id
           }).then(function (response) {
             me.listarCategoria(1, '', 'nombre');
@@ -2381,27 +2394,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2665,8 +2657,7 @@ __webpack_require__.r(__webpack_exports__);
         'email': this.email
       }).then(function (response) {
         me.cerrarModal();
-        me.listarCliente(1, '', 'nombres'); // error      info
-
+        me.listarCliente(1, '', 'nombres');
         iziToast.success({
           title: 'Exito!',
           message: 'Se ha registrado un nuevo cliente'
@@ -3211,6 +3202,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import VueBarcode from 'vue-barcode';
 
 
@@ -3454,11 +3485,11 @@ __webpack_require__.r(__webpack_exports__);
       this.arrayProducto = [];
       this.arrayMenuDetalle = [];
     },
-    desactivarArticulo: function desactivarArticulo(id) {
+    desactivarMenu: function desactivarMenu(id) {
       var _this = this;
 
       swal({
-        title: 'Esta seguro de desactivar este artículo?',
+        title: 'Esta seguro de desactivar este menu?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -3472,7 +3503,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('/menu/desactivar', {
+          axios.post('/menu/desactivar', {
             'id': id
           }).then(function (response) {
             me.listarMenu(1, '', 'nombre');
@@ -3484,11 +3515,11 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === swal.DismissReason.cancel) {}
       });
     },
-    activarArticulo: function activarArticulo(id) {
+    activarMenu: function activarMenu(id) {
       var _this2 = this;
 
       swal({
-        title: 'Esta seguro de activar este artículo?',
+        title: 'Esta seguro de activar este menu?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -3502,7 +3533,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.put('/menu/activar', {
+          axios.post('/menu/activar', {
             'id': id
           }).then(function (response) {
             me.listarMenu(1, '', 'nombre');
@@ -5150,18 +5181,18 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/producto/modificar';
       var header = {
         headers: {
-          'Content-Tipe': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data'
         }
       };
+      var data = new FormData();
+      data.append('idCategoria', this.idCategoria);
+      data.append('nombre', this.nombre);
+      data.append('id', this.idProducto);
+      data.append('foto', this.foto);
+      data.append('precio', this.precio);
+      data.append('descripcion', this.descripcion);
       var me = this;
-      axios.post(url, {
-        'descripcion': this.descripcion,
-        'id': this.idProducto,
-        'foto': this.foto,
-        'nombre': this.nombre,
-        'precio': this.precio,
-        'idCategoria': this.idCategoria
-      }).then(function (response) {
+      axios.post(url, data, header).then(function (response) {
         me.cerrarModal();
         me.listarProducto(1, '', 'nombre');
       })["catch"](function (error) {
@@ -5280,8 +5311,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -44750,7 +44779,7 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-warning btn-sm",
+                          staticClass: "btn btn-success btn-sm",
                           attrs: { type: "button" },
                           on: {
                             click: function($event) {
@@ -44928,11 +44957,7 @@ var render = function() {
                   "form",
                   {
                     staticClass: "form-horizontal",
-                    attrs: {
-                      action: "",
-                      method: "post",
-                      enctype: "multipart/form-data"
-                    }
+                    attrs: { method: "post", enctype: "multipart/form-data" }
                   },
                   [
                     _c("div", { staticClass: "form-group row" }, [
@@ -45256,75 +45281,39 @@ var render = function() {
                         ? [_vm._m(2, true)]
                         : [_vm._m(3, true)],
                       _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success btn-sm",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.abrirModal(
-                                    "cliente",
-                                    "actualizar",
-                                    cliente
-                                  )
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "icon-pencil" })]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger btn-sm",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.eliminarCliente(cliente.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "icon-trash" })]
-                          ),
-                          _vm._v(" "),
-                          cliente.estado == 1
-                            ? [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-warning btn-sm",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.desactivarCliente(cliente.id)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "icon-check" })]
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success btn-sm",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.abrirModal(
+                                  "cliente",
+                                  "actualizar",
+                                  cliente
                                 )
-                              ]
-                            : [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-secondary btn-sm",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.activarCliente(cliente.id)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "icon-check" })]
-                                )
-                              ]
-                        ],
-                        2
-                      )
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "icon-pencil" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarCliente(cliente.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "icon-trash" })]
+                        )
+                      ])
                     ],
                     2
                   )
@@ -45886,15 +45875,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [
-      _c("span", { staticClass: "badge badge-success" }, [_vm._v("Activado")])
+      _c("span", { staticClass: "badge badge-success" }, [_vm._v("Activo")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("span", { staticClass: "badge badge-danger" }, [_vm._v("Desativado")])
+    return _c("td", { staticClass: "text-center" }, [
+      _c("span", { staticClass: "badge badge-danger" }, [_vm._v("Inactivo")])
     ])
   }
 ]
@@ -45964,371 +45953,467 @@ var render = function() {
   return _c("main", { staticClass: "main" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "div",
-        { staticClass: "card" },
-        [
-          _vm.listado
-            ? [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("i", { staticClass: "fa fa-align-justify" }),
-                  _vm._v(" Menu\n                    "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.ocultarListado()
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "icon-plus" }),
-                      _vm._v(" Nuevo\n                    ")
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-6" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c("div", { staticClass: "col-md-12" }, [
-                          _c("div", { staticClass: "input-group" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.buscar,
-                                  expression: "buscar"
-                                }
-                              ],
-                              staticClass: "form-control frm-control-sm",
-                              attrs: {
-                                type: "date",
-                                placeholder: "buscar por fecha"
-                              },
-                              domProps: { value: _vm.buscar },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.buscar = $event.target.value
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary btn-sm",
-                                attrs: { type: "submit" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.listarMenu(
-                                      1,
-                                      _vm.buscar,
-                                      _vm.criterio
-                                    )
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", { staticClass: "fa fa-search" }),
-                                _vm._v(" Buscar")
-                              ]
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "container-fluid" },
+      [
+        _vm.listado
+          ? [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-6" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("i", { staticClass: "fa fa-align-justify" }),
+                      _vm._v(" Menu\n                                "),
                       _c(
-                        "table",
+                        "button",
                         {
-                          staticClass:
-                            "table table-bordered table-striped table-sm"
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.ocultarListado()
+                            }
+                          }
                         },
                         [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c(
-                            "tbody",
-                            _vm._l(_vm.arrayMenu, function(menu) {
-                              return _c(
-                                "tr",
-                                { key: menu.id },
-                                [
-                                  _vm.marcar == menu.id
-                                    ? [
-                                        _c("td", {
-                                          domProps: {
-                                            textContent: _vm._s(menu.fecha)
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        menu.estado
-                                          ? [_vm._m(2, true)]
-                                          : [_vm._m(3, true)],
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass:
-                                                "btn btn-success btn-sm",
-                                              attrs: { type: "button" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.verProducto(
-                                                    menu.id
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "icon-check"
-                                              })
-                                            ]
-                                          ),
-                                          _vm._v(
-                                            "  \n                                                    "
-                                          ),
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass:
-                                                "btn btn-danger btn-sm",
-                                              attrs: { type: "button" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.verProducto(
-                                                    menu.id
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "icon-trash"
-                                              })
-                                            ]
-                                          ),
-                                          _vm._v(
-                                            "  \n                                                "
-                                          )
-                                        ])
-                                      ]
-                                    : [
-                                        _c("td", {
-                                          domProps: {
-                                            textContent: _vm._s(menu.fecha)
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        menu.estado
-                                          ? [_vm._m(4, true)]
-                                          : [_vm._m(5, true)],
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass:
-                                                "btn btn-info btn-sm",
-                                              attrs: { type: "button" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.verProducto(
-                                                    menu.id
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "icon-eye"
-                                              })
-                                            ]
-                                          ),
-                                          _vm._v(
-                                            "  \n                                                     "
-                                          ),
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass:
-                                                "btn btn-danger btn-sm",
-                                              attrs: { type: "button" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.verProducto(
-                                                    menu.id
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "icon-trash"
-                                              })
-                                            ]
-                                          ),
-                                          _vm._v(
-                                            "  \n                                                "
-                                          )
-                                        ])
-                                      ]
-                                ],
-                                2
-                              )
-                            }),
-                            0
-                          )
+                          _c("i", { staticClass: "icon-plus" }),
+                          _vm._v(" Nuevo\n                                ")
                         ]
-                      ),
-                      _vm._v(" "),
-                      _c("nav", [
-                        _c(
-                          "ul",
-                          { staticClass: "pagination" },
-                          [
-                            _vm.pagination.current_page > 1
-                              ? _c("li", { staticClass: "page-item" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "page-link",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.cambiarPagina(
-                                            _vm.pagination.current_page - 1,
-                                            _vm.buscar,
-                                            _vm.criterio
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Ant")]
-                                  )
-                                ])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm._l(_vm.pagesNumber, function(page) {
-                              return _c(
-                                "li",
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c("div", { staticClass: "col-md-12" }, [
+                            _c("div", { staticClass: "input-group" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.buscar,
+                                    expression: "buscar"
+                                  }
+                                ],
+                                staticClass: "form-control frm-control-sm",
+                                attrs: {
+                                  type: "date",
+                                  placeholder: "buscar por fecha"
+                                },
+                                domProps: { value: _vm.buscar },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.buscar = $event.target.value
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "button",
                                 {
-                                  key: page,
-                                  staticClass: "page-item",
-                                  class: [page == _vm.isActived ? "active" : ""]
+                                  staticClass: "btn btn-primary btn-sm",
+                                  attrs: { type: "submit" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.listarMenu(
+                                        1,
+                                        _vm.buscar,
+                                        _vm.criterio
+                                      )
+                                    }
+                                  }
                                 },
                                 [
-                                  _c("a", {
-                                    staticClass: "page-link",
-                                    attrs: { href: "#" },
-                                    domProps: { textContent: _vm._s(page) },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.cambiarPagina(
-                                          page,
-                                          _vm.buscar,
-                                          _vm.criterio
-                                        )
-                                      }
-                                    }
-                                  })
+                                  _c("i", { staticClass: "fa fa-search" }),
+                                  _vm._v(" Buscar")
                                 ]
                               )
-                            }),
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "table",
+                          {
+                            staticClass:
+                              "table table-bordered table-striped table-sm"
+                          },
+                          [
+                            _vm._m(1),
                             _vm._v(" "),
-                            _vm.pagination.current_page <
-                            _vm.pagination.last_page
-                              ? _c("li", { staticClass: "page-item" }, [
-                                  _c(
-                                    "a",
-                                    {
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.arrayMenu, function(menu) {
+                                return _c(
+                                  "tr",
+                                  { key: menu.id },
+                                  [
+                                    _vm.marcar == menu.id
+                                      ? [
+                                          _c("td", {
+                                            domProps: {
+                                              textContent: _vm._s(menu.fecha)
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          menu.estado
+                                            ? [_vm._m(2, true)]
+                                            : [_vm._m(3, true)],
+                                          _vm._v(" "),
+                                          _c(
+                                            "td",
+                                            [
+                                              _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-success btn-sm",
+                                                  attrs: { type: "button" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.verProducto(
+                                                        menu.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "icon-check"
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(
+                                                "  \n                                                            "
+                                              ),
+                                              menu.estado
+                                                ? [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-warning btn-sm",
+                                                        attrs: {
+                                                          type: "button"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.desactivarMenu(
+                                                              menu.id
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "fa fa-unlock"
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(
+                                                      "  \n                                                            "
+                                                    )
+                                                  ]
+                                                : [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-danger btn-sm",
+                                                        attrs: {
+                                                          type: "button"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.activarMenu(
+                                                              menu.id
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-lock"
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(
+                                                      "  \n                                                            "
+                                                    )
+                                                  ]
+                                            ],
+                                            2
+                                          )
+                                        ]
+                                      : [
+                                          _c("td", {
+                                            domProps: {
+                                              textContent: _vm._s(menu.fecha)
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          menu.estado
+                                            ? [_vm._m(4, true)]
+                                            : [_vm._m(5, true)],
+                                          _vm._v(" "),
+                                          _c(
+                                            "td",
+                                            [
+                                              _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-info btn-sm",
+                                                  attrs: { type: "button" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.verProducto(
+                                                        menu.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "icon-eye"
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(
+                                                "  \n\n                                                            "
+                                              ),
+                                              menu.estado
+                                                ? [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-warning btn-sm",
+                                                        attrs: {
+                                                          type: "button"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.desactivarMenu(
+                                                              menu.id
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "fa fa-unlock"
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(
+                                                      "  \n                                                            "
+                                                    )
+                                                  ]
+                                                : [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-danger btn-sm",
+                                                        attrs: {
+                                                          type: "button"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.activarMenu(
+                                                              menu.id
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-lock"
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(
+                                                      "  \n                                                            "
+                                                    )
+                                                  ]
+                                            ],
+                                            2
+                                          )
+                                        ]
+                                  ],
+                                  2
+                                )
+                              }),
+                              0
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("nav", [
+                          _c(
+                            "ul",
+                            { staticClass: "pagination" },
+                            [
+                              _vm.pagination.current_page > 1
+                                ? _c("li", { staticClass: "page-item" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "page-link",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.cambiarPagina(
+                                              _vm.pagination.current_page - 1,
+                                              _vm.buscar,
+                                              _vm.criterio
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Ant")]
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm._l(_vm.pagesNumber, function(page) {
+                                return _c(
+                                  "li",
+                                  {
+                                    key: page,
+                                    staticClass: "page-item",
+                                    class: [
+                                      page == _vm.isActived ? "active" : ""
+                                    ]
+                                  },
+                                  [
+                                    _c("a", {
                                       staticClass: "page-link",
                                       attrs: { href: "#" },
+                                      domProps: { textContent: _vm._s(page) },
                                       on: {
                                         click: function($event) {
                                           $event.preventDefault()
                                           return _vm.cambiarPagina(
-                                            _vm.pagination.current_page + 1,
+                                            page,
                                             _vm.buscar,
                                             _vm.criterio
                                           )
                                         }
                                       }
-                                    },
-                                    [_vm._v("Sig")]
-                                  )
+                                    })
+                                  ]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _vm.pagination.current_page <
+                              _vm.pagination.last_page
+                                ? _c("li", { staticClass: "page-item" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "page-link",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.cambiarPagina(
+                                              _vm.pagination.current_page + 1,
+                                              _vm.buscar,
+                                              _vm.criterio
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Sig")]
+                                    )
+                                  ])
+                                : _vm._e()
+                            ],
+                            2
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-6" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "card-body" }, [
+                        _vm._m(7),
+                        _vm._v(" "),
+                        _c(
+                          "table",
+                          {
+                            staticClass:
+                              "table table-bordered table-striped table-sm"
+                          },
+                          [
+                            _vm._m(8),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.arrayProductoMenu, function(lista) {
+                                return _c("tr", { key: lista.id }, [
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(lista.nombre)
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(lista.precio)
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("img", {
+                                      attrs: {
+                                        src: "" + lista.foto,
+                                        width: "100px",
+                                        alt: ""
+                                      }
+                                    })
+                                  ])
                                 ])
-                              : _vm._e()
-                          ],
-                          2
+                              }),
+                              0
+                            )
+                          ]
                         )
                       ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-6" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _vm._m(6),
-                      _vm._v(" "),
-                      _c(
-                        "table",
-                        {
-                          staticClass:
-                            "table table-bordered table-striped table-sm"
-                        },
-                        [
-                          _vm._m(7),
-                          _vm._v(" "),
-                          _c(
-                            "tbody",
-                            _vm._l(_vm.arrayProductoMenu, function(lista) {
-                              return _c("tr", { key: lista.id }, [
-                                _c("td", {
-                                  domProps: {
-                                    textContent: _vm._s(lista.nombre)
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: {
-                                    textContent: _vm._s(lista.precio)
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c("img", {
-                                    attrs: {
-                                      src: "" + lista.foto,
-                                      width: "100px",
-                                      alt: ""
-                                    }
-                                  })
-                                ])
-                              ])
-                            }),
-                            0
-                          )
-                        ]
-                      )
-                    ])
                   ])
                 ])
-              ]
-            : [
-                _vm._m(8),
+              ])
+            ]
+          : [
+              _c("div", { staticClass: "card" }, [
+                _vm._m(9),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "form-group row border" }, [
@@ -46450,7 +46535,7 @@ var render = function() {
                               "table table-bordered table-striped table-sm"
                           },
                           [
-                            _vm._m(9),
+                            _vm._m(10),
                             _vm._v(" "),
                             _vm.arrayDetalle.length
                               ? _c(
@@ -46570,11 +46655,11 @@ var render = function() {
                     ])
                   ])
                 ])
-              ]
-        ],
-        2
-      )
-    ]),
+              ])
+            ]
+      ],
+      2
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -46741,7 +46826,7 @@ var render = function() {
                     staticClass: "table table-bordered table-striped table-sm"
                   },
                   [
-                    _vm._m(10),
+                    _vm._m(11),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -46909,6 +46994,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("td", [
       _c("span", { staticClass: "badge badge-danger" }, [_vm._v("Desactivado")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fa fa-align-justify" }),
+      _vm._v(
+        " Lista Menú\n                            \n                        "
+      )
     ])
   },
   function() {
@@ -48648,11 +48744,9 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "nombreCliente" } },
-                                    [_vm._v("Producto")]
-                                  )
+                                  _c("option", { attrs: { value: "nombre" } }, [
+                                    _vm._v("Producto")
+                                  ])
                                 ]
                               ),
                               _vm._v(" "),
@@ -49364,7 +49458,7 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-warning btn-sm",
+                          staticClass: "btn btn-success btn-sm",
                           attrs: { type: "button" },
                           on: {
                             click: function($event) {
@@ -50038,7 +50132,7 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-warning btn-sm",
+                          staticClass: "btn btn-success btn-sm",
                           attrs: { type: "button" },
                           on: {
                             click: function($event) {
@@ -50801,7 +50895,7 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-warning btn-sm",
+                          staticClass: "btn btn-success btn-sm",
                           attrs: { type: "button" },
                           on: {
                             click: function($event) {
@@ -53143,7 +53237,7 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-warning btn-sm",
+                          staticClass: "btn btn-success btn-sm",
                           attrs: { type: "button" },
                           on: {
                             click: function($event) {

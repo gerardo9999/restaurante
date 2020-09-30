@@ -17,6 +17,7 @@ class CreateRepartidorTable extends Migration
         Schema::create('repartidor', function (Blueprint $table) {
             
             $table->increments('id');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->string('nombre',100)->nullable();
             $table->string('apellidos',100);
             $table->string('login',100);
@@ -26,7 +27,6 @@ class CreateRepartidorTable extends Migration
             $table->string('telefono',20);
             $table->string('direccion',100);
         });
-   
     }
 
     public function down()
