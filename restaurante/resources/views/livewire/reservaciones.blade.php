@@ -1,4 +1,3 @@
 <div>
-    {{-- Componente de Reserva de la plantilla 2  --}}
-   @include('components.frmReservacion')
+   @include('components.page.frmReservacion')
 </div>

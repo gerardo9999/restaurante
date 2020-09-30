@@ -1,3 +1,3 @@
 <div>
-    @include('components.frmMenuLista')
+    @include('components.page.frmMenuLista')
 </div>

@@ -1,3 +1,3 @@
 <div>
-    @include('components.frmPedidos')
+    @include('components.sistema.frmPedidos')
 </div>

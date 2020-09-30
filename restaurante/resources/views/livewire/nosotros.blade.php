@@ -1,4 +1,4 @@
 <div>
     {{-- componente nosotros de la plantilla de bienvenida --}}
-    @include('components.frmNosotros')
+    @include('components.page.frmNosotros')
 </div>
