@@ -18,12 +18,12 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 
-<div id="app" >
-    @include('plantilla1.header')
-    <div class="app-body">
-        @livewire('contenedor')
+    <div id="app" >
+        @include('sistema.header')
+        <div class="app-body">
+            @livewire('contenedor')
+        </div>
     </div>
-</div>
 
     @livewireScripts
     <script src="js/app.js"></script>

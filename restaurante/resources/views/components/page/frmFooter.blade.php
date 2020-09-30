@@ -1,4 +1,3 @@
-{{-- plantilla2 --}}
 <footer class="footer text-center">
     <div class="footer-top">
       <div class="row">

@@ -73,7 +73,6 @@
                         <button type="button" wire:click='mostrarReservaFormulario()' class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
-                        
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -146,8 +145,6 @@
                     </div>
                 </div>
             @endif    
-            
-
         </div>
        
     </main>

@@ -1,3 +1,3 @@
 <div  style="width: 100%;">
-    @include('components.frmMenu')
+    @include('components.sistema.frmMenu')
 </div>

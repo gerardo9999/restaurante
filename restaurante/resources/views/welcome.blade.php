@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-@include('plantilla2.head')
-
+@include('pagina.head')
 <body>
   <!--sidebar-->
   @livewire('sidebar')
@@ -22,6 +20,6 @@
   <!-- footer -->
   @livewire('footer')
   <!-- / footer -->
-  @include('plantilla2.script')
+  @include('pagina.script')
 </body>
 </html>

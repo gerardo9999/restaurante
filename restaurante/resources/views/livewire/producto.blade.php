@@ -1,3 +1,3 @@
 <div  style="width: 100%;">
-   @include('components.frmProducto')
+   @include('components.sistema.frmProducto')
 </div>

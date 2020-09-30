@@ -31,13 +31,29 @@
             <div class="modal fade" id="modal-plato{{ $plato->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
+
+
                   <div class="modal-body mb-0 p-0">
-                        <img data-toggle="modal" data-target="#modal1" src="{{ asset($plato->foto) }}" width="100%" height="100%"  alt="Avatar">
+
+
+                    <div class="form-group row">
+                      <label class="col-md-3 p-t-3 form-control-label" for="text-input">
+                        <img data-toggle="modal" data-target="#modal1" src="{{ asset($plato->foto) }}" width="200px" height="200px"  alt="Avatar">
+                      </label>
+                      <div class="col-md-9">
+                        sgjhgdhgjhgdsjhgsdjh dhdjkhkdshdkj jdhjkdshkjdshkjds
+                      </div>
+                    </div>
+
+
+                    
                   </div>
+
                   <div class="modal-footer justify-content-center">
                     <span class="mr-4"></span>
                     <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Cerrar</button>
                   </div>
+
                 </div>
               </div>
             </div>
