@@ -4,14 +4,14 @@
       <div class="row">
         <div class="col-md-offset-3 col-md-6 text-center">
           <div class="widget">
-            <h4 class="widget-title">Delicious</h4>
-            <address>324 Ellte Road<br>Delhi, DL 110013</address>
+            <h4 class="widget-title">"Roca Chavez" Pollos y Cuadril</h4>
+            <address>Calle Roberto Paz<br>Montero</address>
             <div class="social-list">
               <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-              <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a href="https://www.facebook.com/rocachavezoficial"><i class="fa fa-facebook" aria-hidden="true"></i></a>
             </div>
             <p class="copyright clear-float">
-              © Delicious Theme. All Rights Reserved
+              © Roca Chavez Pollos y Cuadril.
               <div class="credits">
                 <!--
                   All the links in the footer should remain intact.

@@ -4,29 +4,24 @@
       <div class="row">
         
         <div class="col-md-12 text-center marb-35">
-          <h1 class="header-h">Delicious Journey</h1>
-          <p class="header-p">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
-            <br>nibh euismod tincidunt ut laoreet dolore magna aliquam. </p>
+          <h1 class="header-h">SOBRE NOSOTROS</h1>
+          <p class="header-p">No dejes para mañana lo que puedas comer hoy.</p>
         </div>
 
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <div class="col-md-6 col-sm-6">
             <div class="about-info">
-              <h2 class="heading">vel illum qui dolorem eum</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero impedit inventore culpa vero accusamus in nostrum dignissimos modi, molestiae. Autem iusto esse necessitatibus ex corporis earum quaerat voluptates quibusdam dicta!</p>
-              <div class="details-list">
-                <ul>
-                  <li><i class="fa fa-check"></i>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                  <li><i class="fa fa-check"></i>Quisque finibus eu lorem quis elementum</li>
-                  <li><i class="fa fa-check"></i>Vivamus accumsan porttitor justo sed </li>
-                  <li><i class="fa fa-check"></i>Curabitur at massa id tortor fermentum luctus</li>
-                </ul>
-              </div>
+            <br>
+              <h2 class="heading">El Restaurante</h2>
+              <p>Es un lugar cómodo y acogedor. Buena comida, buenos refrescos y buen servicio. 
+              "Roca Chavéz" es el Mejor saber Montereño gracias a su experiencia gastronómica. 
+              Somos una empresa con mas de 20 años. Roca Chavez, nuestro restaurante ubicacdo en Montero, 
+              nos ha permitido crecer y creer. Sabemos más y queremos demostrarlo. </p>
             </div>
           </div>
           <div class="col-md-6 col-sm-6">
-            <img src="{{asset('delicious/img/res01.jpg')}}" alt="" class="img-responsive">
+            <img src="{{asset('delicious/img/res03.jpg')}}" width="300px" high="300px" alt="" class="img-responsive">
           </div>
         </div>
         <div class="col-md-1"></div>
