@@ -27,8 +27,8 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>fecha</th>
-                                <th>hora</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
                                 <th>Tabla</th>
                                 <th>Transaccion</th>
                                 <th>ID Usuario</th>

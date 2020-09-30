@@ -4644,7 +4644,7 @@ __webpack_require__.r(__webpack_exports__);
           'data': this.ArrayDetalleAtencion,
           'idMesa': this.idMesa
         }).then(function (response) {
-          me.listarMesas(1, 1, '');
+          me.listarMesas(1, '', '');
           me.mostrarListaMesa();
           iziToast.info({
             title: 'Exito!',
@@ -44585,9 +44585,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("fecha")]),
+        _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", [_vm._v("hora")]),
+        _c("th", [_vm._v("Hora")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tabla")]),
         _vm._v(" "),
@@ -48867,11 +48867,9 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "nombreCliente" } },
-                                    [_vm._v("Producto")]
-                                  )
+                                  _c("option", { attrs: { value: "nombre" } }, [
+                                    _vm._v("Producto")
+                                  ])
                                 ]
                               ),
                               _vm._v(" "),
