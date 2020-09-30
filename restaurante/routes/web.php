@@ -1,5 +1,8 @@
 <?php
 
+use App\cliente;
+use App\detallePedido;
+use App\pedido;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +13,7 @@ Route::get('/', function () {
 
 
 Route::get('/index', function () {
-    return view('contenido/contenido');
+    return view('contenido.administrador');
 });
 
 
@@ -18,9 +21,10 @@ Route::get('/index', function () {
 //----------CATEGORIA-------------////
 Route::get('categoria','ctrlCategoria@index');
 Route::post('categoria/guardar','ctrlCategoria@store');
-Route::put('categoria/actualizar','ctrlCategoria@update');
-Route::put('categoria/eliminar','ctrlCategoria@delete');
+Route::post('categoria/actualizar','ctrlCategoria@update');
+Route::post('categoria/eliminar','ctrlCategoria@delete');
 Route::get('/categoria/selectCategoria', 'ctrlCategoria@selectCategoria');
+
 
 
 /////----------------Producto-----------------///
@@ -52,6 +56,9 @@ Route::get('rol','ctrlRol@rolUser');
 /////----------------Menú-----------------///
 Route::get('menu','ctrlMenu@mostrar');
 Route::post('menu/guardar','ctrlMenu@guardar');
+Route::post('menu/activar','ctrlMenu@activar');
+Route::post('menu/desactivar','ctrlMenu@desactivar');
+
 
 /////----------------Cliente-----------------///
 Route::get('cliente','ctrlCliente@index');
@@ -125,6 +132,24 @@ Route::get('bitacora','ctrlBitacora@mostrar');
 
 
 
+Route::get('prueba', function () {
+    $pedidos=detallePedido::join('pedido','pedido.id','detallepedido.idPedido')
+    ->join('producto','detallepedido.idProducto','producto.id')
+    
+    ->select(
+        'pedido.fecha',
+        'pedido.fechaentrega',
+        'pedido.horaentrega',
+        'pedido.glosa',
+        'pedido.montototal',
+        'pedido.estado'
+        //0  realizado   // 1 enviado   // 2 entregado
+     )
+    ->where('pedido.estado','=',0)
+    ->paginate(10);
+
+    return $pedidos;
+});
 
 
 

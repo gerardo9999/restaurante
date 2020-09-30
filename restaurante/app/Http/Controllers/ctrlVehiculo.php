@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\bitacora;
 use Illuminate\Http\Request;
 use App\vehiculo;
 use App\repartidor;
@@ -11,7 +12,7 @@ class ctrlVehiculo extends Controller
 {
     public function mostrar(Request $request){
         
-        // if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/indes');
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -70,7 +71,6 @@ class ctrlVehiculo extends Controller
             'vehiculo' => $vehiculo
         ];
     }
-    
     public function guardar(Request $request){
        
         $vehiculo = new vehiculo();
@@ -80,21 +80,26 @@ class ctrlVehiculo extends Controller
         $vehiculo->placa = $request->placa;
         $vehiculo->idRepartidor = $request->idRepartidor;
         $vehiculo->save();
-    }
 
+        $bitacora = bitacora::guardar('vehiculo','guardar');
+    }
     public function modificar(Request $request){
-        // if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/index');
         $vehiculo = vehiculo::findOrFail($request->id);
         $vehiculo->idRepartidor = $request->idRepartidor;
         $vehiculo->tipoVehiculo = $request->tipoVehiculo;
         $vehiculo->caracteristicas = $request->caracteristicas;
         $vehiculo->placa = $request->placa;
         $vehiculo->save();
+        $bitacora = bitacora::guardar('vehiculo','actualizar');
+
     }
     public function eliminar(Request $request){
-        // if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/index');
         $vehiculo = vehiculo::findOrFail($request->id);
         $vehiculo->delete();
         return ['vehiculo' => $vehiculo];
+        $bitacora = bitacora::guardar('vehiculo','eliminar');
+
     }   
 }

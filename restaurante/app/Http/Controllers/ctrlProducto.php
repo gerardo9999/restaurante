@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\bitacora;
 use App\categoria;
 use App\listaMenu;
 use Illuminate\Http\Request;
@@ -179,11 +180,14 @@ class ctrlProducto extends Controller{
         $producto->descripcion = $request->descripcion;
         $producto->save();
 
-        
+        $bitacora = bitacora::guardar('producto','guardar');
+
 
     }
     public function modificar(Request $request){
+
         // if (!$request->ajax()) return redirect('/');
+        
         $producto = producto::findOrFail($request->id);
         $producto->idCategoria = $request->idCategoria;
         $producto->nombre = $request->nombre;
@@ -193,13 +197,20 @@ class ctrlProducto extends Controller{
             $path = Storage::disk('public')->put('imagenes',$request->file('foto'));
             $producto->foto = $path; 
         }
+
         $producto->descripcion = $request->descripcion;
-        $producto->save();
+        $producto->update();
+
+        $bitacora = bitacora::guardar('producto','actualizar');
+
     }
     public function eliminar(Request $request){
         // if (!$request->ajax()) return redirect('/');
         $producto = producto::findOrFail($request->id);
         $producto->delete();
+
+        $bitacora = bitacora::guardar('producto','eliminar');
+
 
     }
     public function productoMenu(Request $request){

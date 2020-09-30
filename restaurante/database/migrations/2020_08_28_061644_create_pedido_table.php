@@ -6,41 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePedidoTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('pedido', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha');
             $table->date('fechaentrega');
-            $table->time('horaentrega');
-            $table->string('glosa');
+            $table->time('horaentrega')->nullable();
+            $table->string('glosa')->nullable();
             $table->float('montototal');
-            $table->string('repartidor');
-            $table->boolean('estado');
+            $table->integer('estado');
+            //0  realizado   // 1 enviado   // 2 entregado
 
             $table->integer('idUsuario')->unsigned();
             $table->integer('idCliente')->unsigned();
-            $table->integer('idRepartidor')->unsigned();
-            $table->integer('idUbicaion')->unsigned();
-
+            $table->integer('idRepartidor')->unsigned()->nullable();
+            $table->integer('idUbicacion')->unsigned()->nullable();
 
             $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('idCliente')->references('id')->on('cliente')->onDelete('cascade');
             $table->foreign('idRepartidor')->references('id')->on('repartidor')->onDelete('cascade');
-            $table->foreign('idUbicaion')->references('id')->on('ubicacion')->onDelete('cascade');
+            $table->foreign('idUbicacion')->references('id')->on('ubicacion')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('pedido');

@@ -58,7 +58,7 @@
                                     <td v-text="reserva.hora"></td>
                                     <td v-text="reserva.observacion"></td>
                                     <td>
-                                        <button type="button" @click="abrirModal('reserva','actualizar',reserva)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('reserva','actualizar',reserva)" class="btn btn-success btn-sm">
                                             <i class="icon-pencil"></i>
                                         </button> &nbsp;
 

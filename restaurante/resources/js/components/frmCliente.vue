@@ -30,9 +30,6 @@
                         <thead>
                             <tr>
                                 <th>Cliente</th>
-                                <!-- <th>Apellidos</th> -->
-                                <!--<th>Login</th>
-                                 <th>Password</th> -->
                                 <th>Empresa</th>
                                 <th>Telefono </th>
                                 <th>Direccion</th>
@@ -49,10 +46,10 @@
                                 <td v-text="cliente.direccion"></td>
                                 <td v-text="cliente.email"></td>
                                 <template v-if="cliente.estado==1">
-                                    <td><span class="badge badge-success">Activado</span></td>
+                                    <td><span class="badge badge-success">Activo</span></td>
                                 </template>
                                 <template v-else>
-                                    <td><span class="badge badge-danger">Desativado</span></td>
+                                    <td class="text-center"><span class="badge badge-danger">Inactivo</span></td>
                                 </template>
                                 <td>
                                         <button type="button" @click="abrirModal('cliente','actualizar',cliente)" class="btn btn-success btn-sm">
@@ -62,25 +59,7 @@
                                         <button type="button" class="btn btn-danger btn-sm" @click="eliminarCliente(cliente.id)">
                                             <i class="icon-trash"></i>
                                         </button>
-
-                                    <template v-if="cliente.estado==1">
-                                        <button type="button" class="btn btn-warning btn-sm" @click="desactivarCliente(cliente.id)">
-                                            <i class="icon-check"></i>
-                                        </button>                                    
-                                            
-                                        
-                                    </template>
-                                    <template v-else>
-                                        <button type="button" class="btn btn-secondary btn-sm" @click="activarCliente(cliente.id)">
-                                            <i class="icon-check"></i>
-                                        </button>
-
-                                    </template>
-                                
-                                        
                                 </td>
-
-
                             </tr>
                         </tbody>
                     </table>
@@ -281,7 +260,6 @@
                     me.cerrarModal();
                     me.listarCliente(1, '', 'nombres');
 
-    // error      info
 
                     iziToast.success({
                             title: 'Exito!',

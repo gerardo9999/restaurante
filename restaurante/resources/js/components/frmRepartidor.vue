@@ -33,7 +33,6 @@
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Login</th>
-                                <!-- <th>Password</th> -->
                                 <th>CedulaID</th>
                                 <th>Telefono </th>
                                 <th>Direccion</th>
@@ -45,12 +44,11 @@
                                 <td v-text="repartidor.nombre"></td>
                                 <td v-text="repartidor.apellidos"></td>
                                 <td v-text="repartidor.login"></td>
-                                <!-- <td v-text="repartidor.password"></td> -->
                                 <td v-text="repartidor.cedulaID"></td>
                                 <td v-text="repartidor.telefono"></td>
                                 <td v-text="repartidor.direccion"></td>
                                 <td>
-                                    <button type="button" @click="abrirModal('repartidor','actualizar',repartidor)" class="btn btn-warning btn-sm">
+                                    <button type="button" @click="abrirModal('repartidor','actualizar',repartidor)" class="btn btn-success btn-sm">
                                     <i class="icon-pencil"></i>
                                     </button> &nbsp;
                                     <button type="button" class="btn btn-danger btn-sm" @click="eliminarRepartidor(repartidor.id)">
@@ -329,6 +327,7 @@
                 })
             },
             validarRepartidor() {
+                
                 this.errorRepartidor = 0;
                 this.errorMostrarMsjRepartidor = [];
 

@@ -6,129 +6,169 @@
             </ol>
             <div class="container-fluid">
                
-                <div class="card">
                     
                     
 
-                    <template v-if="listado">
-                        <div class="card-header">
-                            <i class="fa fa-align-justify"></i> Menu
-                            <button type="button" @click="ocultarListado()" class="btn btn-secondary">
-                                <i class="icon-plus"></i>&nbsp;Nuevo
-                            </button>
+                <template v-if="listado">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">    
+                                    <div class="card-header">
+                                        <i class="fa fa-align-justify"></i> Menu
+                                        <button type="button" @click="ocultarListado()" class="btn btn-secondary">
+                                            <i class="icon-plus"></i>&nbsp;Nuevo
+                                        </button>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        
+                                                        <input type="date" v-model="buscar"  class="form-control frm-control-sm" placeholder="buscar por fecha">
+                                                        <!-- <b-form-datepicker id="example-datepicker" v-model="buscar" @keyup.enter="listarMenu(1,buscar,criterio)" class="mb-2"></b-form-datepicker>
+                                                        {{ buscar }} -->
+                                                        <button type="submit" @click="listarMenu(1,buscar,criterio)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered table-striped table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Estado</th>
+                                                        <th>Opciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="menu in arrayMenu" :key="menu.id">
+
+                                                        <template v-if="marcar == menu.id">
+                                                                <td v-text="menu.fecha"></td>
+
+                                                                <template v-if="menu.estado">
+                                                                        <td><span class="badge badge-success">Activado</span></td>
+                                                                </template>
+                                                                
+                                                                <template v-else>
+                                                                        <td><span class="badge badge-danger">Desactivado</span></td>
+                                                                </template>
+                                                                
+                                                                <td>
+                                                                    <button type="button" @click="verProducto(menu.id)" class="btn btn-success btn-sm">
+                                                                    <i class="icon-check"></i>
+                                                                    </button> &nbsp;
+                                                                    <template v-if="menu.estado">
+                                                                        <button type="button" @click="desactivarMenu(menu.id)" class="btn btn-warning btn-sm">
+                                                                            <i class="fa fa-unlock"></i>
+                                                                        </button> &nbsp;
+                                                                    </template>
+                                                                    
+                                                                    <template v-else>
+                                                                        <button type="button" @click="activarMenu(menu.id)" class="btn btn-danger btn-sm">
+                                                                            <i class="icon-lock"></i>
+                                                                        </button> &nbsp;
+                                                                    </template>
+
+                                                                </td>
+                                                        </template>
+                                                        <template v-else>
+                                                                <td v-text="menu.fecha"></td>
+                                                                <template v-if="menu.estado">
+                                                                        <td><span class="badge badge-success">Activado</span></td>
+                                                                </template>
+                                                                <template v-else>
+                                                                        <td><span class="badge badge-danger">Desactivado</span></td>
+                                                                </template>
+                                                                <td>
+                                                                    <button type="button" @click="verProducto(menu.id)" class="btn btn-info btn-sm">
+                                                                    <i class="icon-eye"></i>
+                                                                    </button> &nbsp;
+
+                                                                    <template v-if="menu.estado">
+                                                                        <button type="button" @click="desactivarMenu(menu.id)" class="btn btn-warning btn-sm">
+                                                                            <i class="fa fa-unlock"></i>
+                                                                        </button> &nbsp;
+                                                                    </template>
+                                                                    
+                                                                    <template v-else>
+                                                                        <button type="button" @click="activarMenu(menu.id)" class="btn btn-danger btn-sm">
+                                                                            <i class="icon-lock"></i>
+                                                                        </button> &nbsp;
+                                                                    </template>
+
+                                                                </td>
+                                                        </template>    
+
+                                                    </tr>                           
+                                                </tbody>
+                                            </table>
+                                            <nav>
+                                                <ul class="pagination">
+                                                    <li class="page-item" v-if="pagination.current_page > 1">
+                                                        <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
+                                                    </li>
+                                                    <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                                                        <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar,criterio)" v-text="page"></a>
+                                                    </li>
+                                                    <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                                        <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                            </div>
                         </div>
-                        <div class="row">
-
-                            <div class="col-6">
-                                <div class="card-body">
-                                    <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                               
-                                                <input type="date" v-model="buscar"  class="form-control frm-control-sm" placeholder="buscar por fecha">
-                                                <!-- <b-form-datepicker id="example-datepicker" v-model="buscar" @keyup.enter="listarMenu(1,buscar,criterio)" class="mb-2"></b-form-datepicker>
-                                                {{ buscar }} -->
-                                                <button type="submit" @click="listarMenu(1,buscar,criterio)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                        <div class="col-6">
+                            <div class="card">    
+                                <div class="card-header">
+                                    <i class="fa fa-align-justify"></i> Lista Menú
+                                    
+                                </div>
+                                <div class="col-12">
+                                        <div class="card-body">
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <h5>Productos del Menu</h5>
+                                                <!-- <div class="input-group">
+                                                    <select class="form-control col-md-3" v-model="criterio">
+                                                    <option value="fecha">Fecha</option>
+                                                    </select>
+                                                    <input type="date" v-model="buscar" @keyup.enter="listarMenu(1,buscar,criterio)" class="form-control frm-control-sm" placeholder="buscar por fecha">
+                                                    <button type="submit" @click="listarMenu(1,buscar,criterio)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Buscar</button>
+                                                </div> -->
                                             </div>
                                         </div>
+                                        <table class="table table-bordered table-striped table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Precio</th>
+                                                    <th>Foto</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="lista in arrayProductoMenu" :key="lista.id">
+                                                    <td v-text="lista.nombre"></td>
+                                                    <td v-text="lista.precio"></td>
+                                                    <td><img :src="`${lista.foto}`" width="100px" alt=""></td>
+                                                </tr>                                
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Estado</th>
-                                                <th>Opciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="menu in arrayMenu" :key="menu.id">
-                                                <template v-if="marcar==menu.id">
-                                                        <td v-text="menu.fecha"></td>
-                                                        <template v-if="menu.estado">
-                                                                <td><span class="badge badge-success">Activado</span></td>
-                                                        </template>
-                                                        <template v-else>
-                                                                <td><span class="badge badge-danger">Desactivado</span></td>
-                                                        </template>
-                                                        <td>
-                                                            <button type="button" @click="verProducto(menu.id)" class="btn btn-success btn-sm">
-                                                            <i class="icon-check"></i>
-                                                            </button> &nbsp;
-                                                            <button type="button" @click="verProducto(menu.id)" class="btn btn-danger btn-sm">
-                                                            <i class="icon-trash"></i>
-                                                            </button> &nbsp;
-                                                        </td>
-                                                </template>
-                                                <template v-else>
-                                                        <td v-text="menu.fecha"></td>
-                                                        <template v-if="menu.estado">
-                                                                <td><span class="badge badge-success">Activado</span></td>
-                                                        </template>
-                                                        <template v-else>
-                                                                <td><span class="badge badge-danger">Desactivado</span></td>
-                                                        </template>
-                                                        <td>
-                                                            <button type="button" @click="verProducto(menu.id)" class="btn btn-info btn-sm">
-                                                            <i class="icon-eye"></i>
-                                                            </button> &nbsp;
-                                                             <button type="button" @click="verProducto(menu.id)" class="btn btn-danger btn-sm">
-                                                            <i class="icon-trash"></i>
-                                                            </button> &nbsp;
-                                                        </td>
-                                                </template>    
-                                            </tr>                           
-                                        </tbody>
-                                    </table>
-                                    <nav>
-                                        <ul class="pagination">
-                                            <li class="page-item" v-if="pagination.current_page > 1">
-                                                <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
-                                            </li>
-                                            <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
-                                                <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar,criterio)" v-text="page"></a>
-                                            </li>
-                                            <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                                <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                  <div class="card-body">
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <h5>Productos del Menu</h5>
-                                            <!-- <div class="input-group">
-                                                <select class="form-control col-md-3" v-model="criterio">
-                                                <option value="fecha">Fecha</option>
-                                                </select>
-                                                <input type="date" v-model="buscar" @keyup.enter="listarMenu(1,buscar,criterio)" class="form-control frm-control-sm" placeholder="buscar por fecha">
-                                                <button type="submit" @click="listarMenu(1,buscar,criterio)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Buscar</button>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Precio</th>
-                                                <th>Foto</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="lista in arrayProductoMenu" :key="lista.id">
-                                                <td v-text="lista.nombre"></td>
-                                                <td v-text="lista.precio"></td>
-                                                <td><img :src="`${lista.foto}`" width="100px" alt=""></td>
-                                            </tr>                                
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </template>
-                    <template v-else>
+                    </div>
+
+                    
+                </template>
+
+
+                
+                <template v-else>
+                    <div class="card">
                         <div class="card-header">
                             <i class="fa fa-align-justify"></i> Menu
                             
@@ -215,8 +255,8 @@
                                 </div>
                             </div>
                         </div>
-                    </template>
-                </div>
+                    </div>
+                </template>
             </div>
 
 
@@ -551,9 +591,9 @@
                 this.arrayProducto=[];
                 this.arrayMenuDetalle=[];
             },
-            desactivarArticulo(id){
+            desactivarMenu(id){
                swal({
-                title: 'Esta seguro de desactivar este artículo?',
+                title: 'Esta seguro de desactivar este menu?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -568,7 +608,7 @@
                 if (result.value) {
                     let me = this;
 
-                    axios.put('/menu/desactivar',{
+                    axios.post('/menu/desactivar',{
                         'id': id
                     }).then(function (response) {
                         me.listarMenu(1,'','nombre');
@@ -590,9 +630,9 @@
                 }
                 }) 
             },
-            activarArticulo(id){
+            activarMenu(id){
                swal({
-                title: 'Esta seguro de activar este artículo?',
+                title: 'Esta seguro de activar este menu?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -607,7 +647,7 @@
                 if (result.value) {
                     let me = this;
 
-                    axios.put('/menu/activar',{
+                    axios.post('/menu/activar',{
                         'id': id
                     }).then(function (response) {
                         me.listarMenu(1,'','nombre');

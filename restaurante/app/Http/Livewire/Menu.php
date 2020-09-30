@@ -18,10 +18,10 @@ class Menu extends Component{
         
         $searchText = '%'.$this->searchText.'%';
         
-        return view('components.menu',[
+        return view('livewire.menu',[
             'menu' => listaMenu::join('producto','producto.id','=','listamenu.idProducto')
             ->join('menu','menu.id','=','listamenu.idMenu')->
-            where('producto.nombre','LIKE','%'.$searchText.'%')
+            where('producto.nombre','LIKE','%'.$searchText.'%')->where('menu.estado','=',1)
             ->paginate(10)
         ]);
     }

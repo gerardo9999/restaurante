@@ -273,7 +273,7 @@
                                     <div class="col-md-8">
                                         <div class="input-group">
                                             <select class="form-control col-md-6" v-model="criterioProducto">
-                                            <option value="nombreCliente">Producto</option>
+                                            <option value="nombre">Producto</option>
                                             </select>
                                             <input type="text" v-model="buscarProducto" @keyup.enter="menuProducto(buscarProducto,criterioProducto)" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
                                             <button type="submit" @click="menuProducto(buscarProducto,criterioProducto)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>

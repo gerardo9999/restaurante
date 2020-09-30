@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\bitacora;
 use App\categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ctrlCategoria extends Controller
 {
@@ -35,24 +37,39 @@ class ctrlCategoria extends Controller
         ];
     }
     public function store(Request $request){        
-        $categoria = new categoria();
-        $categoria->nombre = $request->nombre;
-        $categoria->save();
+        try {
+            DB::beginTransaction();
+                $categoria = new categoria();
+                $categoria->nombre = $request->nombre;
+                $categoria->save();
+                $bitacora = bitacora::guardar('categoria','guardar');
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+
+
+
     }
     public function update(Request $request){
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $categoria= categoria::findOrFail($request->id);
 	    $categoria->nombre = $request->nombre;
 
         $categoria->save();
+        $bitacora = bitacora::guardar('categoria','actualizar');
+
     }
     public function delete(Request $request){
         $categoria= categoria::findOrFail($request->id);
+        $bitacora = bitacora::guardar('categoria','eliminar');
         $categoria->delete();
     }
     public function selectCategoria(){
         $categoria = categoria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
         return ['categoria' => $categoria];
+
     }
 
     }

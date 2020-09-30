@@ -14,7 +14,7 @@ class Repartidor extends Component
     public function render()
     {
         $searchText = '%'.$this->searchText.'%';
-        return view('components.repartidor',[
+        return view('livewire.repartidor',[
             'repartidores'=> vehiculo::join('repartidor','repartidor.id','=','vehiculo.idRepartidor')
             ->select(
                 'repartidor.nombre',
