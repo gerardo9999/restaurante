@@ -270,6 +270,9 @@
 
                             <template v-if="tipoAccion==1">
                                 <div class="form-group row">
+
+
+                                <!--
                                     <div class="col-md-8">
                                         <div class="input-group">
                                             <select class="form-control col-md-6" v-model="criterioProducto">
@@ -278,6 +281,18 @@
                                             <input type="text" v-model="buscarProducto" @keyup.enter="menuProducto(buscarProducto,criterioProducto)" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
                                             <button type="submit" @click="menuProducto(buscarProducto,criterioProducto)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                         </div>
+                                    </div>
+                                aqui
+                                -->
+
+                                <div v-for="menu in ArrayMenu" :key="menu.id">
+                                    <div class="btn-group-sm p-1">
+                                        <button type="submit" @click="menuProducto(menu.id)" class="btn btn-primary">{{menu.categoria}}</button>
+                                    </div>
+                                </div>
+
+                                    <div class="table-responsive col-md-12 p-4"  >
+
                                     </div>
                                 </div>
                                 <table class="table table-bordered table-striped table-sm">
@@ -318,16 +333,32 @@
 
                             <template v-if="tipoAccion==2">
                                 <div class="form-group row">
+
+
+                                <!--
                                     <div class="col-md-8">
                                         <div class="input-group">
                                             <select class="form-control col-md-6" v-model="criterioProducto">
-                                            <option value="nombreCliente">Producto</option>
+                                            <option value="nombre">Producto</option>
                                             </select>
                                             <input type="text" v-model="buscarProducto" @keyup.enter="menuProducto(buscarProducto,criterioProducto)" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
                                             <button type="submit" @click="menuProducto(buscarProducto,criterioProducto)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                         </div>
                                     </div>
+                                aqui
+                                -->
+
+                                <div v-for="menu in ArrayMenu" :key="menu.id">
+                                    <div class="btn-group-sm p-1">
+                                        <button type="submit" @click="menuProducto(menu.id)" class="btn btn-primary">{{menu.categoria}}</button>
+                                    </div>
                                 </div>
+
+                                    <div class="table-responsive col-md-12 p-4"  >
+
+                                    </div>
+                                </div>
+
                                 <table class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
@@ -399,6 +430,7 @@
                 ArrayCliente         : [],
                 ArrayMenuProducto    : [],
                 ArrayDetalleAtencion : [],
+                ArrayMenu            : [],
 
 
                 // guarda todos los productos ingresados a la DB
@@ -584,13 +616,13 @@
             },
 
             // lista de productos del menu actual
-            menuProducto(buscar,criterio){
+            menuProducto(criterio){
                 let me =this;
-                var url = '/producto/menuProducto?buscar='+ buscar + '&criterio='+ criterio;
+                var url = '/producto/listaMenuProducto?buscar='+ '&criterio='+ criterio;
 
                 axios.get(url).then(function(response){
                     var respuesta = response.data;
-                    me.ArrayMenuProducto = respuesta.producto.data;
+                    me.ArrayMenuProducto = respuesta.productoMenu;
                     console.log(me.ArrayMenuProducto);
                 }).catch(function(error){
                     console.log(error)
@@ -647,17 +679,17 @@
                         'data'      :this.ArrayDetalleAtencion,
                         'idMesa'    :this.idMesa
                     }).then(function(response){
-                        me.listarMesas(1,1,'');
+                            me.listarMesas(1, '', '');
                             me.mostrarListaMesa()
                             iziToast.info({
                                 title: 'Exito!',
                                 message: 'La Orden se ha guardado con exito!',
                             });
+                        me.resetearVariable();
                     }).catch((errot) => {
                         console.log(error);
                     });
                 }
-
             },
             //Elimina del detalle
             eliminarProductoDetalle(index){
@@ -693,6 +725,7 @@
                             }
                         }
                 }
+                this.allMenu();
             },
             cerrarModal(){
                 
@@ -838,6 +871,7 @@
                 return sw;
                 
             },
+            //finaliza la orden de atencion
             finalizarOrdenAtencion(){
 
                 let me = this;
@@ -885,9 +919,22 @@
 
 
 
+            },
+            //trae todos los menus de la fecha actual que esten activos
+            allMenu(){
+                let me =this;
+                var url = '/menu/allMenu';
+
+                axios.get(url).then(function(response){
+                    var respuesta    = response.data;
+                    me.ArrayMenu     = respuesta.menu;
+                }).catch(function(error){
+                    cons
+                });
             }
 
         },
+
         mounted() {
             this.listarMesas(1, this.buscar, this.criterio);
         }

@@ -2,8 +2,13 @@
 
 use App\cliente;
 use App\detallePedido;
+use App\listaMenu;
+use App\menu;
 use App\pedido;
+use App\User;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,8 +18,11 @@ Route::get('/', function () {
 
 
 Route::get('/index', function () {
-    return view('contenido.administrador');
+    return view('contenido.contenido');
 });
+
+
+
 
 
 
@@ -33,9 +41,18 @@ Route::post('producto/guardar','ctrlProducto@guardar');
 Route::post('producto/modificar','ctrlProducto@modificar');
 Route::post('producto/eliminar','ctrlProducto@eliminar');
 Route::get('producto/buscarProducto','ctrlProducto@buscarProducto');
+Route::get('producto/buscarProductoCategoria','ctrlProducto@buscarProductoCategoria');
+
 Route::get('/producto/menu','ctrlProducto@productoMenu');
 Route::get('/producto/selectProducto', 'ctrlProducto@selectProducto');
 Route::get('/producto/menuProducto', 'ctrlProducto@menuProducto');
+Route::get('/producto/listaMenuProducto', 'ctrlProducto@listaMenuProducto');
+
+
+
+
+// /producto/listaMenuProducto?buscar='+ buscar + '&criterio='+ criterio
+
 // Route::get('/producto/buscarProducto', 'ctrlProducto@buscarProducto');
 
 
@@ -58,6 +75,9 @@ Route::get('menu','ctrlMenu@mostrar');
 Route::post('menu/guardar','ctrlMenu@guardar');
 Route::post('menu/activar','ctrlMenu@activar');
 Route::post('menu/desactivar','ctrlMenu@desactivar');
+Route::post('menu/eliminar','ctrlMenu@eliminarMenu');
+Route::get('menu/allMenu','ctrlMenu@allMenus');
+
 
 
 /////----------------Cliente-----------------///
@@ -91,10 +111,6 @@ Route::post('/item/actualizar','ctrlOrdenAtencion@itemActualizar');
 //////------------------Detalle-----------------------------///////
 Route::post('/agregar/producto/detalle','ctrlOrdenAtencion@agregarProductoDetalle');
 
-// 
-
-
-
 
 /////----------------Repartidor-----------------///
 Route::get('repartidor','ctrlRepartidor@index');
@@ -119,13 +135,23 @@ Route::post('vehiculo/modificar','ctrlVehiculo@modificar');
 Route::post('vehiculo/eliminar','ctrlVehiculo@eliminar');
 
 //------------------reserva----------------//
-Route::get('reserva','ctrlReserva@mostrar');
-Route::post('reserva/guardar','ctrlReserva@guardar');
+
+Route::get('reserva'           ,'ctrlReserva@mostrar');
+Route::post('reserva/guardar'  ,'ctrlReserva@guardar');
 Route::post('reserva/modificar','ctrlReserva@modificar');
-Route::post('reserva/eliminar','ctrlReserva@eliminar');
+Route::post('reserva/eliminar' ,'ctrlReserva@eliminar');
+
+Route::get('reservaCliente','ctrlReserva@mostrarReservaCliente');
+Route::post('reserva/cliente/guardar','ctrlReserva@guardarReservaCliente');
+Route::post('reserva/cliente/modificar','ctrlReserva@modificarReservaCliente');
 
 
 
+
+
+
+//   Usuario
+Route::get('/usuario/autenticado', 'ctrlUsuario@authenticado' );
 
 
 Route::get('bitacora','ctrlBitacora@mostrar');
@@ -133,6 +159,76 @@ Route::get('bitacora','ctrlBitacora@mostrar');
 
 
 Route::get('prueba', function () {
+
+    $criterio = 5;
+        
+        $productoMenu = listaMenu::join('menu','menu.id','=','listamenu.idMenu')
+        ->join('producto','producto.id','listamenu.idProducto')
+        ->select('producto.id','producto.foto','producto.nombre','producto.precio','listamenu.estado')->where('menu.id','=',$criterio)->get(); 
+        
+        return [
+        'productoMenu'=> $productoMenu
+        ];
+
+    $fecha = date('Y-m-d');
+    $menus = menu::select('categoria.nombre as categoria','menu.idCategoria','menu.fecha','menu.estado')
+    ->join('categoria','categoria.id','=','menu.idCategoria')
+    ->where('fecha','=',$fecha)->where('menu.estado','=',1)
+    ->get();
+    return ["menu"=>$menus];
+
+
+    
+    $fecha      = '2020-10-01';
+    $sw         = false;
+    $categoria  = 1;
+
+
+    $menu = menu::select('fecha')
+                ->where('idCategoria','=',$categoria)
+                ->where('fecha','=',$fecha)
+                ->get();
+
+    $todos = menu::where('idCategoria','=',$categoria)
+                ->where('fecha','=',$fecha)
+                ->get();
+
+    foreach ($todos as $key => $value) {
+        $value->estado = 0;
+        $value->update();
+    }
+
+    $count = count($menu);
+    
+    if($count){
+        $sw=true;
+    }
+    return ["existe"=> $sw, "todos"=>$todos];
+
+    $id = $menu[0]->id;
+
+
+    $menuExiste = menu::findOrFail($id);
+    
+
+    $count = count($menu);
+    if($count){
+        $sw=true;
+    }
+    return ["id" => $id,"existe"=>$sw, "menu " => $menu, "fecha"=>$fecha , 'idCategoria'=>$categoria];
+
+    // $id = Auth::id(); 
+    // $user = User::findOrFail($id);
+    // $rol = $user->roles;
+
+    $rol = Auth::user()->roles;
+    $AuthRol = $rol[0]->name;
+    
+    return ["rol" => $AuthRol ];
+
+
+
+
     $pedidos=detallePedido::join('pedido','pedido.id','detallepedido.idPedido')
     ->join('producto','detallepedido.idProducto','producto.id')
     

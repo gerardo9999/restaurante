@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\bitacora;
 use App\categoria;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ctrlCategoria extends Controller
-{
+class ctrlCategoria extends Controller{
 
     public function index(Request $request){
+        
         //if(!$request->ajax()) return redirect('/');
+
+
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         if($buscar==''){
@@ -24,6 +28,10 @@ class ctrlCategoria extends Controller
             ->orderBy('categoria.id','desc')->paginate(10);            
         }
         
+        $rol = auth()->user();
+        $AuthRol = $rol;
+
+
         return [
             'pagination' => [
                 'total'        => $categoria->total(),
@@ -33,7 +41,8 @@ class ctrlCategoria extends Controller
                 'from'         => $categoria->firstItem(),
                 'to'           => $categoria->lastItem(),
             ],
-            'categoria' => $categoria
+            'categoria' => $categoria ,
+            'rol'       => $AuthRol
         ];
     }
     public function store(Request $request){        
@@ -61,13 +70,21 @@ class ctrlCategoria extends Controller
 
     }
     public function delete(Request $request){
+
         $categoria= categoria::findOrFail($request->id);
         $bitacora = bitacora::guardar('categoria','eliminar');
         $categoria->delete();
     }
-    public function selectCategoria(){
-        $categoria = categoria::select('id','nombre')->orderBy('nombre', 'asc')->get();
-
+    public function selectCategoria(Request $request){
+        
+        $filtro = $request->filtro;
+        if($filtro){
+            $categoria = categoria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        }else{
+            $categoria = categoria::select('id','nombre')
+            ->where('categoria.nombre', 'like', '%'. $filtro . '%')
+            ->orderBy('nombre', 'asc')->get();
+        }
         return ['categoria' => $categoria];
 
     }

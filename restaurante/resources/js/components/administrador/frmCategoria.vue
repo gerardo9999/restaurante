@@ -8,9 +8,9 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Categoria
+                    <i class="fa fa-align-justify"></i> Categoria {{ idAuth }}  {{ rol }}
                     <button type="button" @click="abrirModal('categoria','registrar')" class="btn btn-secondary">
-                        <i class="icon-plus"></i>&nbsp;Nuevo
+                        <i class="icon-plus"></i>&nbsp;Nuevo 
                     </button>
                 </div>
                 <div class="card-body">
@@ -108,6 +108,9 @@
     export default {
         data() {
             return {
+                //variables de autenticacion
+                rol :'',
+
                 idCategoria: 0,
                 nombre: '',
                 arrayCategoria: [],
@@ -164,11 +167,13 @@
                         var respuesta = response.data;
                         me.arrayCategoria = respuesta.categoria.data;
                         me.pagination = respuesta.pagination;
+                        // me.rol = respuesta.
                     })
                     .catch(function(error) {
                         console.log(error)
                     });
             },
+            
             cambiarPagina(page, buscar, criterio) {
                 let me = this;
                 me.pagination.current_page = page;

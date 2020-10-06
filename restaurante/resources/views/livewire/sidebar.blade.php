@@ -1,3 +1,3 @@
 <div>
-    @include('components.page.frmSidebar')
+    @include('components.frmSidebar')
 </div>
