@@ -18,7 +18,6 @@ use Spatie\Permission\Models\Role;
 
 class PruebaController extends Controller
 {
-<<<<<<< HEAD
     public function prueba(){
         $nombre     = "Guadalupe";
         $apellidos  = "Rivero Quina";
@@ -39,33 +38,6 @@ class PruebaController extends Controller
 
        
        
-=======
-    public function prueba(Request $request){
-
-        $name='gerard_ch07';
-        $cliente_id = cliente::all();
-
-        return $cliente_id; 
-
-        $repartidores = vehiculo::join('repartidor','repartidor.id','=','vehiculo.idRepartidor')
-            ->select(
-                'repartidor.nombre',
-                'repartidor.apellidos',
-                'repartidor.login',
-                'repartidor.password',
-                'repartidor.cedulaID',
-                'repartidor.telefono',
-                'repartidor.direccion',
-                'vehiculo.tipoVehiculo',
-                'vehiculo.caracteristicas',
-                'vehiculo.placa',
-                'vehiculo.idRepartidor'
-            )
-            // ->orWhere('repartidor.nombre','LIKE','%'.$searchText.'%')
-            ->paginate(10);
-    
-            return $repartidores;
->>>>>>> 059ea0770e8749ba2c427e6bff33239816859b40
     }
     public function idUsuario(){
         return $this->rolUser();
