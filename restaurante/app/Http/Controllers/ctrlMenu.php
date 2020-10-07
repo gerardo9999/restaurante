@@ -16,11 +16,13 @@ class ctrlMenu extends Controller
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         if($buscar==''){
-            $menu= menu::select('menu.id','estado','menu.fecha')
+            $menu= menu::join('categoria','categoria.id','=','menu.idCategoria')
+            ->select('categoria.nombre as categoria','menu.id','estado','menu.fecha')
             ->orderBy('menu.id','desc')->paginate(20);
         }
         else{
-            $menu= menu::select('menu.id','estado','menu.fecha')
+            $menu= menu::join('categoria','categoria.id','=','menu.idCategoria')
+            ->select('categoria.nombre as categoria','menu.id','estado','menu.fecha')
             ->where('menu.'.$criterio,'=',$buscar)
             ->orderBy('menu.id','desc')->paginate(20);            
         }
@@ -37,10 +39,36 @@ class ctrlMenu extends Controller
             'menus' => $menu
         ];
     }
+    public function existeMenu($fecha,$categoria){
 
-    public function guardar(Request $request){
+        $fecha      = '2020-10-01';
+        $sw         = false;
+        $categoria  = 1;
+
+
+        $menu = menu::select('fecha')
+                    ->where('idCategoria','=',$categoria)
+                    ->where('fecha','=',$fecha)
+                    ->get();
+
+        $count = count($menu);
         
-        DB::update('UPDATE menu set estado = 0');
+        if($count){
+            $sw=true;
+        }
+        return ["existe"=> $sw];
+    }   
+    public function guardar(Request $request){
+
+        $menus = menu::where('idCategoria','=',$request->idCategoria)
+                ->where('fecha','=',$request->fecha)
+                ->get();
+
+        foreach ($menus as $key => $value) {
+            $value->estado = 0;
+            $value->update();
+        }
+
         $bitacora = bitacora::guardar('menu','actualizar');
 
 
@@ -48,9 +76,11 @@ class ctrlMenu extends Controller
         $menu = new menu();
         $menu->fecha = $request->fecha;
         $menu->estado=1;
+        $menu->idCategoria =  $request->idCategoria;
         $menu->save();
-        $listaMenu = $request->data;
         $bitacora = bitacora::guardar('menu','guardar');
+
+        $listaMenu = $request->data;
 
         foreach($listaMenu as $ep=>$det){
             
@@ -85,16 +115,23 @@ class ctrlMenu extends Controller
 
 
     }
-
     public function activar(Request $request){
-        
-        DB::update('update menu set estado = 0 ');
+
         $menu= menu::findOrFail($request->id);
+
+        $menus = menu::where('idCategoria','=',$menu->idCategoria)
+        ->where('fecha','=',$menu->fecha)
+        ->get();
+
+        foreach ($menus as $key => $value) {
+            $value->estado = 0;
+            $value->update();
+        }
+
         $menu->estado = 1;
         $menu->update();
         $bitacora = bitacora::guardar('menu','actualizar-estado');
     }
-
     public function desactivar(Request $request){
         
         $menu= menu::findOrFail($request->id);
@@ -102,5 +139,18 @@ class ctrlMenu extends Controller
         $menu->update();
         $bitacora = bitacora::guardar('menu','actualizar-estado');
         
+    }
+    public function eliminarMenu(Request $request){
+        $menu = menu::findOrFail($request->id);
+        $menu->delete();
+    }
+    public function allMenus(){
+        
+        $fecha = date('Y-m-d');
+        $menus = menu::select('menu.id','categoria.nombre as categoria','menu.idCategoria','menu.fecha','menu.estado')
+        ->join('categoria','categoria.id','=','menu.idCategoria')
+        ->where('fecha','=',$fecha)
+        ->get();
+        return ["menu"=>$menus];
     }
 }

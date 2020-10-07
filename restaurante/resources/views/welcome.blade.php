@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('pagina.head')
+@include('page.head')
 <body>
   <!--sidebar-->
   @livewire('sidebar')
   <!-- / sidebar -->
   <!--nosotros-->
-  @livewire('nosotros')
+  {{-- @livewire('nosotros') --}}
   <!--/nosotros-->
   <!-- reservaciones -->
   @livewire('reservaciones')
@@ -18,8 +18,8 @@
   @livewire('pedido')
   <!-- / pedidos -->
   <!-- footer -->
-  @livewire('footer')
+  {{-- @livewire('footer') --}}
   <!-- / footer -->
-  @include('pagina.script')
+  @include('page.script')
 </body>
 </html>

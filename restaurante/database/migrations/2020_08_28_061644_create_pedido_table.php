@@ -9,6 +9,7 @@ class CreatePedidoTable extends Migration
     public function up()
     {
         Schema::create('pedido', function (Blueprint $table) {
+            
             $table->increments('id');
             $table->date('fecha');
             $table->date('fechaentrega');
@@ -17,7 +18,6 @@ class CreatePedidoTable extends Migration
             $table->float('montototal');
             $table->integer('estado');
             //0  realizado   // 1 enviado   // 2 entregado
-
             $table->integer('idUsuario')->unsigned();
             $table->integer('idCliente')->unsigned();
             $table->integer('idRepartidor')->unsigned()->nullable();
@@ -30,8 +30,8 @@ class CreatePedidoTable extends Migration
         });
     }
 
-    public function down()
-    {
+    public function down(){
+        
         Schema::dropIfExists('pedido');
     }
 }

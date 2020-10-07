@@ -7,6 +7,7 @@ use App\cliente;
 use App\repartidor;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -65,6 +66,7 @@ class ctrlUsuario extends Controller{
             // 'rol'=> $arrayRole
     }
     public function obtenerRol(int $id){
+        
         $rol = User::findOrFail($id);
         $rol->roles;
         return [ "rol"=>$rol];
@@ -151,4 +153,17 @@ class ctrlUsuario extends Controller{
 
 
     }
+    public function autenticado(){
+        
+        $usuario = Auth::id(); 
+        $rol = User::findOrFail($usuario);
+        $rol->roles;
+
+
+        return [
+            "rol" => $rol,
+            "autenticado" => Auth::user(),
+            "idUser" => $usuario
+        ];
+    }    
 }

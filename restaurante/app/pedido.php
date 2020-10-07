@@ -11,8 +11,10 @@ class pedido extends Model
     protected $fillable = [
         'fecha',
         'fechaentrega',
+        'horaentrega',
         'glosa',
-        'montototal'
+        'montototal',
+        'estado'
     ];
     public $timestamps=false;
 }

@@ -1,3 +1,3 @@
 <div>
-   @include('components.page.frmReservacion')
+   @include('components.frmReservacion')
 </div>

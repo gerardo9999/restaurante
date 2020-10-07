@@ -2,12 +2,9 @@
             <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Escritorio</a></li>
+                <li class="breadcrumb-item"><a href="/index">Escritorio</a></li>
             </ol>
             <div class="container-fluid">
-               
-                    
-                    
 
                 <template v-if="listado">
                     <div class="row">
@@ -36,6 +33,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Fecha</th>
+                                                        <th>Categoria</th>
                                                         <th>Estado</th>
                                                         <th>Opciones</th>
                                                     </tr>
@@ -45,6 +43,7 @@
 
                                                         <template v-if="marcar == menu.id">
                                                                 <td v-text="menu.fecha"></td>
+                                                                <td v-text="menu.categoria"></td>
 
                                                                 <template v-if="menu.estado">
                                                                         <td><span class="badge badge-success">Activado</span></td>
@@ -57,6 +56,9 @@
                                                                 <td>
                                                                     <button type="button" @click="verProducto(menu.id)" class="btn btn-success btn-sm">
                                                                     <i class="icon-check"></i>
+                                                                    </button> &nbsp;
+                                                                    <button type="button" @click="eliminarMenu(menu.id)" class="btn btn-danger btn-sm">
+                                                                        <i class="icon-trash"></i>
                                                                     </button> &nbsp;
                                                                     <template v-if="menu.estado">
                                                                         <button type="button" @click="desactivarMenu(menu.id)" class="btn btn-warning btn-sm">
@@ -74,6 +76,7 @@
                                                         </template>
                                                         <template v-else>
                                                                 <td v-text="menu.fecha"></td>
+                                                                <td v-text="menu.categoria"></td>
                                                                 <template v-if="menu.estado">
                                                                         <td><span class="badge badge-success">Activado</span></td>
                                                                 </template>
@@ -83,6 +86,9 @@
                                                                 <td>
                                                                     <button type="button" @click="verProducto(menu.id)" class="btn btn-info btn-sm">
                                                                     <i class="icon-eye"></i>
+                                                                    </button> &nbsp;
+                                                                    <button type="button" @click="eliminarMenu(menu.id)" class="btn btn-danger btn-sm">
+                                                                        <i class="icon-trash"></i>
                                                                     </button> &nbsp;
 
                                                                     <template v-if="menu.estado">
@@ -181,45 +187,58 @@
                                         <input type="date" v-model="fecha" class="form-control frm-control-sm" placeholder="añadir  fecha">
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Lista de Productos</label>
-                                        <div class="input-group">
-                                        <input type="text" disabled  class="form-control frm-control-sm" placeholder="Añadir una lista">
-                                        <button type="submit" @click="abrirModal('menu','lista')"  class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> </button>
-                                    </div>                                  
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-11">
-                                    <div class="form-group">
-                                        <label for="">Seleccione Producto</label>
-                                        <!-- <div class="input-group"> -->
+                                    <template v-if="categoria==''">
+                                        <div class="form-group">
+                                            <label for="">Seleccione Categoria</label>
                                             <v-select 
-                                                @search="selectProducto"
+                                                @search="selectCategoria"
                                                 label="nombre"
-                                                :options="arrayProducto"
-                                                placeholder="Buscar Producto..."
-                                                @input="getProducto"
+                                                :options="arrayCategoria"
+                                                placeholder="Buscar Categoria..."
+                                                @input="getCategoria"
                                             >
                                             </v-select>  
-                                    </div>
+                                        </div>
+                                    </template>
+                                    <template v-else>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Seleccione Categoria</label>
+                                                <div class="form-inline">
+                                                    <button @click="cambiarCategoria()" class="btn btn-success form-control form-control-sm btn-block">
+                                                        <i class="icon-plus"></i> &nbsp; Cambiar Categoria
+                                                    </button> 
+                                                </div>                                    
+                                            </div>
+                                        </div> 
+                                    </template>
+
+                                    
+
+
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Agregar</label>
-                                        <div class="form-inline">
-                                            <!-- <input type="text" readonly class="form-control" placeholder="Seleccione Lista"> -->
-                                            <button @click="agregarDetalle()" class="btn btn-success form-control">
-                                                <i class="icon-plus"></i>
-                                            </button> 
-                                        </div>                                    
+                                        <label class="text-center">Lista de Productos</label>
+                                        <div class="input-group">
+                                        <template v-if="categoria">
+                                            <input type="text" disabled  class="form-control frm-control-sm" placeholder="Todos los productos pertenecen a la categoria">
+                                            <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-check"></i>&nbsp; {{ categoria }} </button>
+                                            <button type="submit" @click="abrirModal('menu','lista')"  class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>&nbsp; Ver </button>
+                                        </template>
+                                        <template v-else>
+                                            <input type="text" disabled  class="form-control frm-control-sm" placeholder="Ninguna Categoria Seleccionada">   
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-close"></i>&nbsp; {{ categoria }} </button>
+                                        </template>
+
+
+                                    </div>                                  
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row border" >
-                                
                                     <div class="table-responsive col-md-12 p-4"  >
                                         <table class="table table-bordered table-striped table-sm">
                                             <thead >
@@ -243,7 +262,7 @@
                                                     </tr>
                                             </tbody>
                                             <tbody v-else>
-                                                <td colspan="4">No ha asignado ningun producto </td>
+                                                <td  colspan="4">No ha asignado ningun producto </td>
                                             </tbody>
                                         </table>
                                     </div>
@@ -259,13 +278,11 @@
                 </template>
             </div>
 
-
-
-
             <!--Inicio del modal agregar/actualizar-->
             <div id="modal" class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-primary modal-lg" role="document">
                     <div class="modal-content">
+                        
                         <div class="modal-header">
                             <h4 class="modal-title" v-text="tituloModal"></h4>
                             <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
@@ -273,14 +290,11 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-
                                 <div class="form-group row">
                                     <div class="col-md-8">
                                         <div class="input-group">
                                             <select class="form-control col-md-6" v-model="criterioProducto">
                                             <option value="producto">Producto</option>
-                                            <option value="categoria">Categoria</option>
                                             </select>
                                             <input type="text" v-model="buscarProducto" @keyup.enter="listarProducto(buscarProducto,criterioProducto)" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
                                             <button type="submit" @click="listarProducto(buscarProducto,criterioProducto)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -312,8 +326,6 @@
                                             <button type="button" @click="agregarDetalleModal(producto)" class="btn btn-success btn-sm">
                                                 <i class="icon-check"></i>
                                             </button>
-
-                                           
                                         </td>
                                     </tr>                                
                                 </tbody>
@@ -348,9 +360,16 @@
                 foto:'',
                 fecha:null,
 
+
+                idCategoria : 0,
+                categoria :'',
+
+
+
                 marcar:0,
 
                 searchProducto : 0,
+                searchCategoria : 0,
 
                 nombre_categoria : '',
                 listado:1,
@@ -444,7 +463,7 @@
             agregarDetalle(){
                 let me=this;
 
-                if(me.idProducto ==0){
+                if(me.idProducto == 0){
                      iziToast.error({
                         title:"selccione un producto!!"
                      });
@@ -459,10 +478,11 @@
                         }else{
                    
                             me.arrayDetalle.push({
-                                            "id" : me.idProducto,
-                                            "nombre":me.producto,
-                                            "foto":me.foto,
-                                            "precio":me.precio
+                                            "id"         : me.idProducto,
+                                            "nombre"     : me.producto,
+                                            "foto"       : me.foto,
+                                            "precio"     : me.precio,
+                                            "idCategoria": me.idCategoria
                             });
                             iziToast.success({
                                         title:"agregado correctamente !!"+existe
@@ -496,10 +516,12 @@
                             this.idProducto=0;
                         }
             },
-            listarProducto(buscar,criterio,){
+            listarProducto(buscar,criterio){
                 
                 let me=this;
-                var url= '/producto/buscarProducto?buscar='+ buscar + '&criterio='+ criterio;
+                var idCategoria 
+                idCategoria= me.idCategoria;
+                var url= '/producto/buscarProductoCategoria?buscar='+ buscar + '&criterio='+ criterio+'&idCategoria='+idCategoria;
 
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
@@ -530,8 +552,10 @@
             },
             selectProducto(search,loading){
                 let me=this;
+                let id = me.idCategoria;
+                id = me.idCategoria;
                 loading(true);
-                var url= '/producto/selectProducto?filtro='+search;
+                var url= '/producto/selectProducto?filtro='+search+'&idCategoria='+id;
                 axios.get(url).then(function (response) {
                     //console.log(response);
                     var respuesta= response.data;
@@ -540,6 +564,22 @@
                 })
                 .catch(function (error) {
                     console.log(error);
+                });
+            },
+            selectCategoria(search,loading){
+                
+                let me = this;
+                loading(true);
+                me.arrayProducto = [];
+
+                var url = 'categoria/selectCategoria?filtro='+search;
+                axios.get(url).then((response) => {
+                    var respuesta = response.data;
+                    me.arrayCategoria =  respuesta.categoria;
+                    loading(false);
+                   
+                }).catch((error) => {
+                    console.log(error)
                 });
             },
             getProducto(val1){
@@ -552,8 +592,22 @@
                         me.producto   = val1.nombre;
                         console.log(val1);
                         me.searchProducto = 1;
+                        
                 }
 
+            },
+            getCategoria(val1){
+                if(val1){
+                    let me = this;
+                    me.loading = true;
+                    me.idCategoria = val1.id;
+                    me.categoria = val1.nombre;
+                    me.searchCategoria = 1;
+
+                    iziToast.info({
+                            message: 'Categoria seleccionada'
+                    })
+                }
             },
             cambiarPagina(page,buscar,criterio){
                 let me = this;
@@ -569,8 +623,9 @@
                 }else{
                     let me = this;
                     axios.post('/menu/guardar',{
-                        'fecha'    : this.fecha,
-                        'data'     : this.arrayDetalle,
+                        'fecha'      : this.fecha,
+                        'data'       : this.arrayDetalle,
+                        'idCategoria': this.idCategoria
                     }).then(function (response) {
                         me.cerrarModal();
                         me.listarMenu(1,'','fecha');
@@ -587,6 +642,8 @@
             },
             resetVariable(){
                 this.fecha = null;
+                this.categoria = '';
+
                 this.arrayDetalle =[];
                 this.arrayProducto=[];
                 this.arrayMenuDetalle=[];
@@ -611,7 +668,7 @@
                     axios.post('/menu/desactivar',{
                         'id': id
                     }).then(function (response) {
-                        me.listarMenu(1,'','nombre');
+                        me.listarMenu(1,'','fecha');
                         swal(
                         'Desactivado!',
                         'El registro ha sido desactivado con éxito.',
@@ -723,6 +780,84 @@
                 });
 
                 me.marcar = id;
+            },
+            cambiarCategoria(){
+                swal({
+                title: 'Los productos seleccionados seran eliminados',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me = this;
+
+                    me.arrayMenuDetalle=[];
+                    me.arrayProducto=[];
+                    me.arrayCategoria=[];
+                    me.arrayDetalle=[];
+                    me.categoria = '';
+                    // swal(
+                    //             'Eliminado!',
+                    //             'los Prod ha sido eliminado con éxito.',
+                    //             'success'
+                    // )
+                    iziToast.info({
+                        message: 'Seleccione una categoria'
+                    })
+
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    
+                }
+                }); 
+            },
+            eliminarMenu(id){
+                 swal({
+                    title: 'Esta seguro de eliminar el menu?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar!',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        let me = this;
+
+                        axios.post('/menu/eliminar', {
+                            'id': id
+                        }).then(function(response) {
+                            me.listarMenu(1,'','fecha');
+                            swal(
+                                'Eliminado!',
+                                'El registro ha sido eliminado con éxito.',
+                                'success'
+                            )
+                        }).catch(function(error) {
+                            console.log(error);
+                        });
+
+
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === swal.DismissReason.cancel
+                    ) {
+
+                    }
+                });
             }
         },
         mounted() {

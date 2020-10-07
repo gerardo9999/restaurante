@@ -1,3 +1,3 @@
 <div>
-    @include('components.page.frmFooter')
+    @include('components.frmFooter')
 </div>

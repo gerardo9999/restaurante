@@ -18,6 +18,7 @@ mix.styles([
     'resources/plantilla/css/iziToast.css'
 ], 'public/css/plantilla.css')
 .scripts([
+    
     'resources/plantilla/js/jquery.min.js',
     'resources/plantilla/js/popper.min.js',
     'resources/plantilla/js/bootstrap.min.js',
@@ -27,5 +28,11 @@ mix.styles([
     'resources/plantilla/js/sweetalert2.all.js',
     'resources/plantilla/js/iziToast.js'
 
-], 'public/js/plantilla.js')
+    ], 'public/js/plantilla.js'
+
+
+)
 .js(['resources/js/app.js'],'public/js/app.js');
+
+
+

@@ -88,14 +88,14 @@ class ctrlOrdenAtencion extends Controller
         
         $total = $orden[0]->montoTotal;
 
-        return ['detalle'   => $detalle,
-                'cliente'   => $cliente,
-                'idMesa'    => $detalle[0]->idMesa,
-                'idCliente' => $cliente[0]->id,
-                'idOrdenAtencion'   => $detalle[0]->idOrdenAtencion ,
-                'orden'=>$orden,
-                'nombreCompleto' => $cliente[0]->nombreCompleto,
-                'montoTotal' =>$total
+        return ['detalle'         => $detalle,
+                'cliente'         => $cliente,
+                'idMesa'          => $detalle[0]->idMesa,
+                'idCliente'       => $cliente[0]->id,
+                'idOrdenAtencion' => $detalle[0]->idOrdenAtencion ,
+                'orden'           => $orden,
+                'nombreCompleto'  => $cliente[0]->nombreCompleto,
+                'montoTotal'      => $total
                 ];
     }
     public function modificarDetalle(Request $request){

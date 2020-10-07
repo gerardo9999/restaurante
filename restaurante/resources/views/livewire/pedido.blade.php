@@ -1,3 +1,3 @@
 <div>
-    @include('components.page.frmPedido')
+    @include('components.frmPedido')
 </div>
