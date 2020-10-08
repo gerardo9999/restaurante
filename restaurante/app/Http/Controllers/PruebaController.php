@@ -35,8 +35,6 @@ class PruebaController extends Controller
 
         //$usuario->assignRole('cliente');
         $usuario->assignRole('administrador');
-
-       
        
     }
     public function idUsuario(){
