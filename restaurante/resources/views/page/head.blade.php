@@ -1,14 +1,26 @@
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Restaurante</title>
-    <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
-    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
   
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Satisfy|Bree+Serif|Candal|PT+Sans">
-    <link rel="stylesheet" type="text/css" href="{{asset('delicious/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('delicious/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('delicious/css/style.css')}}">
-    @livewireStyles
-   
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+  
+    <!-- Bootstrap CSS File -->
+    <link href="{{asset('page/restaurante/lib/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  
+    <!-- Libraries CSS Files -->
+    <link href="{{asset('page/restaurante/lib/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('page/restaurante/lib/animate/animate.min.css')}}" rel="stylesheet">
+    <link href="{{asset('page/restaurante/lib/ionicons/css/ionicons.min.css')}}" rel="stylesheet">
+    <link href="{{asset('page/restaurante/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+  
+    <!-- Main Stylesheet File -->
+    <link href="{{asset('page/restaurante/css/style.css')}}" rel="stylesheet">
   </head>

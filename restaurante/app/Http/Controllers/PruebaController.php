@@ -9,6 +9,9 @@ use App\mesa;
 use App\ordenAtencion;
 use App\repartidor;
 use App\reserva;
+use App\categoria;
+use App\listaMenu;
+use App\menu;
 use App\User;
 use App\vehiculo;
 use Illuminate\Http\Request;
@@ -18,24 +21,92 @@ use Spatie\Permission\Models\Role;
 
 class PruebaController extends Controller
 {
-    public function prueba(){
-        $nombre     = "Guadalupe";
-        $apellidos  = "Rivero Quina";
-        $login      = "Quina26";
-        $email      = "guadalupequina@gmail.com";
-        $password   = Hash::make( "MGQM26quina");
+    public function prueba(Request $request){
 
-        $usuario = new User();
-        $usuario->name      = $login;
-        $usuario->email     = $email;
-        $usuario->nombre    = $nombre;
-        $usuario->apellidos = $apellidos;
-        $usuario->password = $password; 
-        $usuario->save();
+        $categoria = 'Ensaladas';
+        $searchText ='en';
+        $fechaActual = date('Y-m-d');
+        $listaMenu = listaMenu::join('menu','menu.id','=','listamenu.idMenu')
+            ->join('producto','producto.id','listamenu.idProducto')
+            ->join('categoria','menu.idCategoria','=','categoria.id')
+            ->select('producto.id as idProducto',
+                     'producto.foto',
+                     'producto.nombre',
+                     'producto.precio',
+                     'listamenu.estado',
+                     'categoria.nombre as categoria',
+                     'menu.idCategoria')
+            ->where('menu.fecha','=',$fechaActual)
+            ->where('menu.estado','=',1)
+            ->where('categoria.nombre','LIKE','%'.$categoria.'%')
+            ->where('producto.nombre','LIKE','%'.$searchText.'%')
+            ->get();
 
-        //$usuario->assignRole('cliente');
-        $usuario->assignRole('administrador');
-       
+        return $listaMenu;
+    
+
+
+        $categoria = 2;
+        $fechaActual = date('Y-m-d');
+
+        $menu = listaMenu::join('menu','menu.id','=','listamenu.idMenu')
+        ->join('producto','producto.id','listamenu.idProducto')
+        ->join('categoria','menu.idCategoria','=','categoria.id')
+        ->select('producto.id as idProducto',
+                 'producto.foto',
+                 'producto.nombre',
+                 'producto.precio',
+                 'listamenu.estado',
+                 'menu.idCategoria')
+        ->where('menu.fecha','=',$fechaActual)
+        ->where('menu.estado','=',1)
+        ->where('menu.idCategoria','=',$categoria)
+        ->get(); 
+        
+
+
+        return $menu;
+        
+        // $categoria = categoria::all();
+
+        // return $categoria;
+        
+
+        $menu = menu::join('listamenu','listamenu.idMenu','=','menu.id')
+        ->join('producto','listamenu.idProducto','=','producto.id')
+        ->join('categoria','menu.idCategoria','=','categoria.id')
+        ->select('menu.idCategoria','producto.nombre as producto','producto.precio','producto.foto','producto.descripcion')
+        ->where('menu.estado','=',1)
+        ->where('menu.fecha','=',date('Y-m-d'))
+        ->get();
+
+
+
+        return $menu;
+
+        $name='gerard_ch07';
+        $cliente_id = cliente::all();
+
+        return $cliente_id; 
+
+        $repartidores = vehiculo::join('repartidor','repartidor.id','=','vehiculo.idRepartidor')
+            ->select(
+                'repartidor.nombre',
+                'repartidor.apellidos',
+                'repartidor.login',
+                'repartidor.password',
+                'repartidor.cedulaID',
+                'repartidor.telefono',
+                'repartidor.direccion',
+                'vehiculo.tipoVehiculo',
+                'vehiculo.caracteristicas',
+                'vehiculo.placa',
+                'vehiculo.idRepartidor'
+            )
+            // ->orWhere('repartidor.nombre','LIKE','%'.$searchText.'%')
+            ->paginate(10);
+    
+            return $repartidores;
     }
     public function idUsuario(){
         return $this->rolUser();

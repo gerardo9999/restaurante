@@ -285,50 +285,50 @@
                                 aqui
                                 -->
 
-                                <div v-for="menu in ArrayMenu" :key="menu.id">
+                                <div class="form-control text-center" v-for="menu in ArrayMenu" :key="menu.id">
                                     <div class="btn-group-sm p-1">
                                         <button type="submit" @click="menuProducto(menu.id)" class="btn btn-primary">{{menu.categoria}}</button>
                                     </div>
                                 </div>
 
                                     <div class="table-responsive col-md-12 p-4"  >
+                                        <table class="table table-bordered table-striped table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nombre</th>
+                                                    <th>Precio</th>
+                                                    <th>Foto</th>
+                                                    <th>Opciones</th>
 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="producto in ArrayMenuProducto" :key="producto.idProducto">
+                                                
+                                                    <td v-text="producto.idProducto"></td>
+                                                    <td v-text="producto.nombre"></td>
+                                                    <td v-text="producto.precio"></td>
+                                                    <td><img :src="`${producto.foto}`" width="100px" alt=""></td>
+                                                    <td>
+                                                        <template v-if="tipoAccion==1">
+                                                            <button type="button" @click="añadirProductoDetalle(producto)" class="btn btn-success btn-sm">
+                                                                <i class="icon-check"></i>
+                                                            </button>
+                                                        </template>
+
+                                                        <template v-if="tipoAccion==2">
+                                                            <button type="button" @click="agregarArrayActualizar(producto)" class="btn btn-info btn-sm">
+                                                                <i class="icon-check"></i>
+                                                            </button>
+                                                        </template>
+                                                    </td>
+                                                </tr>             
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <table class="table table-bordered table-striped table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>idProducto</th>
-                                            <th>Nombre</th>
-                                            <th>Precio</th>
-                                            <th>Foto</th>
-                                            <th>Opciones</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="producto in ArrayMenuProducto" :key="producto.idProducto">
-                                        
-                                            <td v-text="producto.idProducto"></td>
-                                            <td v-text="producto.nombre"></td>
-                                            <td v-text="producto.precio"></td>
-                                            <td><img :src="`${producto.foto}`" width="100px" alt=""></td>
-                                            <td>
-                                                <template v-if="tipoAccion==1">
-                                                    <button type="button" @click="añadirProductoDetalle(producto)" class="btn btn-success btn-sm">
-                                                        <i class="icon-check"></i>
-                                                    </button>
-                                                </template>
-
-                                                <template v-if="tipoAccion==2">
-                                                    <button type="button" @click="agregarArrayActualizar(producto)" class="btn btn-info btn-sm">
-                                                        <i class="icon-check"></i>
-                                                    </button>
-                                                </template>
-                                            </td>
-                                        </tr>             
-                                    </tbody>
-                                </table>
+                               
                             </template>
 
                             <template v-if="tipoAccion==2">
