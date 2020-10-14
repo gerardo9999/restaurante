@@ -26,7 +26,7 @@
                 <a class="nav-link" href="#menu">Menu</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="blog-grid.html">Iniciar Sesion</a>
+                <a class="nav-link" href="{{route('login')}}">Iniciar Sesion</a>
               </li>
             </ul>
           </div>

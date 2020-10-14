@@ -8,6 +8,7 @@ use App\reserva;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Illuminate\Support\Facades\Hash;
 
 
 class Reservacion extends Component{
@@ -131,7 +132,7 @@ class Reservacion extends Component{
             $usuario            = new User();
             $usuario->name      = $this->login;
             $usuario->email     = $this->email;
-            $usuario->password  = $this->password;
+            $usuario->password  = Hash::make($this->password);
             $usuario->nombre    = $this->nombre;
             $usuario->apellidos = $this->apellidos;
             $usuario->save();
@@ -147,7 +148,7 @@ class Reservacion extends Component{
             $cliente->login     = $this->login;
             $cliente->email     = $this->email;
             $cliente->estado    = 0;
-            $cliente->password  = $this->password;
+            $cliente->password  = Hash::make($this->password);
             $cliente->save();
 
 

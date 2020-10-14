@@ -11,7 +11,7 @@
                             <div class="form-group">
                             <label for="Type">Comensales</label>
                             <input wire:model='comensales' type="text" 
-                            class=" form-control form-control-sm form-control" placeholder="digite la cantidad de comensales">
+                            class=" form-control form-control-sm form-control" placeholder="Digite la cantidad de personas">
                             @error('comensales')
                                 <span class="error">{{ $message }}</span>
                             @enderror
@@ -22,7 +22,7 @@
                         <div class="col-md-12 mb-2">
                             <div class="form-group">
                             <label for="Type">Fecha</label>
-                            <input wire:model='fecha' type="date" class="form-control form-control-sm form-control" placeholder="Escriba su email">
+                            <input wire:model='fecha' type="date" class="form-control form-control-sm form-control" placeholder="Escriba su Fecha">
                             @error('fecha')
                                 <span class="error">{{ $message }}</span>
                             @enderror
@@ -32,7 +32,7 @@
                         <div class="col-md-12 mb-2">
                             <div class="form-group">
                                 <label for="Type">Hora </label>
-                                <input wire:model='hora' type="time" class="form-control form-control-sm form-control" placeholder="Escriba su password">
+                                <input wire:model='hora' type="time" class="form-control form-control-sm form-control" placeholder="Escriba su Hora">
                                 @error('hora')
                                     <span class="error">{{ $message }}</span>
                                 @enderror
@@ -59,8 +59,8 @@
                         <div class="row">
 
                             <div class="col-md-12 mb-2 text-center p-4">
-                            <h4>{{ $nombre }}  {{ $apellidos }}</h4>     
-                            <h5 class="title">Gracias por realizar tu reservacion</h5>
+                            <h2>{{ $nombre }}  {{ $apellidos }}</h2>     
+                            <h4 class="title">Gracias por realizar tu reservacion</h4>
                             
 
                             <p>Estamos ansiosos por recibirte</p>
@@ -68,11 +68,6 @@
 
                             <div class="col-md-12 mb-2">
                             
-                            </div>
-
-                            
-                            <div class="col-md-12 text-center">
-                                <button wire:click='cerrarFormularioReserva()' type="submit" class="btn btn-b">Listo!</button>
                             </div>
                         </div>
                     </div>
@@ -110,7 +105,7 @@
 
                         <div class="col-md-12 mb-2">
                             <div class="form-group">
-                                <label for="Type">Empresa :{{ $empresa }}</label>
+                                <label for="Type">Empresa</label>
                                 <input wire:model='empresa' type="text" class="form-control form-control-sm form-control" placeholder="Escriba su empresa">
                                 @error('empresa')
                                     <span class="error">{{ $message }}</span>
@@ -170,7 +165,7 @@
 
                         <div class="col-md-12 mb-2">
                             <div class="form-group">
-                                <label for="Type">Contraseña :{{ $password }}</label>
+                                <label for="Type">Contraseña</label>
                                 <input wire:model='password' type="password" class="form-control form-control-sm form-control" placeholder="Escriba su password">
                                 @error('password')
                                     <span class="error">{{ $message }}</span>
@@ -239,8 +234,8 @@
                     <div class="row">
 
                         <div class="col-md-12 mb-2 text-center p-4">
-                        <h4>{{ $nombre }}  {{ $apellidos }}</h4>     
-                        <h5 class="title">Gracias por realizar tu reservacion</h5>
+                        <h2>{{ $nombre }}  {{ $apellidos }}</h2>     
+                        <h4 class="title">Gracias por realizar tu reservacion</h4>
                         
 
                         <p>Estamos ansiosos por recibirte</p>
@@ -248,12 +243,6 @@
 
                         <div class="col-md-12 mb-2">
                         
-                        </div>
-
-                        
-                        <div class="col-md-12 text-center">
-                            <button  type="submit" class="btn btn-b">Iniciar Sesion</button>
-                            <button wire:click='cerrarFormularioReserva()' type="submit" class="btn btn-b">Cerrar</button>
                         </div>
                     </div>
                 </div>
