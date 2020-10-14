@@ -9,6 +9,9 @@ use App\mesa;
 use App\ordenAtencion;
 use App\repartidor;
 use App\reserva;
+use App\categoria;
+use App\listaMenu;
+use App\menu;
 use App\User;
 use App\vehiculo;
 use Illuminate\Http\Request;
@@ -19,6 +22,67 @@ use Spatie\Permission\Models\Role;
 class PruebaController extends Controller
 {
     public function prueba(Request $request){
+
+        $categoria = 'Ensaladas';
+        $searchText ='en';
+        $fechaActual = date('Y-m-d');
+        $listaMenu = listaMenu::join('menu','menu.id','=','listamenu.idMenu')
+            ->join('producto','producto.id','listamenu.idProducto')
+            ->join('categoria','menu.idCategoria','=','categoria.id')
+            ->select('producto.id as idProducto',
+                     'producto.foto',
+                     'producto.nombre',
+                     'producto.precio',
+                     'listamenu.estado',
+                     'categoria.nombre as categoria',
+                     'menu.idCategoria')
+            ->where('menu.fecha','=',$fechaActual)
+            ->where('menu.estado','=',1)
+            ->where('categoria.nombre','LIKE','%'.$categoria.'%')
+            ->where('producto.nombre','LIKE','%'.$searchText.'%')
+            ->get();
+
+        return $listaMenu;
+    
+
+
+        $categoria = 2;
+        $fechaActual = date('Y-m-d');
+
+        $menu = listaMenu::join('menu','menu.id','=','listamenu.idMenu')
+        ->join('producto','producto.id','listamenu.idProducto')
+        ->join('categoria','menu.idCategoria','=','categoria.id')
+        ->select('producto.id as idProducto',
+                 'producto.foto',
+                 'producto.nombre',
+                 'producto.precio',
+                 'listamenu.estado',
+                 'menu.idCategoria')
+        ->where('menu.fecha','=',$fechaActual)
+        ->where('menu.estado','=',1)
+        ->where('menu.idCategoria','=',$categoria)
+        ->get(); 
+        
+
+
+        return $menu;
+        
+        // $categoria = categoria::all();
+
+        // return $categoria;
+        
+
+        $menu = menu::join('listamenu','listamenu.idMenu','=','menu.id')
+        ->join('producto','listamenu.idProducto','=','producto.id')
+        ->join('categoria','menu.idCategoria','=','categoria.id')
+        ->select('menu.idCategoria','producto.nombre as producto','producto.precio','producto.foto','producto.descripcion')
+        ->where('menu.estado','=',1)
+        ->where('menu.fecha','=',date('Y-m-d'))
+        ->get();
+
+
+
+        return $menu;
 
         $name='gerard_ch07';
         $cliente_id = cliente::all();

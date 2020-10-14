@@ -56,18 +56,7 @@
             <frm-cliente-reserva></frm-administrador-reserva>
         </template>
         <template v-if="menu==3">
-            Modulo de Pedidos
-        </template>
-        <template v-if="menu==5">
-            <frm-cliente-menu></frm-cliente-menu>
-        </template>
-
-        <template v-if="menu==6">
-            <frm-administrador-categoria></frm-administrador-categoria>
-        </template>
-
-        <template v-if="menu==7">
-            <frm-administrador-producto></frm-administrador-producto>
+            <frm-cliente-pedido></frm-cliente-pedido>    
         </template>
     @endrole
     
@@ -85,6 +74,5 @@
         <template v-if="menu==9">
             <frm-administrador-vehiculo></frm-administrador-vehiculo>
         </template>
-
     @endrole
 @endsection

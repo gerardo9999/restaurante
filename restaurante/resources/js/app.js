@@ -55,6 +55,7 @@ Vue.component('frm-administrador-bitacora', require('./components/administrador/
 
 Vue.component('frm-cliente-reserva', require('./components/cliente/frmReserva').default);
 Vue.component('frm-cliente-menu',require('./components/cliente/frmMenu').default);
+Vue.component('frm-cliente-pedido',require('./components/cliente/frmPedido').default);
 
 
 const app = new Vue({
@@ -63,6 +64,14 @@ const app = new Vue({
         menu:0
     }
 });
+
+// import * as VueGoogleMaps from "vue2-google-maps";
+
+// Vue.use(VueGoogleMaps, {
+//   load: {
+//     key: "AIzaSyDp3Ud3SixagW8bJOwtosy5bBMB5JRNS_k",
+//   },
+// });
 
 // const page = new Vue({
 //     el: '#page',
