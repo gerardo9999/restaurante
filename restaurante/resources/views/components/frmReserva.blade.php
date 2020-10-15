@@ -48,7 +48,10 @@
                             </div>
                         </div> 
                         <div class="col-md-12">
-                            <button wire:click='guardarDatosReserva()' type="submit" class="btn btn-b">Reservar</button>
+                            @php
+                                $cliente_id = Auth::id();
+                            @endphp
+                            <button wire:click='authGuardarReserva({{$cliente_id}})' type="submit" class="btn btn-b">Reservar</button>
                         </div>
                     </div>
                 @endif

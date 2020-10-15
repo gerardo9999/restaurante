@@ -86,8 +86,8 @@ class Reservacion extends Component{
         ]);
 
 
-        try {
-            DB::beginTransaction();
+        // try {
+            // DB::beginTransaction();
             $usuario         = cliente::findOrFail($usuario_id);
             $this->nombre    = $usuario->nombre;
             $this->apellidos = $usuario->apellidos;
@@ -103,10 +103,10 @@ class Reservacion extends Component{
             $reserva->save();
 
             $bitacora = bitacora::guardar('reserva','guardar');
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-        }
+        //     DB::commit();
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        // }
         
         $this->ocultarFormularioCliente();
         $this->ocultarFormularioReserva();

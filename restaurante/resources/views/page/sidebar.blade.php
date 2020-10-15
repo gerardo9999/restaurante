@@ -24,7 +24,7 @@
               </li>
               @auth 
               <li class="nav-item">
-                <a class="nav-link" href="{{route('home')}}">Ver Pedido y Reserva</a>
+                <a class="nav-link" href="{{url('/index')}}">Ver Pedido y Reserva  </a>
               </li>
               <li class="nav-item">
               <a class="dropdown-item" href="{{route('logout')}}"

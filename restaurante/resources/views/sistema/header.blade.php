@@ -12,7 +12,7 @@
             <a class="nav-link" href="#">Escritorio</a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="#">Configuraciones</a>
+            <a class="nav-link" href="{{url('/')}}">Configuracion</a>
         </li>
     </ul>
         <ul class="nav navbar-nav ml-auto">
@@ -38,7 +38,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <img src="img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                    <span class="d-md-down-none">admin </span>
+                    <span class="d-md-down-none">{{ Auth::user()->name }} </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     
@@ -47,14 +47,22 @@
                     </div>
 
                     <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Perfil</a>
+                    
                     <a class="dropdown-item" href="{{route('logout')}}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();"
-                        
-                    ><i class="fa fa-lock"></i> Cerrar sesión</a>
+                        ><i class="fa fa-lock"></i> Cerrar sesión</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
+
+                    <a class="dropdown-item" href="{{url('/')}}"
+                        onclick="event.preventDefault();
+                        document.getElementById('pagina-form').submit();"
+                        ><i class="fa fa-lock"></i>Página</a>
+                    <form id="pagina-form" action="{{ url('/') }}" method="GET" class="d-none">
+                    </form>
+                    
                 </div>
             </li>
         </ul>
