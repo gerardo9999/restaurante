@@ -21,7 +21,7 @@ class Pedido extends Component
         $categoria = '%'.$this->categoria.'%';
         $searchText = '%'.$this->searchText.'%';
 
-        return view('livewire.pedido',[
+        return view('modules.pedido',[
 
             'menu' => listaMenu::listaMenuCategoria($categoria,$searchText)
 
@@ -43,9 +43,7 @@ class Pedido extends Component
         array_push($this->arrayProducto,["producto"=>$nombre,"cantidad" => $this->cantidad,"idProducto"=> $idProducto , "subTotal"=>$subTotal]);
     }
     public function eliminarProductoDetalle( $arrayProducto){
-        
         array_splice($this->arrayProducto,1,0);
-        
     }
 
 

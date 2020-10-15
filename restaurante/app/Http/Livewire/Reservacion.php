@@ -42,7 +42,7 @@ class Reservacion extends Component{
 
     public function render()
     {
-        return view('livewire.reservacion');
+        return view('modules.reservacion');
     }
 
 

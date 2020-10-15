@@ -1,5 +1,4 @@
-<div>
-        @auth
+@auth
             <div class="title-box-d">
                 <h3 class="title-d">Realice su Reservacion {{ $nombre }}</h3>
             </div>
@@ -249,4 +248,3 @@
                 @endif
             </div>
         @endguest
-</div>

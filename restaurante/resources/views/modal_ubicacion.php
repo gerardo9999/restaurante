@@ -53,9 +53,10 @@
           </h3>
         </div>
         <div class="modal-body">
-  <div id="div_maps" >
+                <div id="div_maps" >
               <!--  GOOGLE MAPS-->
-                  <div id="map"></div>
+                  <div id="map">
+                  </div>
 
 <div style="display: none;" >
     Nueva Ubiv.<input type="text" id="coords" />
@@ -80,7 +81,7 @@
               <!-- END ,MAPS -->
           </div>
   
-<div class="clearfix"></div>
+        <div class="clearfix"></div>
           <div class="alert alert-info" style="padding: 5px; margin-bottom: 0px;" align="center" >
            <b> Verifique su ubicación exacta para recibir su pedido</b>
           </div>
@@ -132,7 +133,7 @@ initMap = function ()
           },function(error){
            
               // El segundo parámetro es la función de error
-    switch(error.code) {
+      switch(error.code) {
         case error.PERMISSION_DENIED:
             // El usuario denegó el permiso para la Geolocalización.
                console.log(error);
