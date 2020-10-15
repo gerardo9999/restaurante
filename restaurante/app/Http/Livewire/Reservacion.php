@@ -128,6 +128,7 @@ class Reservacion extends Component{
         ]);
 
         try {
+
             DB::beginTransaction();
             $usuario            = new User();
             $usuario->name      = $this->login;
@@ -137,6 +138,8 @@ class Reservacion extends Component{
             $usuario->apellidos = $this->apellidos;
             $usuario->save();
 
+
+            $usuario->assignRole('cliente');
 
             $cliente            = new cliente();
             $cliente->nombres   = $this->nombre;
@@ -150,8 +153,6 @@ class Reservacion extends Component{
             $cliente->estado    = 0;
             $cliente->password  = Hash::make($this->password);
             $cliente->save();
-
-
 
             $reserva              = new reserva();
             $reserva->comensales  = $this->comensales;

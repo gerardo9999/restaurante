@@ -120,7 +120,6 @@
                                 Tienes Hambre?
                             </div>
                             @php
-                             dump($arrayProducto);
                             @endphp  
                             <div class="card-body">
                                 <div class=""  >
@@ -174,6 +173,5 @@
                 </div>
                 
             </div>
-         
         </div>
     </section>   

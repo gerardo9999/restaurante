@@ -121,18 +121,18 @@ class PruebaController extends Controller
         $password   = Hash::make( "23defebrero");
         // $password   = "23defebrero";
 
-        $cliente = new cliente();
+        // $cliente = new cliente();
          
-         $cliente->nombres   = $nombre;
-         $cliente->apellidos = $apellidos;
-         $cliente->login     = $login;
-         $cliente->password  = $password;
-         $cliente->empresa   = "FINOR";
-         $cliente->telefono  = "5656735673";
-         $cliente->direccion = "C/5 B/Urkupiña";
-         $cliente->email     = $email;
-         $cliente->estado    = 1;
-         $cliente->save();
+        //  $cliente->nombres   = $nombre;
+        //  $cliente->apellidos = $apellidos;
+        //  $cliente->login     = $login;
+        //  $cliente->password  = $password;
+        //  $cliente->empresa   = "FINOR";
+        //  $cliente->telefono  = "5656735673";
+        //  $cliente->direccion = "C/5 B/Urkupiña";
+        //  $cliente->email     = $email;
+        //  $cliente->estado    = 1;
+        //  $cliente->save();
 
         $usuario = new User();
         $usuario->name      = $login;
@@ -142,8 +142,8 @@ class PruebaController extends Controller
         $usuario->password = $password; 
         $usuario->save();
 
-        $usuario->assignRole('cliente');
-        // $administrador->assignRole('administrador');
+        // $usuario->assignRole('cliente');
+        $usuario->assignRole('administrador');
 
 
         // $rol = $usuario->roles()->implode('name',',');

@@ -23,13 +23,14 @@
                 
                 @role('administrador')
                     @include('sidebar.sidebarAdministrador')
+                @else
+                   @role('repartidor')
+                        @include('sidebar.sidebarRepartidor')
+                    @else   
+                        @include('sidebar.sidebarCliente')                   
+                   @endrole
                 @endrole
-                @role('cliente')
-                    @include('sidebar.sidebarCliente')
-                @endrole
-                @role('repartidor')
-                    @include('sidebar.sidebarRepartidor')
-                @endrole
+
                 @yield('contenido')
             @else
                 No tiene acceso al sistema , no se que chingaos  hace aqui :v

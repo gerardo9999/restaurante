@@ -22,11 +22,6 @@
                     <a class="nav-link" href="#"><i class="icon-book-open"></i> Pedidos</span></a>
                 </li>
 
-                
-                {{-- Menu --}}
-                <li @click="menu=5" class="nav-item">
-                    <a class="nav-link" href="#"><i class="icon-book-open"></i> Menú <span class="badge badge-success"></span></a>
-                </li>
         </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>

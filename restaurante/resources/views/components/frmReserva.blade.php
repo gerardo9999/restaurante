@@ -15,7 +15,6 @@
                                 <span class="error">{{ $message }}</span>
                             @enderror
                             </div>
-
                         </div>
 
                         <div class="col-md-12 mb-2">
