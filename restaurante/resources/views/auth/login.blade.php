@@ -46,9 +46,11 @@
         <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
           <div class="card-body text-center">
             <div>
-              <h2>Sistema de Ventas IncanatoIT</h2>
-              <p>Sistema de compras, Ventas desarrollado en PHP utilizando el Framework Laravel y Vue Js, con el gestor de base de datos MariaDB.</p>
-              <a href="https://www.udemy.com/user/juan-carlos-arcila-diaz/" target="_blank" class="btn btn-primary active mt-3">Ver el curso!</a>
+              <h2>Restaurante "Pollos y Cuadriles Roca Chavez"</h2>
+              <br> 
+              Venga y disfrute nuestra variedad de platos con el sabor de siempre…
+              <br> 
+              Tenemos 25 Años Compartiendo Sabores  </p>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@
             <span></span>
             <span></span>
           </button>
-          <a class="navbar-brand text-brand" href="#">R<span class="color-b">estaurante</span></a>
+          <a class="navbar-brand text-brand" href="#">R<span class="color-b">Restaurante</span></a>
           <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
             data-target="#navbarTogglerDemo01" aria-expanded="false">
             <span class="fa fa-search" aria-hidden="true"></span>
@@ -25,9 +25,29 @@
               <li class="nav-item">
                 <a class="nav-link" href="#menu">Menu</a>
               </li>
+              @auth 
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('home')}}">Ver Pedido y Reserva</a>
+              </li>
+              <li class="nav-item">
+              <a class="dropdown-item" href="{{route('logout')}}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"
+                        
+                    ><i class="fa fa-lock"></i> Cerrar sesión</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+              </li>
+              @else
               <li class="nav-item">
                 <a class="nav-link" href="{{route('login')}}">Iniciar Sesion</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('register')}}">Registrarse</a>
+              </li>
+              @endauth
+              
             </ul>
           </div>
           @if ($arrayProducto)

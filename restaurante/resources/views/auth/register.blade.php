@@ -119,10 +119,25 @@
 
                 <div class="card text-white bg-primary py-5 d-md-down-none" style="width:22%">
                     <div class="card-body text-center">
-                        <div>
-                            <h2>Sistema Restaurante</h2>
+                            <div>
+                                <h2>Restaurante 
+                                 <br>"Pollos y Cuadriles Roca Chavez"</h2>
+                                <br>
+                                <p>Tenemos de todo para todos.
+                                <br> 
+                                Venga y disfrute nuestra variedad de platos con el sabor de siempre…
+                                <br> 
+                                🕑Horario de Atención🕑
+                                <br> 
+                                Lunes a Sabado : 11:00 a 21:00pm 
+                                <br> 
+                                Domingo : 17:00 a 22:00
+                                <br>
+                                25 Años Compartiendo Sabores  </p>
+                                <h4>Visitanos en Facebook</h4>
+                                <a href="https://www.facebook.com/rocachavezoficial/" target="_blank" class="btn btn-primary active mt-3"><i class="fa fa-facebook"></i></a>
+                            </div>
 
-                        </div>
                     </div>
                 </div>
 

@@ -20,7 +20,7 @@
                 <div class="row">
                   <div class="col-lg-8">
                     <div class="intro-body">
-                      <p class="intro-title-top">Direccion, C#
+                      <p class="intro-title-top">Direccion, Montero, Av. Circunvalacion esquina Roberto Paz, Montero, Bolivia
                         <br> N#</p>
                       <h1 class="intro-title mb-4">
                         <span class="color-b"> </span> 
