@@ -504,8 +504,7 @@
                 // recargoPedido(distanciaKilometro);
                 // //llamamos a la funcion para calcular el tiempo
                  convertirSegundosAhoraMinutos(duracionValue);
-                
-                
+                   
             }
 
         }
