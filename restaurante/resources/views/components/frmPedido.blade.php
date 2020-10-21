@@ -174,7 +174,7 @@
                                     <label for=""  class="form-label">Tiempo</label>
                                     <input type="text" id="textTiempo">
                                     </div>
-                                        <button type="button" class="btn btn-sm btn-success" data-target="#maps" data-toggle="modal"> Envianos tu Ubicacion</button>
+                                        <button type="button" class="btn btn-sm btn-success" data-target="#maps" data-toggle="modal">Envianos tu Ubicacion</button>
                                     @else
                                         <button class="btn btn-sm btn-success">Realizar Pedido</button>
                                     @endauth
