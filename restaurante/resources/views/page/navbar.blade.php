@@ -66,9 +66,9 @@
       </div>
       <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
         data-target="#navbarTogglerDemo01" aria-expanded="false" onclick='verPedido()'>
-        <span class="fa fa-search" aria-hidden="true">
-
-        </span> 
+        <span class="fa fa-search" aria-hidden="true">   
+        </span>
+        <a>Mis Pedidos</a> 
       </button>
     </div>
 </nav>

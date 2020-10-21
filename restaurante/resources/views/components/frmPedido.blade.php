@@ -77,7 +77,7 @@
                                     <div class="modal-header alert-default-info">
                                         <h5 class="modal-title" id="my-modal-title">
                                             <div class="img-avatar align-items-center text-center">
-                                                <img height="200px" width="100%" class="img-fluid" src="{{ $lista->foto }}" alt="">
+                                                <img height="200px" width="100%"  class="img-fluid" src="{{ $lista->foto }}" alt="">
                                             </div>
                                             
                                         </h5>
@@ -94,11 +94,14 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="">Cuantos Desea Ordenar?</label>
-                                            <input id="cantidad{{ $lista->idProducto }}" type="number" class="form-control" >
+                                            <input id='cantidad' type="number" class="form-control" >
+                                            @error('cantidad')
+                                                {{ $message }}
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="modal-footer text-center">
-                                        <button onclick='agregarAlDetalle({{ $lista }})' 
+                                        <button onclick='agregarAlDetalle({{ $lista->idProducto }})' 
                                             class="close" data-dismiss="modal" aria-label="Close" type="submit" class="btn btn-info btn-sm">Agregar al Pedido</button>
                                     </div>
                                 </div>
@@ -109,7 +112,7 @@
 
 
 
-
+<!--Modal por borrar -->
                 <div class="col-md-6">
                     <div class="col-12">
                         <div class="card">
