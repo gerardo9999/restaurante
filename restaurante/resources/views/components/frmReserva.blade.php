@@ -1,8 +1,4 @@
-@auth
-            <div class="title-box-d">
-                <h3 class="title-d">Realice su Reservacion {{ $nombre }}</h3>
-            </div>
-            <div class="box-collapse-wrap form">
+        @auth
                 @if ($reservacion)
                     <div class="row">
 
@@ -73,13 +69,8 @@
                         </div>
                     </div>
                 @endif
-            </div>
         @endauth
         @guest
-            <div class="title-box-d">
-                <h3 class="title-d">Realice su Reservacion</h3>
-            </div>
-            <div class="box-collapse-wrap form">
                 @if ($cliente)
                     <div class="row">
                         <div class="col-md-12 mb-2">
@@ -231,22 +222,21 @@
                     </div>
                 @endif
                 @if ($exito)
-                <div class="container">
-                    <div class="row">
+                    <div class="container">
+                        <div class="row">
 
-                        <div class="col-md-12 mb-2 text-center p-4">
-                        <h2>{{ $nombre }}  {{ $apellidos }}</h2>     
-                        <h4 class="title">Gracias por realizar tu reservacion</h4>
-                        
+                            <div class="col-md-12 mb-2 text-center p-4">
+                            <h2>{{ $nombre }}  {{ $apellidos }}</h2>     
+                            <h4 class="title">Gracias por realizar tu reservacion</h4>
+                            
 
-                        <p>Estamos ansiosos por recibirte</p>
-                        </div>
+                            <p>Estamos ansiosos por recibirte</p>
+                            </div>
 
-                        <div class="col-md-12 mb-2">
-                        
+                            <div class="col-md-12 mb-2">
+                            
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endif
-            </div>
         @endguest

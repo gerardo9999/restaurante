@@ -15,7 +15,7 @@
                         <span class="color-b"> </span> 
                         <br> Estamos esperandote</h1>
                       <p class="intro-subtitle intro-price">
-                        <a href="#" class="btn navbar-toggle-box-collapse" data-toggle="collapse"
+                        <a href="#" onclick='reservacion()' class="btn navbar-toggle-box-collapse" data-toggle="collapse"
                         data-target="#navbarTogglerDemo01" aria-expanded="false" ><span class="price-a">Realice su Reservacion</span></a>
                       </p>
                     </div>
