@@ -9,7 +9,5 @@
   <!--/ nosotros Star /-->
   @include('page.nosotros')
   <!--/ nosotros End /-->
-
   @include('components.frmPedido')
-
 @endsection

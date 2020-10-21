@@ -9,17 +9,84 @@
 
     <div id="title-reservacion" style="display: none"; >
       <div class="title-box-d">
-        <h3 class="title-d">Realice su reservacion</h3>
+        <h3 class="title-d">Realice su Reservacion</h3>
       </div>
     </div>
     
+    <div id="title-pedido" style="display: none"; >
+      <div class="title-box-d">
+        <h3 class="title-d">Detalle de Pedido</h3>
+      </div>
+    </div>
+
+
     <span class="close-box-collapse right-boxed ion-ios-close"></span>
     <div class="box-collapse-wrap form">
       <div id="reservacion" style="display: none"; >
         @livewire('reservacion')
       </div>
       <div id="pedido" style="display: none";>
-        Pedido
+        
+
+        <div class="row">
+          <form action="#" method="post" autocomplete="off">
+              @csrf
+              
+              {{-- <div class="card"> --}}
+                  <div class="card-body">
+                      <div class="row">
+                          
+                          <div class="col-12 table-responsive">
+                              <table id="detalles" class="table table-hover table-hover table-bordered">
+                                  <thead class="">
+                                  <th>Opciones</th>
+                                  <th>Producto</th>
+                                  <th>Cantidad</th>
+                                  <th>Precio </th>
+                                  <th>Subtotal</th>
+                                  </thead>
+                                  <tbody>
+
+                                  </tbody>
+                                  <tfoot>
+                                  <th>TOTAL</th>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th>
+                                      <h4 id="total"> Bs/. 0.00</h4>
+                                  </th>
+                                  </tfoot>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              {{-- </div> --}}
+              <div class="form-group" id="guardar">
+                  @csrf
+                  <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                  <button type="reset" class="btn btn-outline-danger">Cancelar</button>
+              </div>
+          </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
     </div>
   </div>
@@ -200,19 +267,43 @@
       console.log(idProducto);
     }
 
+    var cont = 0;
+        total = 0;
+        subtotal = [];
+        // $("#guardar").hide();
 
-    function  agregarAlDetalle(idProducto) {
-      cantidad = document.getElementById('cantidad').value
-      
-      this.arrayProducto.push({
-        idProduct : idProducto  
-      },
-      {
-        cant : cantidad 
-      });
 
-      console.log(this.arrayProducto);
-    }
+    function  agregarAlDetalle(producto) {
+        
+        console.log(producto);
+        productoCantidad = document.getElementById('cantidad'+producto.idProducto).value;
+        // console.log(producto);
+        // console.log(productoCantidad);
+        subtotal[cont] = (productoCantidad * producto.precio);
+                total = total + subtotal[cont];
+
+
+        console.log(producto);
+        console.log(subtotal);
+        console.log(total);
+        console.log(productoCantidad);
+        var fila = `<tr class="selected" id="fila${cont}">
+                                <td><button type="button" class="btn btn-outline-warning" onclick="eliminar(${cont});">X</button></td>
+                                <td>${producto.nombre}</td>
+                                <td><input type="number" name="cantidad[]" value="${productoCantidad}" readonly class="form-control"></td>
+                                <td><input type="number" name="cantidad[]" value="${producto.precio}" readonly class="form-control"></td>
+                                <td>${subtotal[cont]}</td>
+                            </tr>
+                            <input type="hidden" name="idproducto[]" value="${producto.idProducto}">
+                            
+                            `
+                            
+                    
+                            ;
+                            cont++;
+
+        $("#detalles").append(fila);
+    }   
 
 
 
@@ -225,6 +316,7 @@
     function  verPedido() {
       document.getElementById('reservacion').style.display       = 'none'  ;
       document.getElementById('title-reservacion').style.display = 'none'  ;
+      document.getElementById('title-pedido').style.display = 'none'  ;
       document.getElementById('pedido').style.display            = 'block' ;
     }
 
