@@ -13,17 +13,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('contenido.page');
 });
 
 
 Route::get('/index', function () {
     return view('contenido.contenido');
 });
-
-
-
-
 
 
 //----------CATEGORIA-------------////
@@ -159,93 +155,8 @@ Route::get('bitacora','ctrlBitacora@mostrar');
 
 
 Route::get('prueba', function () {
-
-    $criterio = 5;
-        
-        $productoMenu = listaMenu::join('menu','menu.id','=','listamenu.idMenu')
-        ->join('producto','producto.id','listamenu.idProducto')
-        ->select('producto.id','producto.foto','producto.nombre','producto.precio','listamenu.estado')->where('menu.id','=',$criterio)->get(); 
-        
-        return [
-        'productoMenu'=> $productoMenu
-        ];
-
-    $fecha = date('Y-m-d');
-    $menus = menu::select('categoria.nombre as categoria','menu.idCategoria','menu.fecha','menu.estado')
-    ->join('categoria','categoria.id','=','menu.idCategoria')
-    ->where('fecha','=',$fecha)->where('menu.estado','=',1)
-    ->get();
-    return ["menu"=>$menus];
-
-
-    
-    $fecha      = '2020-10-01';
-    $sw         = false;
-    $categoria  = 1;
-
-
-    $menu = menu::select('fecha')
-                ->where('idCategoria','=',$categoria)
-                ->where('fecha','=',$fecha)
-                ->get();
-
-    $todos = menu::where('idCategoria','=',$categoria)
-                ->where('fecha','=',$fecha)
-                ->get();
-
-    foreach ($todos as $key => $value) {
-        $value->estado = 0;
-        $value->update();
-    }
-
-    $count = count($menu);
-    
-    if($count){
-        $sw=true;
-    }
-    return ["existe"=> $sw, "todos"=>$todos];
-
-    $id = $menu[0]->id;
-
-
-    $menuExiste = menu::findOrFail($id);
-    
-
-    $count = count($menu);
-    if($count){
-        $sw=true;
-    }
-    return ["id" => $id,"existe"=>$sw, "menu " => $menu, "fecha"=>$fecha , 'idCategoria'=>$categoria];
-
-    // $id = Auth::id(); 
-    // $user = User::findOrFail($id);
-    // $rol = $user->roles;
-
-    $rol = Auth::user()->roles;
-    $AuthRol = $rol[0]->name;
-    
-    return ["rol" => $AuthRol ];
-
-
-
-
-    $pedidos=detallePedido::join('pedido','pedido.id','detallepedido.idPedido')
-    ->join('producto','detallepedido.idProducto','producto.id')
-    
-    ->select(
-        'pedido.fecha',
-        'pedido.fechaentrega',
-        'pedido.horaentrega',
-        'pedido.glosa',
-        'pedido.montototal',
-        'pedido.estado'
-        //0  realizado   // 1 enviado   // 2 entregado
-     )
-    ->where('pedido.estado','=',0)
-    ->paginate(10);
-
-    return $pedidos;
-});
+    return view('prueba');
+    });
 
 
 

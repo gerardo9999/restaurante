@@ -1,4 +1,3 @@
-@include('page.sidebar')
     
     <section id="menu" class="intro-single">
         <div class="container">
@@ -33,7 +32,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    @foreach ($menu as $lista)
+                    @foreach (@listaMenu() as $lista)
                         <div class="col-md-12">
                             <div class="card-box-a card-shadow">
                                 <div class="img-box-a">
@@ -95,14 +94,15 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="">Cuantos Desea Ordenar?</label>
-                                            <input wire:model='cantidad' type="number" class="form-control" >
+                                            <input id='cantidad' type="number" class="form-control" >
                                             @error('cantidad')
                                                 {{ $message }}
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="modal-footer text-center">
-                                        <button wire:click.prevent='agregarProductoDetalle({{ $lista->idProducto }})' class="close" data-dismiss="modal" aria-label="Close" type="submit" class="btn btn-info btn-sm">Agregar al Pedido</button>
+                                        <button onclick='agregarAlDetalle({{ $lista->idProducto }})' 
+                                            class="close" data-dismiss="modal" aria-label="Close" type="submit" class="btn btn-info btn-sm">Agregar al Pedido</button>
                                     </div>
                                 </div>
                             </div>
@@ -134,20 +134,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             @foreach ($arrayProducto as $item)
-                                                <tr class="text-center">
+                                             {{-- @foreach ($arrayProducto as $item) --}}
+                                                {{-- <tr class="text-center">
                                                     <td>{{ $item["producto"] }}</td>
                                                     <td>{{ $item["cantidad"] }}</td>
                                                     <td>{{ $item["subTotal"] }}</td>
                                                     <td>
                                                         <button wire:click='eliminarProductoDetalle()' class="btn btn-sm btn-success"><i class="fa fa-trash"></i></button>
                                                     </td>
-                                                </tr>
-                                            @endforeach
+                                                </tr> --}}
+                                            {{-- @endforeach --}}
                                             <tr style="background-color: #6eb88d;">
                                                 <td colspan="3" align="right"><strong>Total :</strong></td>
                                                 <td>
-                                                    {{ $total }}
+                                                    {{-- {{ $total }} --}}
                                                 </td>
                                             </tr>       
                                         </tbody>
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                @if ($arrayProducto)
+                                {{-- @if ($arrayProducto) --}}
                                     @auth
                                     <div class="form-group">
                                     <input type="text"  class="form-control" readonly required placeholder="latitud" name="textlatitud" id="textlatitud">
@@ -176,13 +176,13 @@
                                     </div>
                                         <button type="button" class="btn btn-sm btn-success" data-target="#maps" data-toggle="modal">Envianos tu Ubicacion</button>
                                     @else
-                                        <button class="btn btn-sm btn-success">Realizar Pedido</button>
+                                        <button class="btn btn-sm btn-success">Realizar Pedido -</button>
                                     @endauth
-                                @else
+                                {{-- @else --}}
                                     <div class="text-center">
                                         No tiene seleccionado ningun producto
                                     </div>
-                                @endif
+                                {{-- @endif --}}
                             </div>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
 
             <div class="modal-footer" stye="text-align: center !important;">
                 <button  type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
-                <button  style=" border-radius: 6px !important; font-size: 16px; width:220px;"  type="button" name="confir_ubv" id="confir_ubv" Onclick="addUbicacion(longitud.value,latitud.value,txtDir.value); confirmar.disabled=false;" class="btn btn-success btn-lg verde" data-dismiss="modal"  >ACEPTAR</button>
+                <button  style=" border-radius: 6px !important; font-size: 16px; width:220px;"  type="button" name="confir_ubv" id="confir_ubv" Onclick="addUbicacion(longitud.value,latitud.value,txtDir.value); " class="btn btn-success btn-lg verde" data-dismiss="modal"  >ACEPTAR</button>
             </div>
         </div>
         
@@ -278,252 +278,257 @@
 
     </style>
 
-
-    <script>
-    
-    var marker;         
-    var coords = {};    
-    var x=document.getElementById("nomDir");
-    var options = {
-    enableHighAccuracy: true,
-    timeout: 6000,
-    maximumAge: 0
-    };
-    //Funcion principal
-    initMap = function () 
-    {
-
-        // navigator.geolocation.getCurrentPosition(viewMap,ViewError,{timeout:3000});
-
-        //usamos la API para geolocalizar el usuario
-
-            navigator.geolocation.getCurrentPosition(function (position)
-            {
-                coords =  {
-                lng: position.coords.longitude,
-                lat: position.coords.latitude,
-                };
-                document.getElementById("longitud").value = position.coords.longitude;
-                document.getElementById("latitud").value = position.coords.latitude;
-
-                setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
-               
-            
-            },function(error)
-            {
-            
-                // El segundo parámetro es la función de error
-                switch(error.code) 
-                {
-                    case error.PERMISSION_DENIED:
-                    // El usuario denegó el permiso para la Geolocalización.
-                    console.log(error);
-                    alert('ACTIVE SU GPS O USTED BLOQUEO EL PERMISO DE UBICACION');
-                    // initMap();
-                    break;
-                    case error.POSITION_UNAVAILABLE:
-                    // La ubicación no está disponible.
-                    console.log(error);
-                        alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
-                    break;
-                    case error.TIMEOUT:
-                    // Se ha excedido el tiempo para obtener la ubicación.
-                    console.log(error);
-                        alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
-                    break;
-                    case error.UNKNOWN_ERROR:
-                    // Un error desconocido.
-                    alert('INTENTE MÁS TARDE');
-                    console.log(error);
-                    break;
-                }
-                coords =  
-                {
-                    lng: '-17.34981426967225',
-                    lat: '-63.262442186041355'
-                };
-                document.getElementById("longitud").value = '-17.34981426967225';
-                document.getElementById("latitud").value =  '-63.262442186041355';
-                setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
-                
-                
-            },options);
-        
-    }
-    function setMapa (coords)
-    {   
-                //Se crea una nueva instancia del objeto mapa
-            
-            var map = new google.maps.Map(document.getElementById('map'),
-            {
-                zoom: 17,
-                center:new google.maps.LatLng(coords.lat,coords.lng),
-
-            });
-        
-            //Creamos el marcador en el mapa con sus propiedades
-            //para nuestro obetivo tenemos que poner el atributo draggable en true
-            //position pondremos las mismas coordenas que obtuvimos en la geolocalización
-            marker = new google.maps.Marker({
-            map: map,
-            draggable: true,
-            animation: google.maps.Animation.DROP,
-            title:"Mi ubicación actual",
-            position: new google.maps.LatLng(coords.lat,coords.lng),
-
-            });
-            //map.setCenter(pos);
-            //agregamos un evento al marcador junto con la funcion callback al igual que el evento dragend que indica 
-            //cuando el usuario a soltado el marcador
-            marker.addListener('click', toggleBounce);
-            
-            marker.addListener( 'dragend', function (event)
-            {
-                //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
-                document.getElementById("coords").value = this.getPosition().lat()+","+ this.getPosition().lng();
-                document.getElementById("longitud").value = this.getPosition().lng();
-                document.getElementById("latitud").value =  this.getPosition().lat();
-
-                var long=this.getPosition().lat();
-                var lat=this.getPosition().long();
-
-                var locApi="https://maps.googleapis.com/maps/api/geocode/json?latlng="+long+","+lat+"&sensor=true";
-                //x.innerHTML=locApi+"<br>"+loc.loc +"<br>"+loc.city +"<br>"+loc.region +"<br>";
-                var cadena="";
-            
-                $.get({
-                    
-                    url: locApi,
-                    success:function(data)
-                    {
-                        console.log(typeof data);
-                        //console.log(data.results.length);
-                        if (data.results.length > 0) 
-                        {
-                            cadena=data.results[0].address_components[0].long_name+", ";
-
-                            cadena+=data.results[0].address_components[1].long_name+", ";
-
-                            //cadena+=data.results[0].address_components[4].long_name;
-                            x.innerHTML=cadena;
-                            document.getElementById("txtDir").value=cadena;
-                        }
-                        else
-                        {
-                            x.innerHTML="La ubicacion no se reconoce, por favor intente de nuevo";
-                        }
-
-                    },
-                    error:function(data)
-                    {
-                        console.log(data);
-                    }
-                });
-                
-            });
-    }
-    //callback al hacer clic en el marcador lo que hace es quitar y poner la animacion BOUNCE
-    function toggleBounce() 
-        {
-            if (marker.getAnimation() !== null) 
-            {
-            marker.setAnimation(null);
-            } else 
-            {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-        }
-        function addUbicacion(x,y,dir)
-    {
-        document.getElementById("textlatitud").value=x+"";
-
-        document.getElementById("textlongitud").value=y+"";
-
-        //document.getElementById("textdescripcion").value=dir+"";
-
-        document.getElementById("textlink").value="https://maps.google.com/?q="+y+","+x;
-
-        let latitud1=-63.262442186041355;//latitud del resturante
-        let longitud1=-17.34981426967225;//longitud del restaurante
-
-          let latitud2=x; //latitud del destino
-          let longitud2=y;//longitud del destino
-
-        //let latitud2=-64.262442186041355;
-        //let longitud2=-18.34981426967225;
-   
-        (calculateDistance(latitud1,longitud1,latitud2,longitud2));//funcion para calcular la distancia en kilometro
-
-    }
-    function calculateDistance(lt1,lng1,lt2,lng2) {
-
-        var origin = new google.maps.LatLng(lng1, lt1);
-
-        var destination = new google.maps.LatLng(lng2, lt2);
-
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(
-            {
-                origins: [origin],
-                destinations: [destination],
-                travelMode: google.maps.TravelMode.DRIVING,
-                //unitSystem: google.maps.UnitSystem.IMPERIAL, // millas y pies.
-                unitSystem: google.maps.UnitSystem.metric, // kilometros y metros
-                avoidHighways: false,
-                avoidTolls: false
-            }, callback);
-        }
-
-        function callback(response, status) 
-        {
-        if (status != google.maps.DistanceMatrixStatus.OK) 
-        {
-            console.log(origin);
-        } else 
-        {
-            var origin = response.originAddresses[0];
-            var destination = response.destinationAddresses[0];
-            if (response.rows[0].elements[0].status === "ZERO_RESULTS") 
-            {
-                $('#textTiempo').val("No hay distancia para  "  + origin + " and " + destination);
-                console.log(origin);
-            } else 
-            {
-                var distance = response.rows[0].elements[0].distance;
-                var duration = response.rows[0].elements[0].duration;
-                var distanciaKilometro = distance.value / 1000; // Kilometro
-                //var distanciaMillas = distance.value / 1609.34; // millas
-                var duracionText = duration.text; //tiempo en formato (1 hours 50 min) (1 h 6 min)
-                //aumentamos 10 minutos de preparacion que son 600 segundos
-                var duracionValue = duration.value + 600;// tiempo en formato solo segundos 
-                
-                
-                $('#textDistancia').val(distanciaKilometro.toFixed(2));//distancia en km
-                
-                //llamamos a la funcion para calcular el precio de acuerdo a km
-                // recargoPedido(distanciaKilometro);
-                // //llamamos a la funcion para calcular el tiempo
-                 convertirSegundosAhoraMinutos(duracionValue);
-                   
-            }
-
-        }
-        }
-        function convertirSegundosAhoraMinutos(seconds) 
-        {
-            var hour = Math.floor(seconds / 3600);
-            hour = (hour < 10)? '0' + hour : hour;
-            var minute = Math.floor((seconds / 60) % 60);
-            minute = (minute < 10)? '0' + minute : minute;
-            var second = seconds % 60;
-            second = (second < 10)? '0' + second : second;
-            resultado= hour + ':' + minute + ':' + second;
-            $('#textTiempo').val(resultado);//tiempo aproximdao
-            
-        }
+@section('map')
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoW4LyeLOiPgOmChMyAacirIgO7zqriGw&callback=initMap&libraries=geometry"
+    type="text/javascript" >
     </script>
 
+<script>
+  
+  var marker;         
+  var coords = {};    
+  var x=document.getElementById("nomDir");
+  var options = {
+  enableHighAccuracy: true,
+  timeout: 6000,
+  maximumAge: 0
+  };
+  //Funcion principal
+  initMap = function () 
+  {
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoW4LyeLOiPgOmChMyAacirIgO7zqriGw&callback=initMap&libraries=geometry"
-  type="text/javascript" ></script>
+      // navigator.geolocation.getCurrentPosition(viewMap,ViewError,{timeout:3000});
+
+      //usamos la API para geolocalizar el usuario
+
+          navigator.geolocation.getCurrentPosition(function (position)
+          {
+              coords =  {
+              lng: position.coords.longitude,
+              lat: position.coords.latitude,
+              };
+              document.getElementById("longitud").value = position.coords.longitude;
+              document.getElementById("latitud").value = position.coords.latitude;
+
+              setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
+             
+          
+          },function(error)
+          {
+          
+              // El segundo parámetro es la función de error
+              switch(error.code) 
+              {
+                  case error.PERMISSION_DENIED:
+                  // El usuario denegó el permiso para la Geolocalización.
+                  console.log(error);
+                  alert('ACTIVE SU GPS O USTED BLOQUEO EL PERMISO DE UBICACION');
+                  // initMap();
+                  break;
+                  case error.POSITION_UNAVAILABLE:
+                  // La ubicación no está disponible.
+                  console.log(error);
+                      alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
+                  break;
+                  case error.TIMEOUT:
+                  // Se ha excedido el tiempo para obtener la ubicación.
+                  console.log(error);
+                      alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
+                  break;
+                  case error.UNKNOWN_ERROR:
+                  // Un error desconocido.
+                  alert('INTENTE MÁS TARDE');
+                  console.log(error);
+                  break;
+              }
+              coords =  
+              {
+                  lng: '-17.34981426967225',
+                  lat: '-63.262442186041355'
+              };
+              document.getElementById("longitud").value = '-17.34981426967225';
+              document.getElementById("latitud").value =  '-63.262442186041355';
+              setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
+              
+              
+          },options);
+      
+  }
+  function setMapa (coords)
+  {   
+              //Se crea una nueva instancia del objeto mapa
+          
+          var map = new google.maps.Map(document.getElementById('map'),
+          {
+              zoom: 17,
+              center:new google.maps.LatLng(coords.lat,coords.lng),
+
+          });
+      
+          //Creamos el marcador en el mapa con sus propiedades
+          //para nuestro obetivo tenemos que poner el atributo draggable en true
+          //position pondremos las mismas coordenas que obtuvimos en la geolocalización
+          marker = new google.maps.Marker({
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          title:"Mi ubicación actual",
+          position: new google.maps.LatLng(coords.lat,coords.lng),
+
+          });
+          //map.setCenter(pos);
+          //agregamos un evento al marcador junto con la funcion callback al igual que el evento dragend que indica 
+          //cuando el usuario a soltado el marcador
+          marker.addListener('click', toggleBounce);
+          
+          marker.addListener( 'dragend', function (event)
+          {
+              //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
+              document.getElementById("coords").value =   this.getPosition().lat()+","+ this.getPosition().lng();
+              document.getElementById("longitud").value = this.getPosition().lng();
+              document.getElementById("latitud").value =  this.getPosition().lat();
+
+              var long=this.getPosition().lat();
+              var lat=this.getPosition().long();
+
+              var locApi="https://maps.googleapis.com/maps/api/geocode/json?latlng="+long+","+lat+"&sensor=true";
+              //x.innerHTML=locApi+"<br>"+loc.loc +"<br>"+loc.city +"<br>"+loc.region +"<br>";
+              var cadena="";
+          
+              $.get({
+                  
+                  url: locApi,
+                  success:function(data)
+                  {
+                      console.log(typeof data);
+                      //console.log(data.results.length);
+                      if (data.results.length > 0) 
+                      {
+                          cadena=data.results[0].address_components[0].long_name+", ";
+
+                          cadena+=data.results[0].address_components[1].long_name+", ";
+
+                          //cadena+=data.results[0].address_components[4].long_name;
+                          x.innerHTML=cadena;
+                          document.getElementById("txtDir").value=cadena;
+                      }
+                      else
+                      {
+                          x.innerHTML="La ubicacion no se reconoce, por favor intente de nuevo";
+                      }
+
+                  },
+                  error:function(data)
+                  {
+                      console.log(data);
+                  }
+              });
+              
+          });
+  }
+  //callback al hacer clic en el marcador lo que hace es quitar y poner la animacion BOUNCE
+  function toggleBounce() 
+      {
+          if (marker.getAnimation() !== null) 
+          {
+          marker.setAnimation(null);
+          } else 
+          {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+      }
+      function addUbicacion(x,y,dir)
+  {
+      document.getElementById("textlatitud").value=x+"";
+
+      document.getElementById("textlongitud").value=y+"";
+
+      //document.getElementById("textdescripcion").value=dir+"";
+
+      document.getElementById("textlink").value="https://maps.google.com/?q="+y+","+x;
+
+      let latitud1=-63.262442186041355;//latitud del resturante
+      let longitud1=-17.34981426967225;//longitud del restaurante
+
+      // let latitud2=x; //latitud del destino
+      // let longitud2=y;//longitud del destino
+
+      let latitud2=-64.262442186041355;
+      let longitud2=-18.34981426967225;
+ 
+      (calculateDistance(latitud1,longitud1,latitud2,longitud2));//funcion para calcular la distancia en kilometro
+
+  }
+  function calculateDistance(lt1,lng1,lt2,lng2) {
+
+      var origin = new google.maps.LatLng(lng1, lt1);
+
+      var destination = new google.maps.LatLng(lng2, lt2);
+
+      var service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix(
+          {
+              origins: [origin],
+              destinations: [destination],
+              travelMode: google.maps.TravelMode.DRIVING,
+              //unitSystem: google.maps.UnitSystem.IMPERIAL, // millas y pies.
+              unitSystem: google.maps.UnitSystem.metric, // kilometros y metros
+              avoidHighways: false,
+              avoidTolls: false
+          }, callback);
+      }
+
+      function callback(response, status) 
+      {
+      if (status != google.maps.DistanceMatrixStatus.OK) 
+      {
+          console.log(origin);
+      } else 
+      {
+          var origin = response.originAddresses[0];
+          var destination = response.destinationAddresses[0];
+          if (response.rows[0].elements[0].status === "ZERO_RESULTS") 
+          {
+              $('#textTiempo').val("No hay distancia para  "  + origin + " and " + destination);
+              console.log(origin);
+          } else 
+          {
+              var distance = response.rows[0].elements[0].distance;
+              var duration = response.rows[0].elements[0].duration;
+              var distanciaKilometro = distance.value / 1000; // Kilometro
+              //var distanciaMillas = distance.value / 1609.34; // millas
+              var duracionText = duration.text; //tiempo en formato (1 hours 50 min) (1 h 6 min)
+              //aumentamos 10 minutos de preparacion que son 600 segundos
+              var duracionValue = duration.value + 600;// tiempo en formato solo segundos 
+              
+              
+              $('#textDistancia').val(distanciaKilometro.toFixed(2));//distancia en km
+              
+              //llamamos a la funcion para calcular el precio de acuerdo a km
+              // recargoPedido(distanciaKilometro);
+              // //llamamos a la funcion para calcular el tiempo
+               convertirSegundosAhoraMinutos(duracionValue);
+                 
+          }
+
+      }
+      }
+      function convertirSegundosAhoraMinutos(seconds) 
+      {
+          var hour = Math.floor(seconds / 3600);
+          hour = (hour < 10)? '0' + hour : hour;
+          var minute = Math.floor((seconds / 60) % 60);
+          minute = (minute < 10)? '0' + minute : minute;
+          var second = seconds % 60;
+          second = (second < 10)? '0' + second : second;
+          resultado= hour + ':' + minute + ':' + second;
+          $('#textTiempo').val(resultado);//tiempo aproximdao
+          
+      }
+</script>
+@endsection
+
+
+
+
     

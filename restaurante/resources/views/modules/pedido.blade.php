@@ -1,3 +1,3 @@
 <div>
-@include('components.frmPedido')
+    {{-- @include('components.frmPedido') --}}
 </div>
