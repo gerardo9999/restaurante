@@ -450,11 +450,11 @@
       let latitud1=-63.262442186041355;//latitud del resturante
       let longitud1=-17.34981426967225;//longitud del restaurante
 
-      // let latitud2=x; //latitud del destino
-      // let longitud2=y;//longitud del destino
+      let latitud2=x; //latitud del destino
+      let longitud2=y;//longitud del destino
 
-      let latitud2=-64.262442186041355;
-      let longitud2=-18.34981426967225;
+      //let latitud2=-64.262442186041355;
+      //let longitud2=-18.34981426967225;
  
       (calculateDistance(latitud1,longitud1,latitud2,longitud2));//funcion para calcular la distancia en kilometro
 
@@ -498,7 +498,7 @@
               var distanciaKilometro = distance.value / 1000; // Kilometro
               //var distanciaMillas = distance.value / 1609.34; // millas
               var duracionText = duration.text; //tiempo en formato (1 hours 50 min) (1 h 6 min)
-              //aumentamos 10 minutos de preparacion que son 600 segundos
+              //aumentamos 10 minutos de preparacion que son 600 segundos 
               var duracionValue = duration.value + 600;// tiempo en formato solo segundos 
               
               
