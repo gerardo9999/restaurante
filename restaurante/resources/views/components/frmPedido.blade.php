@@ -174,7 +174,7 @@
                                     <label for=""  class="form-label">Tiempo</label>
                                     <input type="text" id="textTiempo">
                                     </div>
-                                        <button type="button" class="btn btn-sm btn-success" data-target="#maps" data-toggle="modal">Envianos tu Ubicacion</button>
+                                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#maps">Envianos tu Ubicacion</button>
                                     @else
                                         <button class="btn btn-sm btn-success">Realizar Pedido</button>
                                     @endauth
@@ -524,6 +524,6 @@
     </script>
 
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoW4LyeLOiPgOmChMyAacirIgO7zqriGw&callback=initMap&libraries=geometry"
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW0QXCCnn5Lle85smx1jpyWSTZKUBv0Xc&callback=initMap"
   type="text/javascript" ></script>
     
