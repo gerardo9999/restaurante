@@ -303,6 +303,8 @@
                             cont++;
 
         $("#detalles").append(fila);
+        $("#total").html("Bs/. " + total);
+
     }   
 
 
