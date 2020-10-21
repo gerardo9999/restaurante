@@ -446,11 +446,11 @@
         let latitud1=-63.262442186041355;//latitud del resturante
         let longitud1=-17.34981426967225;//longitud del restaurante
 
-        // let latitud2=x; //latitud del destino
-        // let longitud2=y;//longitud del destino
+          let latitud2=x; //latitud del destino
+          let longitud2=y;//longitud del destino
 
-        let latitud2=-64.262442186041355;
-        let longitud2=-18.34981426967225;
+        //let latitud2=-64.262442186041355;
+        //let longitud2=-18.34981426967225;
    
         (calculateDistance(latitud1,longitud1,latitud2,longitud2));//funcion para calcular la distancia en kilometro
 
