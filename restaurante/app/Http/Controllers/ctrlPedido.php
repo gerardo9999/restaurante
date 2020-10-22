@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ubicacion;
 use App\pedido;
+use App\detallePedido;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -35,13 +36,13 @@ class ctrlPedido extends Controller
         $count = $request->precio;
 
         for ($i=0; $i < $count; $i++) { 
-            $subtotal = $request->cantidad[$id] * $request>precio[$i];
+            $subtotal = $request->cantidad[$i] * $request->precio[$i];
 
             $detalle = new detallepedido();
-            $detalle->cantidad = $request->cantidad[$id];
-            $detalle->cantidad = $subtotal;
+            $detalle->cantidad = $request->cantidad[$i];
+            $detalle->subTotal = $subtotal;
             $detalle->idPedido = $pedido->id;
-            $detalle->idProducto = $request->idProdcuto;
+            $detalle->idProducto = $request->idProducto;
             $detalle->save();
         }
 
