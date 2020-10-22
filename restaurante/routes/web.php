@@ -142,6 +142,10 @@ Route::post('reserva/cliente/guardar','ctrlReserva@guardarReservaCliente');
 Route::post('reserva/cliente/modificar','ctrlReserva@modificarReservaCliente');
 
 
+//-------------------------pedido-------------//
+Route::get('pedidoCliente','ctrlPedido@mostrarPedidoCliente');
+Route::post('pediddo/cliente/guardar','ctrlPedido@guardarPedidoCliente');
+Route::post('pediddo/cliente/modificar','ctrlPedido@modificarPedidoCliente');
 
 
 

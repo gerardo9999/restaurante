@@ -53,6 +53,7 @@ Vue.component('frm-administrador-detalle', require('./components/administrador/f
 Vue.component('frm-administrador-bitacora', require('./components/administrador/frmBitacora.vue').default);
 
 
+
 Vue.component('frm-cliente-reserva', require('./components/cliente/frmReserva').default);
 Vue.component('frm-cliente-menu',require('./components/cliente/frmMenu').default);
 Vue.component('frm-cliente-pedido',require('./components/cliente/frmPedido').default);
