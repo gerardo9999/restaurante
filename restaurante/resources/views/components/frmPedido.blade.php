@@ -174,7 +174,7 @@
                                     <label for=""  class="form-label">Tiempo</label>
                                     <input type="text" id="textTiempo">
                                     </div>
-                                        <button type="button" class="btn btn-sm btn-success" data-target="#maps" data-toggle="modal">Envianos tu Ubicacion</button>
+                                        <button type="button" class="btn btn-sm btn-success" data-target="#maps" data-toggle="modal">1 Envianos tu Ubicacion</button>
                                     @else
                                         <button class="btn btn-sm btn-success">Realizar Pedido -</button>
                                     @endauth
@@ -197,11 +197,11 @@
         <!-- Modal content-->
         <div class="modal-content" id="modalcon" >
             <div class="modal-header" >         
-            <h3 align="center" style="width:100%; padding: 0px;">Indica tu dirección 
-            <!--
-                <img src="../Resources/img/grido-logo.png" alt="Logo" style="width:80px;">
-            -->
-            </h3>
+                <h3 align="center" style="width:100%; padding: 0px;">Indica tu dirección 
+                <!--
+                    <img src="../Resources/img/grido-logo.png" alt="Logo" style="width:80px;">
+                -->
+                </h3>
             </div>
             <div class="modal-body">
             <div id="div_maps" >
@@ -221,10 +221,10 @@
 
                 <div id="ayuda" align="center">
 
-                <p id="nomDir">
-                <!--<b>No es tu ubicacion ? </b><small style="font-size: 10px;" >Recuerda que puedes modificar tu ubicación moviendo el icono que indica donde estas ahora. </small>
-                -->
-                </p> 
+                    <p id="nomDir">
+                    <!--<b>No es tu ubicacion ? </b><small style="font-size: 10px;" >Recuerda que puedes modificar tu ubicación moviendo el icono que indica donde estas ahora. </small>
+                    -->
+                    </p> 
 
                 </div>
                 <input  type="text" id="txtDir" name="txtDir" style="display:none">        
