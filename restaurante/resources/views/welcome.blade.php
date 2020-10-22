@@ -22,10 +22,10 @@
 
     <span class="close-box-collapse right-boxed ion-ios-close"></span>
     <div class="box-collapse-wrap form">
-      <div id="reservacion" style="display: none"; >
+      <div id="reservacion" style="display: none;" >
         @livewire('reservacion')
       </div>
-      <div id="pedido" style="display: none";>
+      <div id="pedido" style="display: none;">
         
 
         <div class="row">
@@ -35,6 +35,10 @@
                   <div class="form-group">
                     <label for="" >Fecha de Entrega</label>
                     <input type="date" name="fecha_entrega" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="" >Referencia</label>
+                    <input type="text" name="referencia" class="form-control">
                   </div>
               </div>
               {{-- <div class="card"> --}}
@@ -68,7 +72,9 @@
                   </div>
               {{-- </div> --}}
 
+            <div id="montoTotal">
 
+            </div>
             <!-- Ubicacion -->
             <div style="display:none;">
               <div class="form-group" >
@@ -102,13 +108,20 @@
 
 
 
+              @auth
+                <div style="display:none;" class="form-group" id="guardar">
+                    <button type="submit" class="btn btn-sm  btn-outline-danger ">Realizar Pedido</button>
+                </div>
 
-              <div style="display:none;" class="form-group" id="guardar">
-                  <button type="submit" class="btn btn-sm  btn-outline-danger ">Realizar Pedido</button>
-              </div>
+              @endauth
+
           </form>
        
-                                            
+          @guest   
+            <button style="display:none;" type="button" class="btn btn-sm btn-info btn-block" >Guardar Datos</button>
+          @endguest
+
+
           <button type="button" class="btn btn-sm btn-success btn-block" data-target="#maps" data-toggle="modal">Envianos tu Ubicacion</button>
   
 
@@ -317,6 +330,7 @@
                 {
 
                     document.getElementById('guardar').style.display="block";
+
                     document.getElementById("textlatitud").value=x+"";
 
                     document.getElementById("textlongitud").value=y+"";
@@ -407,22 +421,6 @@
             @endsection  
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
     </div>
   </div>
@@ -478,9 +476,14 @@
         evaluar(cont)
         
 
+        var montoTotal = `
+        <input type="hidden" name="montoTotal" value="${total}">
+        
+        `;
+
         $("#detalles").append(fila);
         $("#total").html("Bs/. " + total);
-
+        $("#montoTotal").append(montoTotal)
     }   
 
     function evaluar(cont){
