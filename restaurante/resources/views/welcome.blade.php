@@ -276,7 +276,7 @@
     function  agregarAlDetalle(producto) {
         
         console.log(producto);
-        productoCantidad = document.getElementById('cantidad'+producto.idProducto).value;
+        var productoCantidad = document.getElementById('cantidad'+producto.idProducto).value;
         // console.log(producto);
         // console.log(productoCantidad);
         subtotal[cont] = (productoCantidad * producto.precio);

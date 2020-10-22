@@ -94,14 +94,14 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="">Cuantos Desea Ordenar?</label>
-                                            <input id='cantidad' type="number" class="form-control" >
+                                            <input id='cantidad{{$lista->idProducto}}' type="number" class="form-control" >
                                             @error('cantidad')
                                                 {{ $message }}
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="modal-footer text-center">
-                                        <button onclick='agregarAlDetalle({{ $lista->idProducto }})' 
+                                        <button onclick='agregarAlDetalle({{ $lista }})' 
                                             class="close" data-dismiss="modal" aria-label="Close" type="submit" class="btn btn-info btn-sm">Agregar al Pedido</button>
                                     </div>
                                 </div>
