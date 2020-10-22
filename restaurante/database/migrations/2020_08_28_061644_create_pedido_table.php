@@ -17,8 +17,8 @@ class CreatePedidoTable extends Migration
             $table->string('glosa')->nullable();
             $table->float('montototal');
             $table->integer('estado');
-            //0  realizado   // 1 enviado   // 2 entregado
-            $table->integer('idUsuario')->unsigned();
+            // 0  pendiente   //  2 entregado  //3 cancelado 
+            $table->integer('idUsuario')->unsigned()->nullable();
             $table->integer('idCliente')->unsigned();
             $table->integer('idRepartidor')->unsigned()->nullable();
             $table->integer('idUbicacion')->unsigned()->nullable();

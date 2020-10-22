@@ -79,8 +79,8 @@ class ctrlRepartidor extends Controller{
 
             $usuario->assignRole('repartidor');
 
-            $bitacora = bitacora::guardar('repartidor','guardar');
-            $bitacora = bitacora::guardar('usuario','guardar-repartidor');
+            $bitacora = bitacora::guardar('repartidor','guardar',$repartidor->id);
+            $bitacora = bitacora::guardar('usuario','guardar-repartidor',$usuario->id);
 
     }
 
@@ -114,8 +114,8 @@ class ctrlRepartidor extends Controller{
             $repartidor->update();
 
 
-            $bitacora = bitacora::guardar('repartidor','actualizar');
-            $bitacora = bitacora::guardar('usuario','actualizar-repartidor');
+            $bitacora = bitacora::guardar('repartidor','actualizar',$repartidor->id);
+            $bitacora = bitacora::guardar('usuario','actualizar-repartidor',$usuario->id);
 
     }
 
@@ -129,8 +129,8 @@ class ctrlRepartidor extends Controller{
          $usuario = User::findOrFail($idUser);
          $usuario->delete();
 
-         $bitacora = bitacora::guardar('repartidor','eliminar');
-         $bitacora = bitacora::guardar('usuario','eliminar-repartidor');
+         $bitacora = bitacora::guardar('repartidor','eliminar-repartidor',$repartidor->id);
+         $bitacora = bitacora::guardar('usuario','eliminar',$usuario->id);
     }
 
     public function selectRepartidor(){

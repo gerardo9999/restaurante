@@ -29,6 +29,7 @@
                             <tr>
                                 <th>Fecha</th>
                                 <th>Hora</th>
+                                <th>Codigo Tabla</th>
                                 <th>Tabla</th>
                                 <th>Transaccion</th>
                                 <th>ID Usuario</th>
@@ -38,6 +39,7 @@
                             <tr v-for="bitacora in ArrayBitacora" :key="bitacora.id">
                                 <td v-text="bitacora.fecha"></td>
                                 <td v-text="bitacora.hora"></td>
+                                <td v-text="bitacora.codigoTabla"></td>
                                 <td v-text="bitacora.tabla"></td>
                                 <td v-text="bitacora.transaccion"></td>
                                 <td v-text="bitacora.idUsuario"></td>

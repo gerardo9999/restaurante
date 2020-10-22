@@ -81,7 +81,7 @@ class ctrlVehiculo extends Controller
         $vehiculo->idRepartidor = $request->idRepartidor;
         $vehiculo->save();
 
-        $bitacora = bitacora::guardar('vehiculo','guardar');
+        $bitacora = bitacora::guardar('vehiculo','guardar',$vehiculo->id);
     }
     public function modificar(Request $request){
         if (!$request->ajax()) return redirect('/index');
@@ -91,7 +91,7 @@ class ctrlVehiculo extends Controller
         $vehiculo->caracteristicas = $request->caracteristicas;
         $vehiculo->placa = $request->placa;
         $vehiculo->save();
-        $bitacora = bitacora::guardar('vehiculo','actualizar');
+        $bitacora = bitacora::guardar('vehiculo','actualizar',$vehiculo->id);
 
     }
     public function eliminar(Request $request){
@@ -99,7 +99,7 @@ class ctrlVehiculo extends Controller
         $vehiculo = vehiculo::findOrFail($request->id);
         $vehiculo->delete();
         return ['vehiculo' => $vehiculo];
-        $bitacora = bitacora::guardar('vehiculo','eliminar');
+        $bitacora = bitacora::guardar('vehiculo','eliminar',$vehiculo->id);
 
     }   
 }

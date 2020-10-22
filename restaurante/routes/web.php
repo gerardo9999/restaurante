@@ -98,6 +98,10 @@ Route::post('detalleOrden/modificar','ctrlOrdenAtencion@modificarDetalle');
 Route::post('/finalizar/orden','ctrlOrdenAtencion@finalizarOrden');
 
 
+//Pedidos
+Route::post('/pedido/store','ctrlPedido@guardar')->name('pedido.store');
+
+
 
 Route::post('/item/eliminar','ctrlOrdenAtencion@itemEliminar');
 Route::post('/item/actualizar','ctrlOrdenAtencion@itemActualizar');

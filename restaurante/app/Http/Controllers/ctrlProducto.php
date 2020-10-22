@@ -231,7 +231,7 @@ class ctrlProducto extends Controller{
         $producto->descripcion = $request->descripcion;
         $producto->save();
 
-        $bitacora = bitacora::guardar('producto','guardar');
+        $bitacora = bitacora::guardar('producto','guardar',$producto->id);
 
 
     }
@@ -252,7 +252,7 @@ class ctrlProducto extends Controller{
         $producto->descripcion = $request->descripcion;
         $producto->update();
 
-        $bitacora = bitacora::guardar('producto','actualizar');
+        $bitacora = bitacora::guardar('producto','actualizar',$producto->id);
 
     }
     public function eliminar(Request $request){
@@ -260,7 +260,7 @@ class ctrlProducto extends Controller{
         $producto = producto::findOrFail($request->id);
         $producto->delete();
 
-        $bitacora = bitacora::guardar('producto','eliminar');
+        $bitacora = bitacora::guardar('producto','eliminar',$producto->id);
 
 
     }

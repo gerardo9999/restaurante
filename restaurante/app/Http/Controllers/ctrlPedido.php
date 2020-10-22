@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use App\cliente;
 use App\repartidor;
 use App\ubicacio;
@@ -72,5 +73,51 @@ class ctrlPedido extends Controller
             ],
             'pedido' => $pedido,
         ];
+=======
+use App\ubicacion;
+use App\pedido;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
+class ctrlPedido extends Controller
+{      
+    public function guardar(Request $request){
+        
+        $idUsuario = Auth::id();
+        
+        // return $request;
+        $ubicacion = new ubicacion();
+        $ubicacion->referencia = $request->referencia;
+        $ubicacion->latitud    = $request->textlatitud;
+        $ubicacion->longitud   = $request->textlongitud;
+        $ubicacion->url        = $request->textlink;
+        $ubicacion->save();
+
+        $pedido = new pedido();
+        $pedido->fecha = date('Y-m-d');
+        $pedido->fechaentrega = $request->fecha_entrega;
+        $pedido->montototal = $request->montoTotal;
+        $pedido->estado = 0;    //pendiente
+        $pedido->idUsuario = null;
+        $pedido->idCliente = Auth::id();
+        $pedido->idUbicacion = $ubicacion->id;
+        $pedido->save();
+
+        $count = $request->precio;
+
+        for ($i=0; $i < $count; $i++) { 
+            $subtotal = $request->cantidad[$id] * $request>precio[$i];
+
+            $detalle = new detallepedido();
+            $detalle->cantidad = $request->cantidad[$id];
+            $detalle->cantidad = $subtotal;
+            $detalle->idPedido = $pedido->id;
+            $detalle->idProducto = $request->idProdcuto;
+            $detalle->save();
+        }
+
+        return Redirect::to('/');
+
+>>>>>>> 5d55e1bff9e7d53f09d9d9b4c30910255f169d5b
     }
 }

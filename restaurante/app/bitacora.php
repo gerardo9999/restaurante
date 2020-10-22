@@ -17,7 +17,7 @@ class bitacora extends Model
     ];
     public $timestamps=false;
 
-    static function guardar($tabla,$transaccion){
+    static function guardar($tabla,$transaccion,$codigoTabla){
        
         $idUsuario = auth()->id();
 
@@ -28,6 +28,7 @@ class bitacora extends Model
         $bitacora->fecha = $fecha;
         $bitacora->hora = $hora;
         $bitacora->tabla = $tabla;
+        $bitacora->codigoTabla = $codigoTabla;
         $bitacora->transaccion = $transaccion;
         $bitacora->idUsuario =  $idUsuario;
         $bitacora->save();

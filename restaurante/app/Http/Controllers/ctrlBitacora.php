@@ -13,11 +13,11 @@ class ctrlBitacora extends Controller
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         if($buscar==''){
-            $bitacora= bitacora::select('bitacora.id','bitacora.fecha','hora','tabla','transaccion','idUsuario')
+            $bitacora= bitacora::select('bitacora.id','bitacora.fecha','bitacora.codigoTabla','hora','tabla','transaccion','idUsuario')
             ->orderBy('bitacora.id','desc')->paginate(10);
         }
         else{
-            $bitacora= bitacora::select('bitacora.id','bitacora.fecha','hora','tabla','transaccion','idUsuario')
+            $bitacora= bitacora::select('bitacora.id','bitacora.fecha','hora','bitacora.codigoTabla','tabla','transaccion','idUsuario')
             ->where('bitacora.'.$criterio, 'like', '%'.$buscar.'%')
             ->orderBy('bitacora.id','desc')->paginate(10);            
         }

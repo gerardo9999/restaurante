@@ -79,6 +79,7 @@ class ctrlCliente extends Controller
                         $usuario->apellidos = $request->apellidos;
                         $usuario->password  = Hash::make( $request->password); 
                         $usuario->save();
+                        $bitacora = bitacora::guardar('cliente','guardar',$usuario->id);
 
                         $cliente = new cliente();           
                         $cliente->id = $usuario->id;
@@ -96,7 +97,7 @@ class ctrlCliente extends Controller
                 
                         $usuario->assignRole('cliente');
 
-                        $bitacora = bitacora::guardar('cliente','guardar');
+                        $bitacora = bitacora::guardar('cliente','guardar',$cliente->id);
 
                     DB::commit();
                 } catch (\Throwable $th) {
@@ -141,8 +142,8 @@ class ctrlCliente extends Controller
                 $usuario->password =  Hash::make($request->password); 
                 $usuario->update();
                 
-                $bitacora = bitacora::guardar('cliente','actuaizar');
-                $bitacora = bitacora::guardar('usuario','actuaizar-cliente');
+                $bitacora = bitacora::guardar('cliente','actuaizar',$cliente->id);
+                $bitacora = bitacora::guardar('usuario','actuaizar-cliente',$usuario->id);
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -158,7 +159,8 @@ class ctrlCliente extends Controller
         $usuario = User::findOrFail($request->id);
         $usuario->delete();
 
-        $bitacora = bitacora::guardar('cliente','eliminar');
+        $bitacora = bitacora::guardar('cliente','eliminar',$cliente->id);
+        $bitacora = bitacora::guardar('usuario','eliminar',$usuario->id);
 
     }
 
@@ -167,12 +169,16 @@ class ctrlCliente extends Controller
          $cliente->estado = 0;
          $cliente->update();
 
+        $bitacora = bitacora::guardar('usuario','desactivar',$cliente->id);
+
     }
 
     public function activar(Request $request){
         $cliente= cliente::findOrFail($request->id);
         $cliente->estado = 1;
         $cliente->update();
+        $bitacora = bitacora::guardar('usuario','activar',$cliente->id);
+
     }
 
     public function selectCliente(Request $request){
