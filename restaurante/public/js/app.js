@@ -2006,6 +2006,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -45315,6 +45317,10 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", {
+                      domProps: { textContent: _vm._s(bitacora.codigoTabla) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
                       domProps: { textContent: _vm._s(bitacora.tabla) }
                     }),
                     _vm._v(" "),
@@ -45452,6 +45458,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
         _c("th", [_vm._v("Hora")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Codigo Tabla")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tabla")]),
         _vm._v(" "),
@@ -71566,7 +71574,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\gerar\OneDrive\Escritorio\Eldy\lupe\restaurante\restaurante\restaurante\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\sisRestaurante\restaurante\restaurante\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })
