@@ -53,9 +53,8 @@
                                   <th></th>
                                   <th></th>
                                   <th></th>
-                                  <th></th>
                                   <th>
-                                      <h4 id="total"> Bs/. 0.00</h4>
+                                      <h6 id="total"> Bs/. 0.00</h6>
                                   </th>
                                   </tfoot>
                               </table>
@@ -65,10 +64,300 @@
               {{-- </div> --}}
               <div class="form-group" id="guardar">
                   @csrf
-                  <button type="submit" class="btn btn-outline-primary">Guardar</button>
-                  <button type="reset" class="btn btn-outline-danger">Cancelar</button>
+                  <!-- <button type="reset" class="btn btn-outline-danger">Cancelar</button> -->
               </div>
           </form>
+       
+                                            
+          <button onclick='verPedido()'  type="button" class="btn btn-outline-primary btn-block" ><i class="fa fa-map"></i>&nbsp;Enviar Ubicacion</button> 
+    
+    <style> 
+        @media(max-width: 700px){
+        #div_maps {
+                
+                height: 320px;
+            
+            }
+
+        }
+
+        @media(min-width: 700px){
+        #div_maps {
+                height: 380px;
+            
+            }
+
+        }
+        
+        #map {
+        width: 100%;
+        height: 90%;
+
+        }
+        
+        #modalcon{
+            color: #16438e;
+            line-height: 1.42857143;
+            font-family: "Frank";
+        }
+
+    </style>
+
+@section('map')
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoW4LyeLOiPgOmChMyAacirIgO7zqriGw&callback=initMap&libraries=geometry"
+  type="text/javascript" >
+  </script>
+  <script> 
+  
+    function verPedido(){
+
+    }
+
+
+
+
+    var marker;         
+    var coords = {};    
+    var x=document.getElementById("nomDir");
+    var options = {
+    enableHighAccuracy: true,
+    timeout: 6000,
+    maximumAge: 0
+    };
+    //Funcion principal
+    initMap = function () 
+    {
+
+        // navigator.geolocation.getCurrentPosition(viewMap,ViewError,{timeout:3000});
+
+        //usamos la API para geolocalizar el usuario
+
+            navigator.geolocation.getCurrentPosition(function (position)
+            {
+                coords =  {
+                lng: position.coords.longitude,
+                lat: position.coords.latitude,
+                };
+                document.getElementById("longitud").value = position.coords.longitude;
+                document.getElementById("latitud").value = position.coords.latitude;
+
+                setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
+              
+            
+            },function(error)
+            {
+            
+                // El segundo parámetro es la función de error
+                switch(error.code) 
+                {
+                    case error.PERMISSION_DENIED:
+                    // El usuario denegó el permiso para la Geolocalización.
+                    console.log(error);
+                    alert('ACTIVE SU GPS O USTED BLOQUEO EL PERMISO DE UBICACION');
+                    // initMap();
+                    break;
+                    case error.POSITION_UNAVAILABLE:
+                    // La ubicación no está disponible.
+                    console.log(error);
+                        alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
+                    break;
+                    case error.TIMEOUT:
+                    // Se ha excedido el tiempo para obtener la ubicación.
+                    console.log(error);
+                        alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
+                    break;
+                    case error.UNKNOWN_ERROR:
+                    // Un error desconocido.
+                    alert('INTENTE MÁS TARDE');
+                    console.log(error);
+                    break;
+                }
+                coords =  
+                {
+                    lng: '-17.34981426967225',
+                    lat: '-63.262442186041355'
+                };
+                document.getElementById("longitud").value = '-17.34981426967225';
+                document.getElementById("latitud").value =  '-63.262442186041355';
+                setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
+                
+                
+            },options);
+        
+    }
+    function setMapa (coords)
+    {   
+                //Se crea una nueva instancia del objeto mapa
+            
+            var map = new google.maps.Map(document.getElementById('map'),
+            {
+                zoom: 17,
+                center:new google.maps.LatLng(coords.lat,coords.lng),
+
+            });
+        
+            //Creamos el marcador en el mapa con sus propiedades
+            //para nuestro obetivo tenemos que poner el atributo draggable en true
+            //position pondremos las mismas coordenas que obtuvimos en la geolocalización
+            marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title:"Mi ubicación actual",
+            position: new google.maps.LatLng(coords.lat,coords.lng),
+
+            });
+            //map.setCenter(pos);
+            //agregamos un evento al marcador junto con la funcion callback al igual que el evento dragend que indica 
+            //cuando el usuario a soltado el marcador
+            marker.addListener('click', toggleBounce);
+            
+            marker.addListener( 'dragend', function (event)
+            {
+                //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
+                document.getElementById("coords").value =   this.getPosition().lat()+","+ this.getPosition().lng();
+                document.getElementById("longitud").value = this.getPosition().lng();
+                document.getElementById("latitud").value =  this.getPosition().lat();
+
+                var long=this.getPosition().lat();
+                var lat=this.getPosition().long();
+
+                var locApi="https://maps.googleapis.com/maps/api/geocode/json?latlng="+long+","+lat+"&sensor=true";
+                //x.innerHTML=locApi+"<br>"+loc.loc +"<br>"+loc.city +"<br>"+loc.region +"<br>";
+                var cadena="";
+            
+                $.get({
+                    
+                    url: locApi,
+                    success:function(data)
+                    {
+                        console.log(typeof data);
+                        //console.log(data.results.length);
+                        if (data.results.length > 0) 
+                        {
+                            cadena=data.results[0].address_components[0].long_name+", ";
+
+                            cadena+=data.results[0].address_components[1].long_name+", ";
+
+                            //cadena+=data.results[0].address_components[4].long_name;
+                            x.innerHTML=cadena;
+                            document.getElementById("txtDir").value=cadena;
+                        }
+                        else
+                        {
+                            x.innerHTML="La ubicacion no se reconoce, por favor intente de nuevo";
+                        }
+
+                    },
+                    error:function(data)
+                    {
+                        console.log(data);
+                    }
+                });
+                
+            });
+    }
+    //callback al hacer clic en el marcador lo que hace es quitar y poner la animacion BOUNCE
+    function toggleBounce() 
+        {
+            if (marker.getAnimation() !== null) 
+            {
+            marker.setAnimation(null);
+            } else 
+            {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+        function addUbicacion(x,y,dir)
+    {
+        document.getElementById("textlatitud").value=x+"";
+
+        document.getElementById("textlongitud").value=y+"";
+
+        //document.getElementById("textdescripcion").value=dir+"";
+
+        document.getElementById("textlink").value="https://maps.google.com/?q="+y+","+x;
+
+        let latitud1=-63.262442186041355;//latitud del resturante
+        let longitud1=-17.34981426967225;//longitud del restaurante
+
+        let latitud2=x; //latitud del destino
+        let longitud2=y;//longitud del destino
+
+        //let latitud2=-64.262442186041355;
+        //let longitud2=-18.34981426967225;
+  
+        (calculateDistance(latitud1,longitud1,latitud2,longitud2));//funcion para calcular la distancia en kilometro
+
+    }
+    function calculateDistance(lt1,lng1,lt2,lng2) {
+
+        var origin = new google.maps.LatLng(lng1, lt1);
+
+        var destination = new google.maps.LatLng(lng2, lt2);
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+            {
+                origins: [origin],
+                destinations: [destination],
+                travelMode: google.maps.TravelMode.DRIVING,
+                //unitSystem: google.maps.UnitSystem.IMPERIAL, // millas y pies.
+                unitSystem: google.maps.UnitSystem.metric, // kilometros y metros
+                avoidHighways: false,
+                avoidTolls: false
+            }, callback);
+        }
+
+        function callback(response, status) 
+        {
+        if (status != google.maps.DistanceMatrixStatus.OK) 
+        {
+            console.log(origin);
+        } else 
+        {
+            var origin = response.originAddresses[0];
+            var destination = response.destinationAddresses[0];
+            if (response.rows[0].elements[0].status === "ZERO_RESULTS") 
+            {
+                $('#textTiempo').val("No hay distancia para  "  + origin + " and " + destination);
+                console.log(origin);
+            } else 
+            {
+                var distance = response.rows[0].elements[0].distance;
+                var duration = response.rows[0].elements[0].duration;
+                var distanciaKilometro = distance.value / 1000; // Kilometro
+                //var distanciaMillas = distance.value / 1609.34; // millas
+                var duracionText = duration.text; //tiempo en formato (1 hours 50 min) (1 h 6 min)
+                //aumentamos 10 minutos de preparacion que son 600 segundos 
+                var duracionValue = duration.value + 600;// tiempo en formato solo segundos 
+                
+                
+                $('#textDistancia').val(distanciaKilometro.toFixed(2));//distancia en km
+                
+                //llamamos a la funcion para calcular el precio de acuerdo a km
+                // recargoPedido(distanciaKilometro);
+                // //llamamos a la funcion para calcular el tiempo
+                convertirSegundosAhoraMinutos(duracionValue);
+                  
+            }
+
+        }
+        }
+        function convertirSegundosAhoraMinutos(seconds) 
+        {
+            var hour = Math.floor(seconds / 3600);
+            hour = (hour < 10)? '0' + hour : hour;
+            var minute = Math.floor((seconds / 60) % 60);
+            minute = (minute < 10)? '0' + minute : minute;
+            var second = seconds % 60;
+            second = (second < 10)? '0' + second : second;
+            resultado= hour + ':' + minute + ':' + second;
+            $('#textTiempo').val(resultado);//tiempo aproximdao
+            
+        }
+  </script>
+@endsection  
         </div>
 
 
@@ -94,166 +383,7 @@
 
   @yield('contenido')
 
-  <!--/ footer Star /-->
-  {{-- <section class="section-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-4">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">EstateAgency</h3>
-            </div>
-            <div class="w-body-a">
-              <p class="w-text-a color-text-a">
-                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
-                sed aute irure.
-              </p>
-            </div>
-            <div class="w-footer-a">
-              <ul class="list-unstyled">
-                <li class="color-a">
-                  <span class="color-text-a">Phone .</span> contact@example.com</li>
-                <li class="color-a">
-                  <span class="color-text-a">Email .</span> +54 356 945234</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">The Company</h3>
-            </div>
-            <div class="w-body-a">
-              <div class="w-body-a">
-                <ul class="list-unstyled">
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Site Map</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Legal</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Agent Admin</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Careers</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Affiliate</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Privacy Policy</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">International sites</h3>
-            </div>
-            <div class="w-body-a">
-              <ul class="list-unstyled">
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Venezuela</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">China</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Hong Kong</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Argentina</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Singapore</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Philippines</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> --}}
 
-  {{-- <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <nav class="nav-footer">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">About</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Property</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Blog</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Contact</a>
-              </li>
-            </ul>
-          </nav>
-          <div class="socials-a">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-dribbble" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="copyright-footer">
-            <p class="copyright color-text-a">
-              &copy; Copyright
-              <span class="color-a">EstateAgency</span> All Rights Reserved.
-            </p>
-          </div>
-          <div class="credits">
-            <!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-            -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer> --}}
   <!--/ Footer End /-->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -261,7 +391,7 @@
 
   @include('page.scripts')
   <script>    
-  this.arrayProducto = [];
+    this.arrayProducto = [];
 
     function agregar(idProducto) {
       console.log(idProducto);
@@ -295,31 +425,42 @@
                                 <td>${subtotal[cont]}</td>
                             </tr>
                             <input type="hidden" name="idproducto[]" value="${producto.idProducto}">
-                            
-                            `
-                            
+                    `;
                     
-                            ;
-                            cont++;
+        cont++;
+        evaluar(cont)
+        
 
         $("#detalles").append(fila);
         $("#total").html("Bs/. " + total);
 
     }   
 
+    function evaluar(cont){
+        if(cont > 0){
+          document.getElementById('btnPedido').style.display         = 'block';
+        }else{
+          document.getElementById('btnPedido').style.display         = 'none';
+        }
+    }
 
+    function eliminar(){
+
+    }
 
     function reservacion(){
-      document.getElementById('reservacion').style.display       = 'block' ;
-      document.getElementById('title-reservacion').style.display = 'block' ;
-      document.getElementById('pedido').style.display            = 'none'  ;
+      document.getElementById('reservacion').style.display        = 'block' ;
+      document.getElementById('title-reservacion').style.display  = 'block' ;
+      document.getElementById('title-pedido').style.display       = 'none'  ;
+      document.getElementById('pedido').style.display             = 'none'  ;
     }
 
     function  verPedido() {
-      document.getElementById('reservacion').style.display       = 'none'  ;
-      document.getElementById('title-reservacion').style.display = 'none'  ;
-      document.getElementById('title-pedido').style.display = 'none'  ;
-      document.getElementById('pedido').style.display            = 'block' ;
+      document.getElementById('reservacion').style.display        = 'none'  ;
+      document.getElementById('title-reservacion').style.display  = 'none'  ;
+      document.getElementById('title-pedido').style.display       = 'block'  ;
+      document.getElementById('pedido').style.display             = 'block' ;
+     
     }
 
 
