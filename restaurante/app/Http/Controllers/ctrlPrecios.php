@@ -57,6 +57,8 @@ class ctrlPrecios extends Controller
         $precio->idProducto = $request->get('idProducto');
         $precio->save();
 
+        
+
         return redirect('/precios')->with('success','el registro se ha guardado correctamente');
     }
 

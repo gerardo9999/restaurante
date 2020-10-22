@@ -85,7 +85,7 @@ class ctrlReserva extends Controller
         $reserva->idCliente = $request->idCliente;
         $reserva->save();
 
-        $bitacora = bitacora::guardar('reserva','guardar');
+        $bitacora = bitacora::guardar('reserva','guardar',$reserva->id);
     }
 
 
@@ -102,7 +102,7 @@ class ctrlReserva extends Controller
         $reserva->idCliente = $request->idCliente;
         $reserva->update();
 
-        $bitacora = bitacora::guardar('reserva','actualizar');
+        $bitacora = bitacora::guardar('reserva','actualizar',$reserva->id);
     }
 
 
@@ -190,7 +190,7 @@ class ctrlReserva extends Controller
         $reserva->idCliente     = $idCliente;
         $reserva->update();
 
-        $bitacora = bitacora::guardar('reserva','actualizar');
+        $bitacora = bitacora::guardar('reserva','actualizar',$reserva->id);
     }
     public function guardarReservaCliente(Request $request){
         
@@ -205,6 +205,6 @@ class ctrlReserva extends Controller
         $reserva->idCliente     = $idCliente;
         $reserva->save();
 
-        $bitacora = bitacora::guardar('reserva','guardar');
+        $bitacora = bitacora::guardar('reserva','guardar',$reserva->id);
     }
 }

@@ -84,7 +84,7 @@ class ctrlUsuario extends Controller{
                     $usuario->password  = Hash::make($request->password);
                     $usuario->save();
                     $usuario->assignRole($request->rol);
-                    $bitacora = bitacora::guardar('usuario','guardar-administrador');
+                    $bitacora = bitacora::guardar('usuario','guardar-administrador',$usuario->id);
                 }
                 if($request->rol=="cliente"){
         
@@ -112,8 +112,8 @@ class ctrlUsuario extends Controller{
                     $cliente->estado    = 0;
                     $cliente->save();
 
-                    $bitacora = bitacora::guardar('usuario','guardar-cliente');
-                    $bitacora = bitacora::guardar('cliente','guardar');
+                    $bitacora = bitacora::guardar('usuario','guardar-cliente',$usuario->id);
+                    $bitacora = bitacora::guardar('cliente','guardar',$cliente->id);
 
                 }
                 if($request->rol=="repartidor"){
@@ -141,8 +141,8 @@ class ctrlUsuario extends Controller{
                     $repartidor->save();
 
                     $usuario->assignRole('repartidor');
-                    $bitacora = bitacora::guardar('usuario','guardar-repartidor');
-                    $bitacora = bitacora::guardar('repartidor','guardar');
+                    $bitacora = bitacora::guardar('usuario','guardar-repartidor',$usuario->id);
+                    $bitacora = bitacora::guardar('repartidor','guardar',$repartidor->id);
 
 
                 }

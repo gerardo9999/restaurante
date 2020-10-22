@@ -47,7 +47,7 @@ class ctrlMesa extends Controller
         $mesa->ubicacion = $request->ubicacion;
         $mesa->save();
 
-        $bitacora = bitacora::guardar('mesa','guardar');
+        $bitacora = bitacora::guardar('mesa','guardar',$mesa->id);
     }
     public function modificar(Request $request){
         // if(!$request->ajax()) return redirect('/');
@@ -65,7 +65,7 @@ class ctrlMesa extends Controller
         $mesa= mesa::findOrFail($request->id);
         $mesa->delete();
 
-        $bitacora = bitacora::guardar('mesa','eliminar');
+        $bitacora = bitacora::guardar('mesa','eliminar',$mesa->id);
 
     }
     public function libre(Request $request){

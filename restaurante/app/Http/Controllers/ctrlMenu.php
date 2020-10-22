@@ -69,7 +69,7 @@ class ctrlMenu extends Controller
             $value->update();
         }
 
-        $bitacora = bitacora::guardar('menu','actualizar');
+        // $bitacora = bitacora::guardar('menu','actualizar',$menus->id);
 
 
         
@@ -78,7 +78,7 @@ class ctrlMenu extends Controller
         $menu->estado=1;
         $menu->idCategoria =  $request->idCategoria;
         $menu->save();
-        $bitacora = bitacora::guardar('menu','guardar');
+        $bitacora = bitacora::guardar('menu','guardar',$menu->id);
 
         $listaMenu = $request->data;
 
@@ -89,13 +89,13 @@ class ctrlMenu extends Controller
             $precio->precio = $det['precio'] ;
             $precio->idProducto = $det['id'];
             $precio->save();
-            $bitacora = bitacora::guardar('precios','guardar');
+            $bitacora = bitacora::guardar('precios','guardar',$precio->id);
 
 
             $producto = producto::findOrFail($det['id']);
             $producto->precio = $precio->precio;
             $producto->update(); 
-            $bitacora = bitacora::guardar('producto','actualizar');
+            $bitacora = bitacora::guardar('producto','actualizar',$precio);
 
 
 
@@ -107,7 +107,7 @@ class ctrlMenu extends Controller
             $listaMenu->idMenu = $menu->id;
             $listaMenu->save();
 
-            $bitacora = bitacora::guardar('listaMenu','guardar');
+            $bitacora = bitacora::guardar('listaMenu','guardar',$listaMenu->id);
 
 
         }    
@@ -130,19 +130,21 @@ class ctrlMenu extends Controller
 
         $menu->estado = 1;
         $menu->update();
-        $bitacora = bitacora::guardar('menu','actualizar-estado');
+        $bitacora = bitacora::guardar('menu','actualizar-estado',$menu->id);
     }
     public function desactivar(Request $request){
         
         $menu= menu::findOrFail($request->id);
         $menu->estado = 0;
         $menu->update();
-        $bitacora = bitacora::guardar('menu','actualizar-estado');
+        $bitacora = bitacora::guardar('menu','actualizar-estado',$menu->id);
         
     }
     public function eliminarMenu(Request $request){
         $menu = menu::findOrFail($request->id);
         $menu->delete();
+        $bitacora = bitacora::guardar('menu','eliminar',$menu->id);
+
     }
     public function allMenus(){
         

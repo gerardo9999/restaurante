@@ -27,7 +27,7 @@ class ctrlOrdenAtencion extends Controller
             $ordenAtencion->fecha= date('Y-m-d');
             $ordenAtencion->save();
 
-            $bitacora = bitacora::guardar('ordenAtencion','guardar');
+            $bitacora = bitacora::guardar('ordenAtencion','guardar',$ordenAtencion->id);
 
             $detalle = $request->data;
             $total = 0;
@@ -41,14 +41,14 @@ class ctrlOrdenAtencion extends Controller
                 $detalle->idOrdenAtencion = $ordenAtencion->id;
                 $detalle->subTotal = ($det['cantidad']*$det['precio']);
                 $detalle->save();
-                $bitacora = bitacora::guardar('detalleOrden','guardar');
+                $bitacora = bitacora::guardar('detalleOrden','guardar',$detalle->id);
 
                 $total = $total + ($det['cantidad']*$det['precio']);
             }    
 
             $ordenAtencion->montoTotal = $total;
             $ordenAtencion->update();
-            $bitacora = bitacora::guardar('ordenAtencion','actualizar');
+            $bitacora = bitacora::guardar('ordenAtencion','actualizar',$ordenAtencion->id);
 
 
 
@@ -56,7 +56,7 @@ class ctrlOrdenAtencion extends Controller
             $mesa->ocupado = 1; 
             $mesa->update();
 
-            $bitacora = bitacora::guardar('mesa','actualizar');
+            $bitacora = bitacora::guardar('mesa','actualizar',$mesa->id);
 
     }
     public function buscarDetalle(Request $request){
@@ -111,7 +111,7 @@ class ctrlOrdenAtencion extends Controller
         $ordenAtencion->montoTotal = 0;
         $ordenAtencion->fecha= date('Y-m-d');
         $ordenAtencion->update();
-        $bitacora = bitacora::guardar('ordenAtencion','actualizar');
+        $bitacora = bitacora::guardar('ordenAtencion','actualizar',$ordenAtencion->id);
 
 
 
@@ -127,7 +127,7 @@ class ctrlOrdenAtencion extends Controller
             $detalle->idOrdenAtencion = $request->idOrdenAtencion;
             $detalle->update();
 
-            $bitacora = bitacora::guardar('detalleOrden','actualizar');
+            $bitacora = bitacora::guardar('detalleOrden','actualizar',$detalle->id);
 
 
             $total = $total + ($det['cantidad']*$det['precio']);
@@ -141,7 +141,7 @@ class ctrlOrdenAtencion extends Controller
         $mesa = mesa::findOrFail($request->idMesa);
         $mesa->ocupado = 1; 
         $mesa->update();
-        $bitacora = bitacora::guardar('mesa','actualizar');
+        $bitacora = bitacora::guardar('mesa','actualizar',$mesa->id);
 
     }
     public function itemEliminar(Request $request){
@@ -159,7 +159,7 @@ class ctrlOrdenAtencion extends Controller
 
         $ordenAtencion->montoTotal = $ordenAtencion->montoTotal - $subTotal;
         $ordenAtencion->update();        
-        $bitacora = bitacora::guardar('ordenAtencion','actualizar');
+        $bitacora = bitacora::guardar('ordenAtencion','actualizar',$ordenAtencion->id);
 
         $detalleOrden->delete();   
         $bitacora = bitacora::guardar('ordenAtencion','eliminar');
@@ -176,14 +176,14 @@ class ctrlOrdenAtencion extends Controller
         $total = DB::table('detalleorden')
         ->select(DB::raw("sum(detalleorden.subTotal) as Total"))->where('idOrdenAtencion','=',$request->idOrdenAtencion)
         ->get();
-        $bitacora = bitacora::guardar('detalleOrden','actualizar');
+        $bitacora = bitacora::guardar('detalleOrden','actualizar',$detalle->id);
 
 
         $ordenAtencion = ordenAtencion::findOrFail($request->idOrdenAtencion);
         $ordenAtencion->montoTotal =  $total[0]->Total;
         $ordenAtencion->update();
 
-        $bitacora = bitacora::guardar('ordenAtencion','actualizar');
+        $bitacora = bitacora::guardar('ordenAtencion','actualizar',$ordenAtencion->id);
 
         
     }
@@ -210,7 +210,7 @@ class ctrlOrdenAtencion extends Controller
         $ordenAtencion->montoTotal =  $total[0]->Total;
         $ordenAtencion->update();
 
-        $bitacora = bitacora::guardar('ordenAtencion','actualizar');
+        $bitacora = bitacora::guardar('ordenAtencion','actualizar',$ordenAtencion->id);
 
     }
     public function finalizarOrden(Request $request){
@@ -219,14 +219,14 @@ class ctrlOrdenAtencion extends Controller
         $mesa->ocupado = 0;
         $mesa->update();
 
-        $bitacora = bitacora::guardar('mesa','actualizar');
+        $bitacora = bitacora::guardar('mesa','actualizar',$mesa->id);
 
 
         $ordenAtencion =  ordenAtencion::findOrFail($request->idOrdenAtencion);
         $ordenAtencion->estado = 0;
         $ordenAtencion->update();
 
-        $bitacora = bitacora::guardar('ordenAtencion','actualizar');
+        $bitacora = bitacora::guardar('ordenAtencion','actualizar',$ordenAtencion->id);
 
 
     }

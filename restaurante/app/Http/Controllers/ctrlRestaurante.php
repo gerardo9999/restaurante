@@ -14,7 +14,6 @@ class ctrlRestaurante extends Controller
 
         
         // return $fechaActual;
-        $menu = 
         $restaurante = restaurante::all();
         $platos = producto::all();
         

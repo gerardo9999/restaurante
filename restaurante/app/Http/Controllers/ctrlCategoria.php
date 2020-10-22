@@ -51,7 +51,7 @@ class ctrlCategoria extends Controller{
                 $categoria = new categoria();
                 $categoria->nombre = $request->nombre;
                 $categoria->save();
-                $bitacora = bitacora::guardar('categoria','guardar');
+                $bitacora = bitacora::guardar('categoria','guardar',$categoria->id);
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -66,7 +66,7 @@ class ctrlCategoria extends Controller{
 	    $categoria->nombre = $request->nombre;
 
         $categoria->save();
-        $bitacora = bitacora::guardar('categoria','actualizar');
+        $bitacora = bitacora::guardar('categoria','actualizar',$categoria->id);
 
     }
     public function delete(Request $request){
@@ -74,6 +74,9 @@ class ctrlCategoria extends Controller{
         $categoria= categoria::findOrFail($request->id);
         $bitacora = bitacora::guardar('categoria','eliminar');
         $categoria->delete();
+
+        $bitacora = bitacora::guardar('categoria','delete',$categoria->id);
+
     }
     public function selectCategoria(Request $request){
         

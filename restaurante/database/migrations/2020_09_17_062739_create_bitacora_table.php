@@ -19,6 +19,7 @@ class CreateBitacoraTable extends Migration
             $table->time('hora');
             $table->string('tabla');
             $table->string('transaccion');
+            $table->string('codigoTabla');
             $table->integer('idUsuario')->unsigned();
             $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');
         });
