@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\cliente;
+use App\repartidor;
+use App\ubicacio;
+use App\usuario;
+use App\producto;
+use App\detallePedido;
+use App\pedido;
+use Illuminate\Support\Facades\DB;
 class ctrlPedido extends Controller
 {
     public function mostrar(Request $request){
@@ -15,192 +22,55 @@ class ctrlPedido extends Controller
            
         
         if($buscar==""){
-            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')->select(
-                "reserva.id",
-                "reserva.comensales",
-                "reserva.telefono",
-                "reserva.fecha",
-                "reserva.hora",
-                "reserva.observacion",
-                "reserva.idCliente",
+            $pedido = pedido::join('repartidor','repartidor.id','=','pedido.idRepartidor')->join('ubicacion','ubicacion.id','=','pedido.idUbicacion')
+            ->join('cliente','cliente.id','=','pedido.idCliente')->join('detallePedido','detallePedido.idPedido','=','pedido.id')
+            ->join('producto','producto.id','=','detallePedido.idProducto')
+            ->select(
+                "pedido.id",
+                "pedido.fecha",
+                "pedido.fechaEntrega",
+                "pedido.horaEntrega",
+                "pedido.glosa",
+                "pedido.montoTotal",
+                "pedido.estado",
+                "pedido.idCliente",
                 "cliente.nombres",
                 "cliente.apellidos",
                 DB::raw('CONCAT(nombres, " ",apellidos)as nombreCompleto')
             )
-            ->orderBy('reserva.id','desc')
+            ->orderBy('pedido.id','desc')
             ->paginate(10);
         }else{
-            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')->select(
-                "reserva.id",
-                "reserva.comensales",
-                "reserva.telefono",
-                "reserva.fecha",
-                "reserva.hora",
-                "reserva.observacion",
+            $pedido = pedido::join('repartiodr','repartidor.id','=','pedido.idRepartidor')->join('ubicacion','ubicacion.id','=','pedido.idUbicacion')
+            ->join('cliente','cliente.id','=','pedido.idCliente')->join('detallePedido','detallePedido.idPedido','=','pedido.id')
+            ->join('producto','producto.id','=','detalle.idProductor')->select(
+                "pedido.id",
+                "pedido.fecha",
+                "pedido.fechaEntrega",
+                "pedido.horaEntrega",
+                "pedido.glosa",
+                "pedido.montoTotal",
+                "pedido.estado",
                 "idCliente",
                 "cliente.nombres",
                 "cliente.apellidos",
                 DB::raw('CONCAT(nombres, " ",apellidos)as nombreCompleto')
             )
-            ->orderBy('reserva.id','desc')
+            ->orderBy('pedido.id','desc')
             ->where($criterio.'.nombres', 'like', '%'.$buscar.'%')
             ->paginate(10);
         }
-
-    
-
-      
-
-        
-
         return [
 
             'pagination' => [
-                'total'        => $reserva->total(),
-                'current_page' => $reserva->currentPage(),
-                'per_page'     => $reserva->perPage(),
-                'last_page'    => $reserva->lastPage(),
-                'from'         => $reserva->firstItem(),
-                'to'           => $reserva->lastItem(),
+                'total'        => $pedido->total(),
+                'current_page' => $pedido->currentPage(),
+                'per_page'     => $pedido->perPage(),
+                'last_page'    => $pedido->lastPage(),
+                'from'         => $pedido->firstItem(),
+                'to'           => $pedido->lastItem(),
             ],
-            'reserva' => $reserva,
+            'pedido' => $pedido,
         ];
     }
-
-    
-    public function guardar(Request $request){
-        // if (!$request->ajax()) return redirect('/');
-        $reserva = new reserva();
-       
-        $reserva->comensales = $request->comensales;
-        $reserva->telefono = $request->telefono;
-        $reserva->fecha = $request->fecha;
-        $reserva->hora = $request->hora;
-        $reserva->observacion = $request->observacion;
-        $reserva->idCliente = $request->idCliente;
-        $reserva->save();
-
-        $bitacora = bitacora::guardar('reserva','guardar');
-    }
-
-
-
-    public function modificar(Request $request){
-        // if (!$request->ajax()) return redirect('/');
-
-        $reserva = reserva::findOrFail($request->id);
-        $reserva->comensales = $request->comensales;
-        $reserva->telefono = $request->telefono;
-        $reserva->fecha = $request->fecha;
-        $reserva->hora = $request->hora;
-        $reserva->observacion = $request->observacion;
-        $reserva->idCliente = $request->idCliente;
-        $reserva->update();
-
-        $bitacora = bitacora::guardar('reserva','actualizar');
-    }
-
-
-
-
-
-    public function eliminar(Request $request){
-        // if (!$request->ajax()) return redirect('/');
-        $reserva = reserva::findOrFail($request->id);
-        $reserva->delete();
-
-        $bitacora = bitacora::guardar('reserva','eliminar');
-
-        return ['reserva' => $reserva];
-    }
-
-
-    
-    public function mostrarReservaCliente(Request $request){
-        
-        // if (!$request->ajax()) return redirect('/');
-
-        $buscar = $request->get('buscar');
-        $criterio = $request->criterio;
-        $idCliente = Auth::id();
-           
-        
-        if($buscar==""){
-            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')->select(
-                "reserva.id",
-                "reserva.comensales",
-                "reserva.telefono",
-                "reserva.fecha",
-                "reserva.hora",
-                "reserva.observacion",
-                "reserva.idCliente"
-            )
-            ->orderBy('reserva.id','desc')
-            ->where('idCliente','=',$idCliente)
-            ->paginate(10);
-        }else{
-            $reserva = reserva::join('cliente','reserva.idCliente','=','cliente.id')->select(
-                "reserva.id",
-                "reserva.comensales",
-                "reserva.telefono",
-                "reserva.fecha",
-                "reserva.hora",
-                "reserva.observacion",
-                "idCliente"
-            )
-            ->orderBy('reserva.id','desc')
-            ->where('reserva.'.$criterio, '=',$buscar)
-            ->where('idCliente','=',$idCliente)
-            ->paginate(10);
-        }
-
-    
-
-      
-
-        
-
-        return [
-
-            'pagination' => [
-                'total'        => $reserva->total(),
-                'current_page' => $reserva->currentPage(),
-                'per_page'     => $reserva->perPage(),
-                'last_page'    => $reserva->lastPage(),
-                'from'         => $reserva->firstItem(),
-                'to'           => $reserva->lastItem(),
-            ],
-            'reserva' => $reserva,
-        ];
-    }
-    public function modificarReservaCliente(Request $request){
-
-        $idCliente              = Auth::id();
-        $reserva                = reserva::findOrFail($request->id);
-        $reserva->comensales    = $request->comensales;
-        $reserva->telefono      = $request->telefono;
-        $reserva->fecha         = $request->fecha;
-        $reserva->hora          = $request->hora;
-        $reserva->observacion   = $request->observacion;
-        $reserva->idCliente     = $idCliente;
-        $reserva->update();
-
-        $bitacora = bitacora::guardar('reserva','actualizar');
-    }
-    public function guardarReservaCliente(Request $request){
-        
-        $idCliente = Auth::id();
-
-        $reserva                = new reserva();
-        $reserva->comensales    = $request->comensales;
-        $reserva->telefono      = $request->telefono;
-        $reserva->fecha         = $request->fecha;
-        $reserva->hora          = $request->hora;
-        $reserva->observacion   = $request->observacion;
-        $reserva->idCliente     = $idCliente;
-        $reserva->save();
-
-        $bitacora = bitacora::guardar('reserva','guardar');
-    }
-
 }

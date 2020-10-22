@@ -11,7 +11,7 @@
             <frm-administrador-reserva></frm-administrador-reserva>
         </template>
         <template v-if="menu==3">
-            Modulo de Pedidos
+        <frm-administrador-pedido></frm-administrador-pedido>
         </template>
         <template v-if="menu==4">
             <frm-administrador-orden></frm-administrador-orden>

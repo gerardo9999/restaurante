@@ -51,6 +51,7 @@ Vue.component('frm-administrador-rol', require('./components/administrador/frmRo
 Vue.component('frm-administrador-usuario', require('./components/administrador/frmUsuario.vue').default);
 Vue.component('frm-administrador-detalle', require('./components/administrador/frmDetalle.vue').default);
 Vue.component('frm-administrador-bitacora', require('./components/administrador/frmBitacora.vue').default);
+Vue.component('frm-administrador-pedido', require('./components/administrador/frmPedido.vue').default);
 
 
 
