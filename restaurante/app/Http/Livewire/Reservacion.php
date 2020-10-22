@@ -102,7 +102,7 @@ class Reservacion extends Component{
             $reserva->idCliente   = $usuario_id;
             $reserva->save();
 
-            $bitacora = bitacora::guardar('reserva','guardar');
+            $bitacora = bitacora::guardar('reserva','guardar', $reserva->id);
         //     DB::commit();
         // } catch (\Throwable $th) {
         //     DB::rollBack();

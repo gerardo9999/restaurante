@@ -12,10 +12,11 @@ use Illuminate\Support\Facades\Redirect;
 class ctrlPedido extends Controller
 {      
     public function guardar(Request $request){
+        // $count = $request->precio;
         
+        // return $count ;
         $idUsuario = Auth::id();
         
-        // return $request;
         $ubicacion = new ubicacion();
         $ubicacion->referencia = $request->referencia;
         $ubicacion->latitud    = $request->textlatitud;
@@ -33,16 +34,17 @@ class ctrlPedido extends Controller
         $pedido->idUbicacion = $ubicacion->id;
         $pedido->save();
 
-        $count = $request->precio;
+        $count = count($request->precio);
 
         for ($i=0; $i < $count; $i++) { 
+
             $subtotal = $request->cantidad[$i] * $request->precio[$i];
 
             $detalle = new detallepedido();
             $detalle->cantidad = $request->cantidad[$i];
             $detalle->subTotal = $subtotal;
             $detalle->idPedido = $pedido->id;
-            $detalle->idProducto = $request->idProducto;
+            $detalle->idProducto = $request->idproducto[$i];
             $detalle->save();
         }
 
