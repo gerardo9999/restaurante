@@ -8509,6 +8509,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -56693,35 +56698,40 @@ var render = function() {
               _c(
                 "tbody",
                 _vm._l(_vm.ArrayPedido, function(pedido) {
-                  return _c("tr", { key: pedido.id }, [
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.fecha) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.cliente) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.horaEntrega) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.ubicacion) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.montoTotal) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.estado) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.Opciones) }
-                    })
-                  ])
+                  return _c(
+                    "tr",
+                    { key: pedido.id },
+                    [
+                      _c("td", {
+                        domProps: { textContent: _vm._s(pedido.fecha) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(pedido.cliente) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(pedido.horaEntrega) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(pedido.ubicacion) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(pedido.montoTotal) }
+                      }),
+                      _vm._v(" "),
+                      pedido.estado == 1
+                        ? [_vm._m(3, true)]
+                        : [_vm._m(4, true)],
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(pedido.Opciones) }
+                      })
+                    ],
+                    2
+                  )
                 }),
                 0
               )
@@ -56859,6 +56869,22 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "badge badge-success" }, [_vm._v("entregado")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center" }, [
+      _c("span", { staticClass: "badge badge-danger" }, [_vm._v("pendiente")])
     ])
   }
 ]
@@ -57302,7 +57328,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            placeholder: "Tipo Vehiculo de Vehiculo"
+                            placeholder: "Tipo de Vehiculo"
                           },
                           domProps: { value: _vm.tipoVehiculo },
                           on: {

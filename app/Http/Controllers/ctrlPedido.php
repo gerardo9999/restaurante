@@ -109,6 +109,5 @@ class ctrlPedido extends Controller
         ];
     }
 
-
     
 }

@@ -108,7 +108,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Tipo Vehiculo</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="tipoVehiculo" class="form-control" placeholder="Tipo Vehiculo de Vehiculo">                                        
+                                        <input type="text" v-model="tipoVehiculo" class="form-control" placeholder="Tipo de Vehiculo">                                        
                                     </div>
                                 </div>
                                 <div class="form-group row">

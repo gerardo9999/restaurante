@@ -44,7 +44,12 @@
                                 <td v-text="pedido.horaEntrega"></td>
                                 <td v-text="pedido.ubicacion"></td>
                                 <td v-text="pedido.montoTotal"></td>
-                                 <td v-text="pedido.estado"></td>
+                                  <template v-if="pedido.estado==1">
+                                    <td><span class="badge badge-success">entregado</span></td>
+                                </template>
+                                <template v-else>
+                                    <td class="text-center"><span class="badge badge-danger">pendiente</span></td>
+                                </template>
                                   <td v-text="pedido.Opciones"></td>
                             </tr>
                         </tbody>
