@@ -55,6 +55,7 @@
         <template v-if="menu==2">
             <frm-cliente-reserva></frm-cliente-reserva>
         </template>
+        
         <template v-if="menu==3">
             <frm-cliente-pedido></frm-cliente-pedido>    
         </template>
@@ -64,7 +65,7 @@
         <template v-if="menu==0">
             Modulo de Dashboard
         </template>
-        
+
         <template v-if="menu==3">
         <frm-repartidor-pedido></frm-repartidor-pedido>   
         </template>
