@@ -51,28 +51,22 @@
         <template v-if="menu==0">
             Modulo de Dashboard
         </template>
-
-        <template v-if="menu==2">
-            <frm-cliente-reserva></frm-administrador-reserva>
+        <template v-if="menu==1">
+            <frm-cliente-reserva></frm-cliente-reserva>
         </template>
-        <template v-if="menu==3">
+        <template v-if="menu==2">
             <frm-cliente-pedido></frm-cliente-pedido>    
         </template>
     @endrole
-    
     @role('repartidor')
         <template v-if="menu==0">
             Modulo de Dashboard
         </template>
-        <template v-if="menu==3">
-            Modulo de Pedidos
+        <template v-if="menu==1">
+            <frm-repartidor-pedido></frm-repartidor-pedido>
         </template>
-
-        <template v-if="menu==8">
-        <frm-administrador-repartidor></frm-administrador-repartidor>
-        </template>
-        <template v-if="menu==9">
-            <frm-administrador-vehiculo></frm-administrador-vehiculo>
+        <template v-if="menu==2">
+            <frm-repartidor-vehiculo></frm-repartidor-vehiculo>        
         </template>
     @endrole
 @endsection

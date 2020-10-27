@@ -283,9 +283,7 @@ class ctrlProducto extends Controller{
         ->select('producto.id as idProducto','producto.foto','producto.nombre','producto.precio','listamenu.estado')->where('menu.id','=',$criterio)->get(); 
         
 
-        return [
-        'productoMenu'=> $productoMenu
-        ];
+        return ['productoMenu'=> $productoMenu];
     }
 
 }

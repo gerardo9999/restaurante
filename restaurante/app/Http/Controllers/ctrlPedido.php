@@ -12,8 +12,15 @@ use Illuminate\Support\Facades\Redirect;
 class ctrlPedido extends Controller
 {      
     public function guardar(Request $request){
-        // $count = $request->precio;
+        $mifecha= date('H:i:s'); 
         
+        $NuevaFecha = strtotime ( '+'+$request->tiempo , strtotime ($mifecha) ) ; 
+        
+        return $NuevaFecha;
+        // $request->tiempo
+        // return  $hora;
+        
+
         // return $count ;
         $idUsuario = Auth::id();
         

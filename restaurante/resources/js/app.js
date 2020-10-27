@@ -56,8 +56,23 @@ Vue.component('frm-administrador-pedido', require('./components/administrador/fr
 
 
 Vue.component('frm-cliente-reserva', require('./components/cliente/frmReserva').default);
-Vue.component('frm-cliente-menu',require('./components/cliente/frmMenu').default);
 Vue.component('frm-cliente-pedido',require('./components/cliente/frmPedido').default);
+
+
+Vue.component('frm-repartidor-vehiculo', require('./components/repartidor/frmVehiculo').default);
+Vue.component('frm-repartidor-pedido',require('./components/repartidor/frmPedido').default);
+
+
+
+import Vue from "vue";
+import * as VueGoogleMaps from "vue2-google-maps";
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyCoW4LyeLOiPgOmChMyAacirIgO7zqriGw&callback=initMap&libraries=geometry",
+    libraries: "places" // necessary for places input
+  }
+});
 
 
 const app = new Vue({

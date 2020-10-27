@@ -1,4 +1,4 @@
-    
+<div>    
     <section id="menu" class="intro-single">
         <div class="container">
           <div class="row">
@@ -31,85 +31,85 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-md-6">
-                    @foreach (@listaMenu() as $lista)
-                        <div class="col-md-12">
-                            <div class="card-box-a card-shadow">
-                                <div class="img-box-a">
-                                    <img src="{{ asset($lista->foto) }}" alt="" class="img-a img-fluid">
-                                </div>
-                                <div class="card-overlay">
-                                    <div class="card-overlay-a-content">
-                                        <div class="card-header-a">
-                                            <h2 class="card-title-a">
-                                            </h2>
-                                        </div>
-                                        <div class="card-body-a">
-                                            <div class="price-box d-flex">
-                                                <span class="price-a">{{ $lista->precio }} .Bs</span>
-                                            </div>
-                                            <a href="#producto" data-toggle="modal" data-target="#ejemplo{{ $lista->idProducto }}" class="link-a">{{ $lista->nombre }}
-                                                <span class="ion-ios-arrow-forward"></span>
-                                            </a>
-                                        </div>
-                                        <div class="card-footer-a">
-                                            <ul class="card-info d-flex justify-content-around">
-                                                <li>
-                                                <h4 class="card-info-title">Categoria</h4>
-                                                <span>{{ $lista->categoria}}
-                                                </span>
-                                                </li>
-                                                <li>
-                                                <h4 class="card-info-title">Precio</h4>
-                                                <span>{{ $lista->precio }} .Bs</span>
-                                                </li>
+                @foreach (@listaMenu() as $lista)
+                    <div class="col-md-6">
 
-                                            </ul>
+                            <div class="col-md-12">
+                                <div class="card-box-a card-shadow">
+                                    <div class="img-box-a">
+                                        <img src="{{ asset($lista->foto) }}" alt="" class="img-a img-fluid">
+                                    </div>
+                                    <div class="card-overlay">
+                                        <div class="card-overlay-a-content">
+                                            <div class="card-header-a">
+                                                <h2 class="card-title-a">
+                                                </h2>
+                                            </div>
+                                            <div class="card-body-a">
+                                                <div class="price-box d-flex">
+                                                    <span class="price-a">{{ $lista->precio }} .Bs</span>
+                                                </div>
+                                                <a href="#producto" data-toggle="modal" data-target="#ejemplo{{ $lista->idProducto }}" class="link-a">{{ $lista->nombre }}
+                                                    <span class="ion-ios-arrow-forward"></span>
+                                                </a>
+                                            </div>
+                                            <div class="card-footer-a">
+                                                <ul class="card-info d-flex justify-content-around">
+                                                    <li>
+                                                    <h4 class="card-info-title">Categoria</h4>
+                                                    <span>{{ $lista->categoria}}
+                                                    </span>
+                                                    </li>
+                                                    <li>
+                                                    <h4 class="card-info-title">Precio</h4>
+                                                    <span>{{ $lista->precio }} .Bs</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div wire:ignore.self id="ejemplo{{ $lista->idProducto }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header alert-default-info">
-                                        <h5 class="modal-title" id="my-modal-title">
-                                            <div class="img-avatar align-items-center text-center">
-                                                <img height="200px" width="100%"  class="img-fluid" src="{{ $lista->foto }}" alt="">
+                            <div wire:ignore.self id="ejemplo{{ $lista->idProducto }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header alert-default-info">
+                                            <h5 class="modal-title" id="my-modal-title">
+                                                <div class="img-avatar align-items-center text-center">
+                                                    <img height="200px" width="100%"  class="img-fluid" src="{{ $lista->foto }}" alt="">
+                                                </div>
+                                                
+                                            </h5>
+
+                                            <button class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="card-header text-center">
+                                            <p>
+                                                <strong>{{ $lista->nombre }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="">Cuantos Desea Ordenar?</label>
+                                                <input id='cantidad{{$lista->idProducto}}' type="number" class="form-control" >
+                                                @error('cantidad')
+                                                    {{ $message }}
+                                                @enderror
                                             </div>
-                                            
-                                        </h5>
-
-                                        <button class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="card-header text-center">
-                                        <p>
-                                            <strong>{{ $lista->nombre }}</strong>
-                                        </p>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="">Cuantos Desea Ordenar?</label>
-                                            <input id='cantidad{{$lista->idProducto}}' type="number" class="form-control" >
-                                            @error('cantidad')
-                                                {{ $message }}
-                                            @enderror
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button onclick='agregarAlDetalle({{ $lista }})' 
+                                                class="close" data-dismiss="modal" aria-label="Close" type="submit" class="btn btn-info btn-sm">Agregar al Pedido</button>
                                         </div>
                                     </div>
-                                    <div class="modal-footer text-center">
-                                        <button onclick='agregarAlDetalle({{ $lista }})' 
-                                            class="close" data-dismiss="modal" aria-label="Close" type="submit" class="btn btn-info btn-sm">Agregar al Pedido</button>
-                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                    @endforeach
-                </div>
-
+                            </div> 
+                    </div>
+        
+                @endforeach
             
                 
             </div>
@@ -168,11 +168,10 @@
         </div>
         
         </div>
-
     </div>
 
 
 
 
 
-    
+    </div>

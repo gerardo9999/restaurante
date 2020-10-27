@@ -12,13 +12,13 @@
 
                 
                 {{-- Reservas --}}
-                <li @click="menu=2" class="nav-item">
+                <li @click="menu=1" class="nav-item">
                     <a class="nav-link" href="#"><i class="icon-book-open"></i> Reservas</span></a>
                 </li>
 
                 
                 {{-- Pedidos --}}
-                <li @click="menu=3" class="nav-item">
+                <li @click="menu=2" class="nav-item">
                     <a class="nav-link" href="#"><i class="icon-book-open"></i> Pedidos</span></a>
                 </li>
 

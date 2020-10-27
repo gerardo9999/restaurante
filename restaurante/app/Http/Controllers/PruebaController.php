@@ -302,7 +302,6 @@ class PruebaController extends Controller
                 $usuario->password  = $password; 
                 $usuario->save();
     
-    
                 if($roles[$i]=="cliente"){
                     $cliente = new cliente();
                     $cliente->id = $usuario->id;
