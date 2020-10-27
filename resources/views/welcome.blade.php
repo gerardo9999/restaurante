@@ -466,14 +466,17 @@
     
     function  agregarAlDetalle(producto) {
         console.log(producto)
-
+       var arrayProducto=[];
+      
 
       if (existeProducto(arrayProducto,producto.idProducto)) {
         iziToast.info({
           title: 'Exito!',
-          message: 'Se a añadio sus pedidos',
+          message: 'existe este producto',
         });  
       }
+     
+   
 
       arrayProductoId.push(producto.idProducto)
 
@@ -517,6 +520,7 @@
         $("#montoTotal").append(montoTotal)
 
     }   
+    
 
     function evaluar(cont){
         if(cont > 0){
