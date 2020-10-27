@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\ubicacion;
 use App\pedido;
 use App\detallePedido;
+use App\cliente;
+use App\repartidor;
+use App\usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -51,6 +54,61 @@ class ctrlPedido extends Controller
         return Redirect::to('/');
 
     }
+
+    public function mostrarPedidoRepartidor(Request $request){
+        
+        // if (!$request->ajax()) return redirect('/');
+
+        $buscar = $request->get('buscar');
+        $criterio = $request->criterio;
+        $idRepartidor = Auth::id();
+           
+        
+        if($buscar==""){
+            $pedido = pedido::join('repartidor','pedido.idRepartidor','=','repartidor.id')->select(
+                "pedido.id",
+                "pedido.fecha",
+                "pedido.cliente",
+                "pedido.horaEntrega",
+                "pedido.ubicacion",
+                "pedido.montoTotal",
+                "pedido.estado",
+                "pedido.idRepartidor"
+            )
+            ->orderBy('pedido.id','desc')
+            ->where('idRepartidor','=',$idRepartidor)
+            ->paginate(10);
+        }else{
+            $pedido = pedido::join('repartidor','pedido.idRepartidor','=','repartidor.id')->select(
+                "pedido.id",
+                "pedido.fecha",
+                "pedido.cliente",
+                "pedido.horaEntrega",
+                "pedido.ubicacion",
+                "pedido.montoTotal",
+                "pedido.estado",
+                "idCRepartidor"
+            )
+            ->orderBy('pedido.id','desc')
+            ->where('pedido.'.$criterio, '=',$buscar)
+            ->where('idRepartidor','=',$idRepartidor)
+            ->paginate(10);
+        }
+
+        return [
+
+            'pagination' => [
+                'total'        => $pedido->total(),
+                'current_page' => $pedido->currentPage(),
+                'per_page'     => $pedido->perPage(),
+                'last_page'    => $pedido->lastPage(),
+                'from'         => $pedido->firstItem(),
+                'to'           => $pedido->lastItem(),
+            ],
+            'pedido' => $pedido,
+        ];
+    }
+
 
     
 }

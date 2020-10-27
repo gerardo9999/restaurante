@@ -64,15 +64,13 @@
         <template v-if="menu==0">
             Modulo de Dashboard
         </template>
+        
         <template v-if="menu==3">
-            Modulo de Pedidos
+        <frm-repartidor-pedido></frm-repartidor-pedido>   
         </template>
 
-        <template v-if="menu==8">
-        <frm-administrador-repartidor></frm-administrador-repartidor>
-        </template>
         <template v-if="menu==9">
-            <frm-administrador-vehiculo></frm-administrador-vehiculo>
+            <frm-repartidor-vehiculo></frm-repartidor-vehiculo>
         </template>
     @endrole
 @endsection

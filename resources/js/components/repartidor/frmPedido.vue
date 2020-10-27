@@ -28,7 +28,7 @@
                         <thead>
                             <tr>
                                 <th>Fecha</th>
-                                <th>Cliente</th>
+                                <th> Cliente</th>
                                 <th>Hora Entrega</th>
                                 <th>Ubicacion</th>
                                 <th>Monto Total</th>
@@ -38,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!--<tr v-for="pedido in ArrayPedido" :key="pedido.id">
+                            <tr v-for="pedido in ArrayPedido" :key="pedido.id">
                                 <td v-text="pedido.fecha"></td>
                                 <td v-text="pedido.cliente"></td>
                                 <td v-text="pedido.horaEntrega"></td>
@@ -46,19 +46,6 @@
                                 <td v-text="pedido.montoTotal"></td>
                                  <td v-text="pedido.estado"></td>
                                   <td v-text="pedido.Opciones"></td>
-                            </tr>------>
-                            <tr>
-                                <td>21/10/2020</td>
-                                <td>Ariel Guzman </td>
-                                <td>12:00</td>
-                                <td><i class="fas fa-map-marker-alt"></i> </td>
-                                <td>12</td>
-                                <td><span class="badge badge-success">Pendiente</span></td>
-                                <td>
-                                    <button>
-                                        <i></i> ubicacion
-                                    </button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>

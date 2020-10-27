@@ -149,8 +149,7 @@ Route::post('reserva/cliente/modificar','ctrlReserva@modificarReservaCliente');
 
 Route::get('pedido'           ,'ctrlPedido@mostrar');
 
-
-
+Route::get('pedidoRepartiodr','ctrlPedido@mostrarPedidoRepartidor');
 
 //   Usuario
 Route::get('/usuario/autenticado', 'ctrlUsuario@authenticado' );

@@ -141,5 +141,7 @@ class ctrlRepartidor extends Controller{
     public function buscarId($email){
         $usuario = User::where('users.email',$email)->get();
         return $usuario[0]->id;
-    }     
+    }    
+    
+    
 }
