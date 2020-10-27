@@ -17,12 +17,6 @@
                     <a class="nav-link" href="#"><i class="icon-book-open"></i> Pedidos</span></a>
                 </li>
                 
-                
-                {{-- Repartidores --}}
-                <li @click="menu=8" class="nav-item">
-                    <a class="nav-link" href="#"><i class="icon-book-open"></i> Repartidores <span class="badge badge-success"></span></a>
-                </li>
-
 
                 {{-- Vehiculos --}}
                 <li @click="menu=9" class="nav-item">
