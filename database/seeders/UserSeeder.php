@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             'name' =>  'admin',
             'email' =>  'admin@gmail.com',
             'password' =>  Hash::make('12345678'),
-            'avatar' => 'images/avatar.svg',
+            'avatar' => 'images/avatar/avatar1.svg',
             'rol_id' => User::ADMINISTRADOR,
             'empresa_id' => 1,
             'dato_personal_id' => 1,
