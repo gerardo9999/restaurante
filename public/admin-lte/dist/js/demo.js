@@ -14,7 +14,7 @@
     if (window.___browserSync___ === undefined && Number(localStorage.getItem('AdminLTE:Demo:MessageShowed')) < Date.now()) {
       localStorage.setItem('AdminLTE:Demo:MessageShowed', (Date.now()) + (15 * 60 * 1000))
       // eslint-disable-next-line no-alert
-      alert('You load AdminLTE\'s "demo.js", \nthis file is only created for testing purposes!')
+      // alert('You load AdminLTE\'s "demo.js", \nthis file is only created for testing purposes!')
     }
   }, 1000)
 
@@ -63,6 +63,7 @@
     '<h5>Customize AdminLTE</h5><hr class="mb-2"/>'
   )
 
+  // Addiciona o remueve el dark body
   var $dark_mode_checkbox = $('<input />', {
     type: 'checkbox',
     value: 1,
@@ -74,11 +75,16 @@
     } else {
       $('body').removeClass('dark-mode')
     }
-  })
+  });
+
+
   var $dark_mode_container = $('<div />', { class: 'mb-4' }).append($dark_mode_checkbox).append('<span>Dark Mode</span>')
   $container.append($dark_mode_container)
 
+
+
   $container.append('<h6>Header Options</h6>')
+
   var $header_fixed_checkbox = $('<input />', {
     type: 'checkbox',
     value: 1,
@@ -109,6 +115,7 @@
   var $dropdown_legacy_offset_container = $('<div />', { class: 'mb-1' }).append($dropdown_legacy_offset_checkbox).append('<span>Dropdown Legacy Offset</span>')
   $container.append($dropdown_legacy_offset_container)
 
+
   var $no_border_checkbox = $('<input />', {
     type: 'checkbox',
     value: 1,
@@ -123,6 +130,7 @@
   })
   var $no_border_container = $('<div />', { class: 'mb-4' }).append($no_border_checkbox).append('<span>No border</span>')
   $container.append($no_border_container)
+
 
   $container.append('<h6>Sidebar Options</h6>')
 
@@ -141,7 +149,9 @@
     }
   })
   var $sidebar_collapsed_container = $('<div />', { class: 'mb-1' }).append($sidebar_collapsed_checkbox).append('<span>Collapsed</span>')
-  $container.append($sidebar_collapsed_container)
+  $container.append($sidebar_collapsed_container);
+
+  
 
   $(document).on('collapsed.lte.pushmenu', '[data-widget="pushmenu"]', function () {
     $sidebar_collapsed_checkbox.prop('checked', true)
