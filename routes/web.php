@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Configuracion\EmpresaController;
+use App\Http\Controllers\Configuracion\PerfilController;
+use App\Http\Controllers\Configuracion\PermisoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RolController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +20,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Configuracion
+    Route::get('perfil',[PerfilController::class,'perfil'])->name('perfil');
+    Route::get('empresa',[EmpresaController::class,'empresa'])->name('empresa');
+    Route::get('permisos',[PermisoController::class,'permiso'])->name('permiso');
+
+
+    
+    Route::get('roles',[RolController::class,'index']);
+    Route::get('/rol/collection',[RolController::class,'collection'])->name('rol');
 });
 
 Auth::routes();
